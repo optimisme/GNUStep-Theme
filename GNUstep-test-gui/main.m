@@ -1,9 +1,5 @@
 #import <Cocoa/Cocoa.h>
-#import "AppDelegate.h"
-
-#ifdef GNS
-    #import <GNUstepGUI/GSTheme.h>
-#endif
+#import "lib/AppDelegate.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -11,7 +7,6 @@ int main(int argc, const char * argv[]) {
 
         [NSApplication sharedApplication];
         [NSApp setDelegate:delegate];
-
-        return NSApplicationMain(argc, argv);
     }
+    return NSApplicationMain(argc, argv);
 }

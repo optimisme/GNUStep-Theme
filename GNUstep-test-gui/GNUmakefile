@@ -4,11 +4,12 @@ APP_NAME = TestGUI
 TestGUI_APPLICATION_ICON=AppIcon.png
 
 TestGUI_HEADERS = \
-  AppDelegate.h \
-
+  $(wildcard lib/*.h) \
+  $(wildcard libInterface/*.h)
 TestGUI_OBJC_FILES = \
-  main.m \
-  AppDelegate.m \
+  $(wildcard lib/*.m) \
+  $(wildcard libInterface/*.m) \
+  main.m
 
 TestGUI_RESOURCE_FILES = \
   Resources/AppIcon.png \

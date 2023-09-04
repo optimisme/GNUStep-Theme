@@ -43,6 +43,7 @@
     [window setTitle:@"Window Hello"];
     [window center];
     [window makeKeyAndOrderFront:nil];
+    [window makeMainWindow];
 
     // Setup menu
     [self setupMenu];
