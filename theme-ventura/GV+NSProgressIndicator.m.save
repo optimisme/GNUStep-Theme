@@ -1,0 +1,229 @@
+#import "Animation.h"
+#import "GV+NSProgressIndicator.h"
+#import "GVTheme.h"
+
+#import "Animation.h"
+
+@implementation NSProgressIndicator (GVTheme)
+
+NSString *anmStatus;
+NSString *anmPrevius;
+Animation *anmX;
+Animation *anmW;
+
+- (instancetype)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        anmStatus = @"state0";
+        anmPrevius = @"";
+        anmX = [[Animation alloc] init];
+        anmW = [[Animation alloc] init];
+    }
+    return self;
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+
+    [super drawRect:dirtyRect];
+
+    const CGFloat radius = 2;
+    const CGFloat progressBarHeight = 5;
+    const CGFloat verticalOffset = (self.bounds.size.height - progressBarHeight) / 2;
+
+    // Draw background
+    NSRect backgroundRect = NSMakeRect(0, verticalOffset, self.bounds.size.width, progressBarHeight);
+    NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:backgroundRect xRadius:radius yRadius:radius];
+    NSColor *supportColor = [GVTheme supportColor];
+    if (supportColor) {
+        [supportColor set];
+    }
+    [backgroundPath fill];
+
+    // Draw background relief
+    NSRect reliefRect = NSMakeRect(0, verticalOffset, self.bounds.size.width, progressBarHeight);
+    NSBezierPath *reliefPath = [NSBezierPath bezierPathWithRoundedRect:reliefRect xRadius:radius yRadius:radius];
+    NSColor *supportColorRelief = [GVTheme supportColor];
+    [reliefPath setLineWidth:0.5];
+    if (supportColorRelief) {
+        [supportColorRelief set];
+    }
+    [reliefPath stroke];
+
+    // Draw progress
+    CGFloat x = 0.0;
+    CGFloat percentage = 0.0;
+    CGFloat width = 0.0;
+    if (self.isIndeterminate) {
+        // [self runAnimation];
+
+        CGFloat xHalf = (self.bounds.size.width / 2 - 12);
+        CGFloat xEnd = (self.bounds.size.width - 5);
+
+        NSArray *anmStates = @[
+            @{@"status": @"state0", @"properties": @[
+                @{@"name": @"x", @"object": anmX, @"animation": @"ease", @"begin": @0, @"end": @(xHalf), @"time": @0.5},
+                @{@"name": @"w", @"object": anmW, @"animation": @"ease", @"begin": @5, @"end": @25, @"time": @0.5},
+            ]},
+            @{@"status": @"state1", @"properties": @[
+                @{@"name": @"x", @"object": anmX, @"animation": @"ease", @"begin": @(xHalf), @"end": @(xEnd), @"time": @0.5},
+                @{@"name": @"w", @"object": anmW, @"animation": @"ease", @"begin": @25, @"end": @5, @"time": @0.5},
+            ]},
+            @{@"status": @"state2", @"properties": @[
+                @{@"name": @"x", @"object": anmX, @"animation": @"ease", @"begin": @(xEnd), @"end": @(xHalf), @"time": @0.5},
+                @{@"name": @"w", @"object": anmW, @"animation": @"ease", @"begin": @5, @"end": @25, @"time": @0.5},
+            ]},
+            @{@"status": @"state3", @"properties": @[
+                @{@"name": @"x", @"object": anmX, @"animation": @"ease", @"begin": @(xHalf), @"end": @0, @"time": @0.5},
+                @{@"name": @"w", @"object": anmW, @"animation": @"ease", @"begin": @25, @"end": @5, @"time": @0.5},
+            ]},
+        ];
+
+        [self runAnimationWithIterations:3 direction:AnimationDirectionNormal states:anmStates];
+
+        x = anmX.value;
+        width = anmW.value;
+    } else {
+        percentage = self.doubleValue / self.maxValue;
+        width = self.bounds.size.width * percentage;
+    }
+    NSRect progressRect = NSMakeRect(x, verticalOffset, width, progressBarHeight);
+    NSBezierPath *progressPath = [NSBezierPath bezierPathWithRoundedRect:progressRect xRadius:radius yRadius:radius];
+    NSColor *accentColor = [GVTheme accentColor];
+    if (accentColor) {
+        [accentColor set];
+    }
+    [progressPath fill];
+    [self setNeedsDisplay:YES];
+}
+/*
+- (void)runAnimation {
+    CGFloat xHalf = (self.bounds.size.width / 2 - 12);
+    CGFloat xEnd = (self.bounds.size.width - 5);
+
+    NSArray *states = @[
+        @{@"status": @"state0", @"properties": @[
+            @{@"name": @"x", @"object": anmX, @"animation": @"ease", @"begin": @0, @"end": @(xHalf), @"time": @0.5},
+            @{@"name": @"w", @"object": anmW, @"animation": @"ease", @"begin": @5, @"end": @25, @"time": @0.5},
+        ]},
+        @{@"status": @"state1", @"properties": @[
+            @{@"name": @"x", @"object": anmX, @"animation": @"ease", @"begin": @(xHalf), @"end": @(xEnd), @"time": @0.5},
+            @{@"name": @"w", @"object": anmW, @"animation": @"ease", @"begin": @25, @"end": @5, @"time": @0.5},
+        ]},
+        @{@"status": @"state2", @"properties": @[
+            @{@"name": @"x", @"object": anmX, @"animation": @"ease", @"begin": @(xEnd), @"end": @(xHalf), @"time": @0.5},
+            @{@"name": @"w", @"object": anmW, @"animation": @"ease", @"begin": @5, @"end": @25, @"time": @0.5},
+        ]},
+        @{@"status": @"state3", @"properties": @[
+            @{@"name": @"x", @"object": anmX, @"animation": @"ease", @"begin": @(xHalf), @"end": @0, @"time": @0.5},
+            @{@"name": @"w", @"object": anmW, @"animation": @"ease", @"begin": @25, @"end": @5, @"time": @0.5},
+        ]},
+    ];
+
+    NSDictionary *currentState = nil;
+
+    for (NSDictionary *state in states) {
+        if ([anmStatus isEqualToString:state[@"status"]]) {
+            currentState = state;
+            break;
+        }
+    }
+
+    if (currentState) {
+        if (![anmPrevius isEqualToString:currentState[@"status"]]) {
+            for (NSDictionary *property in currentState[@"properties"]) {
+                [property[@"object"] setAnimation:property[@"animation"] begin:[property[@"begin"] floatValue] end:[property[@"end"] floatValue] time:[property[@"time"] floatValue]];
+            }
+            anmPrevius = currentState[@"status"];
+        }
+        BOOL allAnimationsEnded = YES;
+        for (NSDictionary *property in currentState[@"properties"]) {
+            [property[@"object"] run];
+            if (![property[@"object"] isEnded]) {
+                allAnimationsEnded = NO;
+            }
+        }
+        if (allAnimationsEnded) {
+            NSUInteger nextStateIndex = ([states indexOfObject:currentState] + 1) % [states count];
+            anmStatus = states[nextStateIndex][@"status"];
+        }
+    }
+}
+*/
+
+typedef NS_ENUM(NSUInteger, AnimationDirection) {
+    AnimationDirectionNormal,
+    AnimationDirectionReverse,
+    AnimationDirectionAlternate,
+    AnimationDirectionAlternateReverse,
+};
+
+- (void)runAnimationWithIterations:(NSUInteger)iterations direction:(AnimationDirection)direction states:(NSArray *)states {
+    static NSUInteger remainingIterations = 0;
+    static NSUInteger nextStateIndex = 0;
+    static NSString *anmStatus = nil;
+    
+    if (remainingIterations == 0) {
+        remainingIterations = iterations;
+    }
+
+    if (anmStatus == nil) {
+        anmStatus = states[0][@"status"];
+    }
+
+    NSDictionary *currentState = nil;
+    for (NSDictionary *state in states) {
+        if ([state[@"status"] isEqualToString:anmStatus]) {
+            currentState = state;
+            break;
+        }
+    }
+
+    if (![anmPrevius isEqualToString:anmStatus]) {
+        for (NSDictionary *property in currentState[@"properties"]) {
+            [property[@"object"] setAnimation:property[@"animation"] begin:[property[@"begin"] floatValue] end:[property[@"end"] floatValue] time:[property[@"time"] floatValue]];
+        }
+        anmPrevius = anmStatus;
+    }
+
+    BOOL allAnimationsEnded = YES;
+    for (NSDictionary *property in currentState[@"properties"]) {
+        [property[@"object"] run];
+        if (![property[@"object"] isEnded]) {
+            allAnimationsEnded = NO;
+        }
+    }
+
+    if (allAnimationsEnded) {
+        if (remainingIterations > 0) {
+            remainingIterations--;
+            if (remainingIterations == 0) {
+                return;
+            }
+        }
+        NSUInteger stateCount = [states count];
+        switch (direction) {
+            case AnimationDirectionNormal:
+                nextStateIndex = (nextStateIndex + 1) % stateCount;
+                break;
+            case AnimationDirectionReverse:
+                nextStateIndex = (nextStateIndex == 0) ? stateCount - 1 : nextStateIndex - 1;
+                break;
+            case AnimationDirectionAlternate:
+                if (nextStateIndex == stateCount - 1) {
+                    direction = AnimationDirectionReverse;
+                }
+                nextStateIndex = (nextStateIndex + 1) % stateCount;
+                break;
+            case AnimationDirectionAlternateReverse:
+                if (nextStateIndex == 0) {
+                    direction = AnimationDirectionNormal;
+                }
+                nextStateIndex = (nextStateIndex == 0) ? 1 : nextStateIndex - 1;
+                break;
+        }
+        anmStatus = states[nextStateIndex][@"status"];
+    }
+}
+
+
+@end
