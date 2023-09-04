@@ -124,14 +124,14 @@
 }
 
 - (void)toggleProgressValue:(id)sender {
-    NSLog(@"Toggle progress bar value from: %f", self.progressBar2.doubleValue);
-    if (self.progressBar2 != nil) {
-        if (self.progressBar2.doubleValue == 25) {
-            [self.progressBar2 setDoubleValue:75];
+    NSLog(@"Toggle progress bar value from: %f", progressBar2.doubleValue);
+    if (progressBar2 != nil) {
+        if (progressBar2.doubleValue == 25) {
+            [progressBar2 setDoubleValue:75];
         } else {
-            [self.progressBar2 setDoubleValue:25];
+            [progressBar2 setDoubleValue:25];
         }
-        NSLog(@"Toggle progress bar value to: %f", self.progressBar2.doubleValue);
+        NSLog(@"Toggle progress bar value to: %f", progressBar2.doubleValue);
     } else {
         NSLog(@"Progress bar is nil!");
     }

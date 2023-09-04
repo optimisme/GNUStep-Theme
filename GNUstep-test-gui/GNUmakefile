@@ -14,7 +14,6 @@ TestGUI_OBJC_FILES = \
 TestGUI_RESOURCE_FILES = \
   Resources/AppIcon.png \
 
-
 ADDITIONAL_CPPFLAGS += -DGNS
 
 -include GNUmakefile.preamble
