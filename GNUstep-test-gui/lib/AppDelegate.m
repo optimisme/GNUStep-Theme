@@ -26,8 +26,8 @@
     self.window = [[NSWindow alloc] initWithContentRect:contentRect styleMask:styleMask backing:NSBackingStoreBuffered defer:NO];
     [self.window setTitle:@"Window Hello"];
     [self.window center];
-    [self.window makeKeyAndOrderFront:nil];
     [self.window makeMainWindow];
+    [self.window makeKeyAndOrderFront:nil];
 
     // Setup menu
     [self setupMenu];
