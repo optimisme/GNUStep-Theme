@@ -475,7 +475,8 @@ obj/Ventura.obj/GV+NSProgressIndicator.m.o: GV+NSProgressIndicator.m \
   /usr/GNUstep/Local/Library/Headers/AppKit/PSOperators.h \
   /usr/GNUstep/Local/Library/Headers/AppKit/DPSOperators.h GVTheme.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h \
-  /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h
+  /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h \
+  /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h
 
 Animation.h:
 
@@ -1438,3 +1439,5 @@ GVTheme.h:
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h:
 
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h:
+
+/usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h:

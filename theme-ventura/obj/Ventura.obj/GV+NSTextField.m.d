@@ -475,6 +475,7 @@ obj/Ventura.obj/GV+NSTextField.m.o: GV+NSTextField.m GV+NSTextField.h \
   /usr/GNUstep/Local/Library/Headers/AppKit/DPSOperators.h GVTheme.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h \
+  /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h \
   MethodSwizzling.h
 
 GV+NSTextField.h:
@@ -1432,5 +1433,7 @@ GVTheme.h:
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h:
 
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h:
+
+/usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h:
 
 MethodSwizzling.h:

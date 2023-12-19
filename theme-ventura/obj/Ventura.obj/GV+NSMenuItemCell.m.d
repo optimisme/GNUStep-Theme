@@ -1,11 +1,11 @@
-obj/Ventura.obj/GVTheme.m.o: GVTheme.m GVTheme.h \
-  /usr/GNUstep/Local/Library/Headers/objc/runtime.h \
-  /usr/GNUstep/Local/Library/Headers/Cocoa/Cocoa.h \
+obj/Ventura.obj/GV+NSMenuItemCell.m.o: GV+NSMenuItemCell.m \
+  GV+NSMenuItemCell.h /usr/GNUstep/Local/Library/Headers/Cocoa/Cocoa.h \
   /usr/GNUstep/Local/Library/Headers/Foundation/Foundation.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepBase/GSVersionMacros.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepBase/GSConfig.h \
   /usr/GNUstep/Local/Library/Headers/objc/blocks_runtime.h \
   /usr/GNUstep/Local/Library/Headers/objc/objc.h \
+  /usr/GNUstep/Local/Library/Headers/objc/runtime.h \
   /usr/GNUstep/Local/Library/Headers/Foundation/FoundationErrors.h \
   /usr/GNUstep/Local/Library/Headers/Foundation/NSObject.h \
   /usr/GNUstep/Local/Library/Headers/Foundation/NSObjCRuntime.h \
@@ -473,14 +473,12 @@ obj/Ventura.obj/GVTheme.m.o: GVTheme.m GVTheme.h \
   /usr/GNUstep/Local/Library/Headers/AppKit/NSWindowController.h \
   /usr/GNUstep/Local/Library/Headers/AppKit/PSOperators.h \
   /usr/GNUstep/Local/Library/Headers/AppKit/DPSOperators.h \
-  /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h \
-  GVThemeColors.h MethodSwizzling.h
+  GVTheme.h \
+  /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h
 
-GVTheme.h:
-
-/usr/GNUstep/Local/Library/Headers/objc/runtime.h:
+GV+NSMenuItemCell.h:
 
 /usr/GNUstep/Local/Library/Headers/Cocoa/Cocoa.h:
 
@@ -493,6 +491,8 @@ GVTheme.h:
 /usr/GNUstep/Local/Library/Headers/objc/blocks_runtime.h:
 
 /usr/GNUstep/Local/Library/Headers/objc/objc.h:
+
+/usr/GNUstep/Local/Library/Headers/objc/runtime.h:
 
 /usr/GNUstep/Local/Library/Headers/Foundation/FoundationErrors.h:
 
@@ -1428,12 +1428,10 @@ GVTheme.h:
 
 /usr/GNUstep/Local/Library/Headers/AppKit/DPSOperators.h:
 
-/usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h:
-
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h:
 
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h:
 
-GVThemeColors.h:
+GVTheme.h:
 
-MethodSwizzling.h:
+/usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h:

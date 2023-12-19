@@ -475,6 +475,7 @@ obj/Ventura.obj/GV+NSWindow.m.o: GV+NSWindow.m GV+NSWindow.h \
   /usr/GNUstep/Local/Library/Headers/AppKit/DPSOperators.h GVTheme.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h \
+  /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h \
   GVWindowTitleBarView.h MethodSwizzling.h
 
 GV+NSWindow.h:
@@ -1432,6 +1433,8 @@ GVTheme.h:
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h:
 
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h:
+
+/usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h:
 
 GVWindowTitleBarView.h:
 

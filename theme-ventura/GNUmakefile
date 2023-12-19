@@ -32,6 +32,7 @@ Ventura_OBJC_FILES = \
 	AnimationData.m \
 	AnimationController.m \
 	MethodSwizzling.m \
+	GV+NSMenuItemCell.m \
 	GV+NSProgressIndicator.m \
 	GV+NSTextField.m \
 	GV+NSWindow.m \
