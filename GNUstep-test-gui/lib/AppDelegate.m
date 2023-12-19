@@ -152,17 +152,15 @@
     // File menu
     NSMenuItem *fileMenuItem = [NSMenuItem new];
     NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@""]; // Deixa el títol del menú buit
-    [fileMenuItem setTitle:@"FileB"]; // Estableix el títol del menú principal
+    [fileMenuItem setTitle:@"File"]; // Estableix el títol del menú principal
     [fileMenuItem setSubmenu:fileMenu];
     [menubar addItem:fileMenuItem];
 
     [fileMenu addItemWithTitle:@"Open" action:@selector(openAction:) keyEquivalent:@""];
     [fileMenu addItemWithTitle:@"Save" action:@selector(saveAction:) keyEquivalent:@""];
     [fileMenuItem setSubmenu:fileMenu];
-    [menubar addItem:fileMenuItem];
 
     [NSApp setMainMenu:menubar];
 }
-
 
 @end
