@@ -142,20 +142,20 @@
     NSMenu *menubar = [NSMenu new];
 
     // Main application menu
-    NSMenuItem *appMenuItem = [NSMenuItem new];
-    NSMenu *appMenu = [NSMenu new];
-    [appMenu addItemWithTitle:@"About" action:@selector(aboutAction:) keyEquivalent:@""];
-    [appMenu addItem:[NSMenuItem separatorItem]];
-    [appMenu addItemWithTitle:@"Settings" action:@selector(settingsAction:) keyEquivalent:@""];
-    [appMenu addItemWithTitle:@"Accounts" action:@selector(accountsAction:) keyEquivalent:@""];
-    [appMenu addItem:[NSMenuItem separatorItem]];
-    [appMenu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
-    [appMenuItem setSubmenu:appMenu];
-    [menubar addItem:appMenuItem];
+    [menubar addItemWithTitle:@"About" action:@selector(aboutAction:) keyEquivalent:@""];
+    [menubar addItem:[NSMenuItem separatorItem]];
+    [menubar addItemWithTitle:@"Settings" action:@selector(settingsAction:) keyEquivalent:@""];
+    [menubar addItemWithTitle:@"Accounts" action:@selector(accountsAction:) keyEquivalent:@""];
+    [menubar addItem:[NSMenuItem separatorItem]];
+    [menubar addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
 
     // File menu
     NSMenuItem *fileMenuItem = [NSMenuItem new];
-    NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@"File"];
+    NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@""]; // Deixa el títol del menú buit
+    [fileMenuItem setTitle:@"FileB"]; // Estableix el títol del menú principal
+    [fileMenuItem setSubmenu:fileMenu];
+    [menubar addItem:fileMenuItem];
+
     [fileMenu addItemWithTitle:@"Open" action:@selector(openAction:) keyEquivalent:@""];
     [fileMenu addItemWithTitle:@"Save" action:@selector(saveAction:) keyEquivalent:@""];
     [fileMenuItem setSubmenu:fileMenu];
