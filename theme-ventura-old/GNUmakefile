@@ -29,8 +29,15 @@ Ventura_RESOURCE_FILES = \
 # Class files
 #
 Ventura_OBJC_FILES = \
-	GVTheme.m \
+	AnimationData.m \
+	AnimationController.m \
+	MethodSwizzling.m \
+	GV+NSProgressIndicator.m \
+	GV+NSTextField.m \
+	GV+NSWindow.m \
 	GVThemeColors.m \
+	GVWindowTitleBarView.m \
+	GVTheme.m
 
 -include GNUmakefile.preamble
 

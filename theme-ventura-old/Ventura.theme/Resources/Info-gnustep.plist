@@ -6,6 +6,11 @@
     GSThemeDetails = "A Ventura like theme for GNUstep";
     GSThemeDomain = {
 	GSBackHandlesWindowDecorations = NO;
+	GSMenuBarHeight = 22;
+	GSMenuItemHeight = 20;
+	GSMenuSeparatorHeight = 3;
+	GSMenuSubmenuHorizontalOverlap = 1;
+	GSMenuSubmenuVerticalOverlap = 1;
 	GSScrollerButtonsOffset = "0.0";
 	GSSimpleWindowDecorated = NO;
 	GSSuppressAppIcon = YES;

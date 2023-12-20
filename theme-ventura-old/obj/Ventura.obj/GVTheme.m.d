@@ -475,7 +475,7 @@ obj/Ventura.obj/GVTheme.m.o: GVTheme.m GVTheme.h \
   /usr/GNUstep/Local/Library/Headers/AppKit/DPSOperators.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h \
-  GVThemeColors.h GVThemePrivate.h
+  GVThemeColors.h MethodSwizzling.h
 
 GVTheme.h:
 
@@ -1433,4 +1433,4 @@ GVTheme.h:
 
 GVThemeColors.h:
 
-GVThemePrivate.h:
+MethodSwizzling.h:

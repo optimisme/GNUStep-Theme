@@ -1,0 +1,22 @@
+{
+  NSExecutable = "Ventura";
+  NSPrincipalClass = "GVenturaTheme";
+  GSThemeAuthors = (
+	  "Albert Palacios",
+  );
+  GSThemeName="Ventura";
+  GSThemeDescription="Ventura Theme";
+  GSThemeDetails = "A Ventura like theme for GNUstep";
+  GSThemeIcon = imgVenturaIcon.png;     
+  GSThemePreview = imgVentura.png;
+  GSThemeDomain = {
+    GSSimpleWindowDecorated = NO;
+    GSBackHandlesWindowDecorations = NO;
+	  GSSuppressAppIcon = YES;
+	  GSScrollerButtonsOffset = 0.0;
+  	NSScrollViewInterfaceStyle = NSWindows95InterfaceStyle;
+  	NSScrollerInterfaceStyle = NSWindows95InterfaceStyle;
+	  NSMenuInterfaceStyle = NSWindows95InterfaceStyle;
+    MenuShouldShowIcon = NO;
+  };
+}

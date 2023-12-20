@@ -5,6 +5,32 @@
 NSColor *GVThemeColorRGB(int r, int g, int b, float a) {
     return [NSColor colorWithCalibratedRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha: a];
 }
+NSColor *GVColorForAccentColorName(NSString *accentColorName) {
+
+    NSColor *blueColor = GVThemeColorRGB(53, 120, 247, 1.0);
+    NSColor *purpleColor = GVThemeColorRGB(139, 66, 146, 1.0);
+    NSColor *pinkColor = GVThemeColorRGB(229, 92, 156, 1.0);
+    NSColor *redColor = GVThemeColorRGB(207, 71, 69, 1.0);
+    NSColor *orangeColor = GVThemeColorRGB(232, 136, 58, 1.0);
+    NSColor *yellowColor = GVThemeColorRGB(247, 201, 78, 1.0);
+    NSColor *greenColor = GVThemeColorRGB(120, 184, 86, 1.0);
+    NSColor *graphiteColor = GVThemeColorRGB(153, 152, 152, 1.0);
+
+    NSDictionary *accentColors = @{
+        @"Blue": blueColor,
+        @"Purple": purpleColor,
+        @"Pink": pinkColor,
+        @"Red": redColor,
+        @"Orange": orangeColor,
+        @"Yellow": yellowColor,
+        @"Green": greenColor,
+        @"Graphite": graphiteColor
+    };
+
+    NSColor *color = accentColors[accentColorName];
+    return color ? color : accentColors[@"Blue"];
+}
+
 
 NSColorList *GVThemeColorList(void) {
     static NSColorList *colors = nil;
@@ -13,7 +39,7 @@ NSColorList *GVThemeColorList(void) {
         colors = [[NSColorList alloc] initWithName:@"System" fromFile:nil];
 
         // Verified values
-        [colors setColor: GVThemeColorRGB(245, 245, 245, 1.0)  forKey:@"windowBackgroundColor"];
+        [colors setColor: GVThemeColorRGB(245, 239, 234, 1.0)  forKey:@"windowBackgroundColor"];
         
         // TODO: Guesses that must be verified
         [colors setColor: [NSColor whiteColor]                 forKey: @"controlBackgroundColor"];

@@ -1,123 +1,143 @@
 #import "GVTheme.h"
 #import "GVThemeColors.h"
-#import "MethodSwizzling.h"
+#import "GVThemePrivate.h"
+
+//[colors setColor: GVThemeColorRGB(245, 239, 234, 1.0)  forKey:@"windowBackgroundColor"];
 
 @implementation GVTheme
-
-static NSColor *_accentColor;
-static NSColor *_supportColor;
-static NSColor *_supportColorRelief;
-static GVTheme *_sharedInstance;
-
-+ (GVTheme *)sharedInstance {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedInstance = [[self alloc] init];
-    });
-    return _sharedInstance;
-}
-
-+ (void)initialize {
-    if (self == [GVTheme class]) {
-        [self sharedInstance];
-    }
-}
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        // Variables used by shared instance must be retained
-        _accentColor = [GVThemeColorRGB(53, 120, 247, 1.0) retain];
-        _supportColor = [GVThemeColorRGB(233, 228, 224, 1.0) retain];
-        _supportColorRelief = [GVThemeColorRGB(226, 221, 217, 1.0) retain];
-    }
-    return self;
-}
-
-+ (NSColor *)accentColor {
-    return _accentColor;
-}
-
-+ (void)setAccentColor:(NSColor *)accentColor {
-    if (_accentColor != accentColor) {
-        [_accentColor release];
-        _accentColor = [accentColor retain];
-    }
-}
-
-+ (NSColor *)supportColor {
-    return _supportColor;
-}
-
-+ (void)setSupportColor:(NSColor *)supportColor {
-    if (_supportColor != supportColor) {
-        [_supportColor release];
-        _supportColor = [supportColor retain];
-    }
-}
-
-+ (NSColor *)supportColorRelief {
-    return _supportColorRelief;
-}
-
-+ (void)setSupportColorRelief:(NSColor *)supportColorRelief {
-    if (_supportColorRelief != supportColorRelief) {
-        [_supportColorRelief release];
-        _supportColorRelief = [supportColorRelief retain];
-    }
-}
-
-- (void)dealloc {
-    // Retained variables must be released
-    [_accentColor release];
-    [_supportColor release];
-    [_supportColorRelief release];
-    [super dealloc];
-}
-
-- (void)activate
-{
-    [super activate];
-    [self loadColorsFromConfigPlist];
-}
 
 - (NSColorList*) colors
 {
     return GVThemeColorList(); 
 }
 
-- (void)loadColorsFromConfigPlist {
+- (void) drawButton: (NSRect)frame 
+                 in: (NSCell*)cell 
+               view: (NSView*)view 
+              style: (int)style 
+              state: (GSThemeControlState)state
+{
+  GSDrawTiles	*tiles = nil;
+  NSColor	*color = nil;
+  NSString	*name = [self nameForElement: cell];
 
-    NSArray *roots = @[
-        NSHomeDirectory(),
-        NSOpenStepRootDirectory(),
-        NSTemporaryDirectory(),
-        NSHomeDirectory()
-    ];
-
-    NSString *plistPath = nil;
-
-    for (NSString *root in roots) {
-        NSString *themesPath = [root stringByAppendingPathComponent:@"GNUstep/Library/Themes"];
-        NSString *themePath = [themesPath stringByAppendingPathComponent:@"Ventura.theme"];
-        NSString *potentialPlistPath = [themePath stringByAppendingPathComponent:@"Resources/config.plist"];
-        
-        if ([[NSFileManager defaultManager] fileExistsAtPath:potentialPlistPath]) {
-            plistPath = potentialPlistPath;
-            break;
-        }
+  if (name == nil)
+    {
+      name = GSStringFromBezelStyle(style);
     }
 
-    if (plistPath) {
-        NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-        NSColor *accentColor = GVColorForAccentColorName(plistData[@"GVThemeAccentColor"]);
-        if (accentColor) {
-            [GVTheme setAccentColor:accentColor];
-        } else {
-            NSLog(@"Error: accentColor és nil.");
-        }
-    } else {
-        NSLog(@"Error: config.plist not found in any of the standard locations.");
+  color = [self colorNamed: name state: state];
+  if (color == nil)
+    {
+      if (state == GSThemeNormalState)
+	{
+          color = [NSColor controlBackgroundColor];
+	}
+      else if (state == GSThemeHighlightedState
+	       || state == GSThemeHighlightedFirstResponderState)
+	{
+          color = [NSColor selectedControlColor];
+	}
+      else if (state == GSThemeSelectedState
+	       || state == GSThemeSelectedFirstResponderState)
+	{
+          color = [NSColor selectedControlColor];
+	}
+      else
+    	{
+          color = [NSColor controlBackgroundColor];
+	}
+    }
+    color = [NSColor greenColor];
+
+  tiles = [self tilesNamed: name state: state];
+  if (tiles == nil)
+    {
+      tiles = [self tilesNamed: @"NSButton" state: state];
+    }
+
+  if (tiles == nil)
+    {
+      switch (style)
+        {
+	  case NSRoundRectBezelStyle:
+	  case NSTexturedRoundedBezelStyle:
+	  case NSRoundedBezelStyle:
+	    [self drawRoundBezel: frame withColor: color];
+	    break;
+	  case NSTexturedSquareBezelStyle:
+	    frame = NSInsetRect(frame, 0, 1);
+	  case NSSmallSquareBezelStyle:
+	  case NSRegularSquareBezelStyle:
+	  case NSShadowlessSquareBezelStyle:
+	    [color set];
+	    NSRectFill(frame);
+	    [[NSColor controlShadowColor] set];
+	    NSFrameRectWithWidth(frame, 1);
+	    break;
+	  case NSThickSquareBezelStyle:
+	    [color set];
+	    NSRectFill(frame);
+	    [[NSColor controlShadowColor] set];
+	    NSFrameRectWithWidth(frame, 1.5);
+	    break;
+	  case NSThickerSquareBezelStyle:
+	    [color set];
+	    NSRectFill(frame);
+	    [[NSColor controlShadowColor] set];
+	    NSFrameRectWithWidth(frame, 2);
+	    break;
+	  case NSCircularBezelStyle:
+	    frame = NSInsetRect(frame, 3, 3);
+	    [self drawCircularBezel: frame withColor: color]; 
+	    break;
+	  case NSHelpButtonBezelStyle:
+	    [self drawCircularBezel: frame withColor: color];
+	    {
+	      NSDictionary *attributes = [NSDictionary dictionaryWithObject: [NSFont controlContentFontOfSize: 0]
+								     forKey: NSFontAttributeName];
+	      NSAttributedString *questionMark = [[[NSAttributedString alloc]
+						    initWithString: _(@"?")
+							attributes: attributes] autorelease];
+
+	      NSRect textRect;
+	      textRect.size = [questionMark size];
+	      textRect.origin.x = NSMidX(frame) - (textRect.size.width / 2);
+	      textRect.origin.y = NSMidY(frame) - (textRect.size.height / 2);
+
+	      [questionMark drawInRect: textRect];
+	    }
+	    break;
+	  case NSDisclosureBezelStyle:
+	  case NSRoundedDisclosureBezelStyle:
+	  case NSRecessedBezelStyle:
+	    // FIXME
+	    break;
+	  default:
+	    [color set];
+	    NSRectFill(frame);
+
+	    if (state == GSThemeNormalState || state == GSThemeHighlightedState)
+	      {
+		[self drawButton: frame withClip: NSZeroRect];
+	      }
+	    else if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState)
+	      {
+		[self drawGrayBezel: frame withClip: NSZeroRect];
+	      }
+	    else
+	      {
+		[self drawButton: frame withClip: NSZeroRect];
+	      }
+	}
+    }
+  else
+    {
+      /* Use tiles to draw button border with central part filled with color
+       */
+      [self fillRect: frame
+	   withTiles: tiles
+	  background: color];
     }
 }
 

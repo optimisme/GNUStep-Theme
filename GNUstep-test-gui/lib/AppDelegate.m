@@ -11,6 +11,7 @@
 @property (nonatomic, strong) NSWindow *window;
 @property (nonatomic, strong) NSTextField *label;
 @property (nonatomic, strong) NSButton *button;
+@property (nonatomic, strong) NSButton *destructiveButton;
 @property (nonatomic, strong) NSProgressIndicator *progressBar1;
 @property (nonatomic, strong) NSProgressIndicator *progressBar2;
 @property (nonatomic, strong) NSButton *toggleButton;
@@ -26,99 +27,108 @@
     self.window = [[NSWindow alloc] initWithContentRect:contentRect styleMask:styleMask backing:NSBackingStoreBuffered defer:NO];
     [self.window setTitle:@"Window Hello"];
     [self.window center];
-    [self.window makeMainWindow];
     [self.window makeKeyAndOrderFront:nil];
+    [self.window makeMainWindow];
 
     // Setup menu
     [self setupMenu];
 
     // Label
-    self.label = [[NSTextField alloc] initWithFrame: NSMakeRect(30, 30, 80, 30)];
+    self.label = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 560, 80, 30)];
+    [self.label setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.label setSelectable:NO];
     [self.label setBezeled:NO];
     [self.label setDrawsBackground:NO];
-    [self.label setStringValue:@"Hello World"];
+    [self.label setStringValue:@"buttons"];
     [[self.window contentView] addSubview:self.label];
 
-    // Button
-    self.button = [[NSButton alloc] initWithFrame:NSMakeRect(120, 30, 100, 30)];
-    [self.button setTitle:@"Click me"];
-    #ifdef GNS
-        [self.button setButtonType:NSMomentaryPushButton];
-        [self.button setBezelStyle:NSRoundedBezelStyle];
-    #else 
-        [self.button setButtonType:NSButtonTypeMomentaryPushIn];
-        [self.button setBezelStyle:NSBezelStyleRounded];
-    #endif
-    [self.button setTarget:self];
-    [self.button setAction:@selector(buttonClicked:)];
+    // Buttons
+    CGFloat buttonY = 520;
+    CGFloat buttonX = 20;
+    CGFloat buttonWidth = 100;
+    CGFloat buttonHeight = 30;
+    CGFloat buttonSpacing = 120;
+
+    // Botó Per Defecte
+    NSButton *defaultButton = [self createButtonWithTitle:@"Default" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+    [[self.window contentView] addSubview:defaultButton];
+
+    // Botó Acció
+    buttonX += buttonSpacing;
+    NSButton *actionButton = [self createButtonWithTitle:@"Action" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+
+#ifdef GNS
+    [self.toggleButton setButtonType:NSToggleButton];
+    [self.toggleButton setBezelStyle:NSRoundedBezelStyle];
+#else
+    [self.toggleButton setButtonType:NSButtonTypeToggle];
+    [self.toggleButton setBezelStyle:NSBezelStyleRounded];
+#endif
+    
+    [[self.window contentView] addSubview:actionButton];
+
+    // Botó Destructiu
+    buttonX += buttonSpacing;
+    NSButton *destructiveButton = [self createButtonWithTitle:@"Destructive" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+#ifdef GNS
+    [self.destructiveButton setBezelStyle:NSRoundedBezelStyle];
+#else
+    [self.destructiveButton setButtonType:NSButtonTypeMomentaryPushIn];
+    [self.destructiveButton setBezelStyle:NSBezelStyleRegularSquare];
+#endif
+    [[self.window contentView] addSubview:destructiveButton];
+
+    // Botó Acció Deshabilitat
+    buttonX += buttonSpacing;
+    NSButton *disabledActionButton = [self createButtonWithTitle:@"Disabled Action" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+    [disabledActionButton setEnabled:NO];
+    [[self.window contentView] addSubview:disabledActionButton];
+
+    // Botó Destructiu Deshabilitat
+    buttonX += buttonSpacing;
+    NSButton *disabledDestructiveButton = [self createButtonWithTitle:@"Disabled Destructive" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+    [disabledDestructiveButton setEnabled:NO];
+    [[self.window contentView] addSubview:disabledDestructiveButton];
+
+
     [[self.window contentView] addSubview:self.button];
+#ifdef GNS
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowDidResize:)
+                                                 name:NSWindowDidResizeNotification
+                                               object:self.window];
+#else
+    // Afegeix restriccions
+    [self.window.contentView addConstraints:@[
+    [self.label.topAnchor constraintEqualToAnchor:self.window.contentView.topAnchor constant:20],
+    [self.label.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor constant:20],
+    [self.button.topAnchor constraintEqualToAnchor:self.label.bottomAnchor constant:10],
+    [self.button.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor constant:20]
+    ]];
+#endif
+}
 
-    // Progress Bar 1 (Indeterminate)
-    self.progressBar1 = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(30, 550, 200, 20)];
-    [self.progressBar1 setStyle:NSProgressIndicatorBarStyle];
-    [self.progressBar1 setIndeterminate:YES];
-    [self.progressBar1 startAnimation:nil];
-    [[self.window contentView] addSubview:self.progressBar1];
+- (void)windowDidResize:(NSNotification *)notification {
+#ifdef GNS
+    NSView *contentView = (NSView *)self.window.contentView;
+    NSRect contentViewBounds = contentView.bounds;
+    NSRect newLabelFrame = NSMakeRect(20, contentViewBounds.size.height - 50, 80, 30);
+    [self.label setFrame:newLabelFrame];
+    NSRect newButtonFrame = NSMakeRect(20, contentViewBounds.size.height - 90, 100, 30);
+    [self.button setFrame:newButtonFrame];
+#endif
+}
 
-    NSBox *border1 = [[NSBox alloc] initWithFrame:NSMakeRect(30, 500, 200, 20)];
-    [border1 setBoxType:NSBoxPrimary];
-    [border1 setBorderType:NSLineBorder];
-    [border1 setBorderColor:[NSColor blackColor]];
-    [border1 setBorderWidth:1];
-    [border1 setContentViewMargins:NSMakeSize(0, 0)];
-    [border1 setTitle:@"Progress Bar 1"];
-    [border1 setTitlePosition:NSAtBottom];
-    [[self.window contentView] addSubview:border1];
-
-    // Progress Bar 2 (Determinate at 75%)
-    self.progressBar2 = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(240, 550, 200, 20)];
-    [self.progressBar2 setStyle:NSProgressIndicatorBarStyle];
-    [self.progressBar2 setIndeterminate:NO];
-    [self.progressBar2 setMaxValue:100];
-    [self.progressBar2 setDoubleValue:75];
-    [[self.window contentView] addSubview:self.progressBar2];
-
-    // Button to toggle progress bar value
-    self.toggleButton = [[NSButton alloc] initWithFrame:NSMakeRect(450, 550, 100, 30)];
-    [self.toggleButton setTitle:@"Toggle Value"];
-    #ifdef GNS
-        [self.toggleButton setButtonType:NSToggleButton];
-        [self.toggleButton setBezelStyle:NSRoundedBezelStyle];
-    #else
-        [self.toggleButton setButtonType:NSButtonTypeMomentaryPushIn];
-        [self.toggleButton setBezelStyle:NSBezelStyleRounded];
-    #endif
-    [self.toggleButton setTarget:self];
-    [self.toggleButton setAction:@selector(toggleProgressValue:)];
-    [[self.window contentView] addSubview:self.toggleButton];
-
-    NSBox *border2 = [[NSBox alloc] initWithFrame:NSMakeRect(240, 550, 200, 20)];
-    [border2 setBoxType:NSBoxCustom];
-    [border2 setBorderType:NSLineBorder];
-    [border2 setBorderColor:[NSColor blackColor]];
-    [border2 setBorderWidth:1];
-    [border2 setContentViewMargins:NSMakeSize(0, 0)];
-    [border2 setTitle:@"DEF"];
-    [[self.window contentView] addSubview:border2];
+- (NSButton *)createButtonWithTitle:(NSString *)title frame:(NSRect)frame {
+    NSButton *button = [[NSButton alloc] initWithFrame:frame];
+    [button setTitle:title];
+    [button setTarget:self];
+    [button setAction:@selector(buttonClicked:)];
+    return button;
 }
 
 - (void)buttonClicked:(id)sender {
     NSLog(@"Button clicked");
-}
-
-- (void)toggleProgressValue:(id)sender {
-    NSLog(@"Toggle progress bar value from: %f", self.progressBar2.doubleValue);
-    if (self.progressBar2 != nil) {
-        if (self.progressBar2.doubleValue == 25) {
-            [self.progressBar2 setDoubleValue:75];
-        } else {
-            [self.progressBar2 setDoubleValue:25];
-        }
-        NSLog(@"Toggle progress bar value to: %f", self.progressBar2.doubleValue);
-    } else {
-        NSLog(@"Progress bar is nil!");
-    }
 }
 
 // Terminates the application when the window is closed.
@@ -134,33 +144,52 @@
     return YES;
 }
 
-- (void) menuAction: (id)sender {
-    NSLog(@"%@", sender);
-}
-
 - (void) setupMenu {
-    NSMenu *menubar = [NSMenu new];
 
-    // Main application menu
-    [menubar addItemWithTitle:@"About" action:@selector(aboutAction:) keyEquivalent:@""];
+    NSMenu *menubar = [NSMenu new];
+#ifdef GNS
+    [menubar addItemWithTitle:@"About" action:@selector(emptyAction:) keyEquivalent:@""];
     [menubar addItem:[NSMenuItem separatorItem]];
-    [menubar addItemWithTitle:@"Settings" action:@selector(settingsAction:) keyEquivalent:@""];
-    [menubar addItemWithTitle:@"Accounts" action:@selector(accountsAction:) keyEquivalent:@""];
+    [menubar addItemWithTitle:@"Settings" action:@selector(emptyAction:) keyEquivalent:@""];
+    [menubar addItemWithTitle:@"Accounts" action:@selector(emptyAction:) keyEquivalent:@""];
     [menubar addItem:[NSMenuItem separatorItem]];
     [menubar addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
 
-    // File menu
+#else
+    NSMenuItem *appMenuItem = [NSMenuItem new];
+    [menubar addItem:appMenuItem];
+
+    NSMenu *appMenu = [[NSMenu alloc] initWithTitle:@""];
+    [appMenuItem setSubmenu:appMenu];
+
+    [appMenu addItemWithTitle:@"About" action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
+    [appMenu addItemWithTitle:@"Settings" action:@selector(emptyAction:) keyEquivalent:@","];
+    [appMenu addItemWithTitle:@"Accounts" action:@selector(emptyAction:) keyEquivalent:@""];
+    [appMenu addItem:[NSMenuItem separatorItem]];
+    [appMenu addItemWithTitle:@"Quit MyApp" action:@selector(terminate:) keyEquivalent:@"q"];
+
+#endif
+    [NSApp setMainMenu:menubar];
+
+
+#ifdef GNS
     NSMenuItem *fileMenuItem = [NSMenuItem new];
-    NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@""]; // Deixa el títol del menú buit
-    [fileMenuItem setTitle:@"File"]; // Estableix el títol del menú principal
+    NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@""];
+    [fileMenuItem setTitle:@"File"];
+#else
+    NSMenuItem *fileMenuItem = [NSMenuItem new];
+    NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@"File"];
+#endif
+
+    [fileMenu addItemWithTitle:@"Open" action:@selector(emptyAction:) keyEquivalent:@"o"];
+    [fileMenu addItemWithTitle:@"Save" action:@selector(emptyAction:) keyEquivalent:@"s"];
     [fileMenuItem setSubmenu:fileMenu];
     [menubar addItem:fileMenuItem];
+}
 
-    [fileMenu addItemWithTitle:@"Open" action:@selector(openAction:) keyEquivalent:@""];
-    [fileMenu addItemWithTitle:@"Save" action:@selector(saveAction:) keyEquivalent:@""];
-    [fileMenuItem setSubmenu:fileMenu];
+- (void)emptyAction:(id)sender {
 
-    [NSApp setMainMenu:menubar];
 }
 
 @end
+
