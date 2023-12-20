@@ -11,6 +11,7 @@
 @property (nonatomic, strong) NSWindow *window;
 @property (nonatomic, strong) NSTextField *label;
 @property (nonatomic, strong) NSButton *button;
+@property (nonatomic, strong) NSButton *actionButton;
 @property (nonatomic, strong) NSButton *destructiveButton;
 @property (nonatomic, strong) NSProgressIndicator *progressBar1;
 @property (nonatomic, strong) NSProgressIndicator *progressBar2;
@@ -58,11 +59,12 @@
     NSButton *actionButton = [self createButtonWithTitle:@"Action" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
 
 #ifdef GNS
-    [self.toggleButton setButtonType:NSToggleButton];
-    [self.toggleButton setBezelStyle:NSRoundedBezelStyle];
+    [self.actionButton setButtonType:NSToggleButton];
+    [self.actionButton setBezelStyle:NSRoundedBezelStyle];
 #else
-    [self.toggleButton setButtonType:NSButtonTypeToggle];
-    [self.toggleButton setBezelStyle:NSBezelStyleRounded];
+    [self.actionButton setButtonType:NSButtonTypeToggle];
+    [self.actionButton setBezelStyle:NSBezelStyleRounded];
+    [self.actionButton setKeyEquivalent:@"\r"];
 #endif
     
     [[self.window contentView] addSubview:actionButton];
