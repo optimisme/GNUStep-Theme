@@ -73,7 +73,6 @@
 #ifdef GNS
     [self.destructiveButton setBezelStyle:NSRoundedBezelStyle];
 #else
-    [self.destructiveButton setButtonType:NSButtonTypeMomentaryPushIn];
     [self.destructiveButton setBezelStyle:NSBezelStyleRegularSquare];
 #endif
     [[self.window contentView] addSubview:destructiveButton];
