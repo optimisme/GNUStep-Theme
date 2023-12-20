@@ -65,6 +65,7 @@
     [self.actionButton setButtonType:NSButtonTypeToggle];
     [self.actionButton setBezelStyle:NSBezelStyleRounded];
     [self.actionButton setKeyEquivalent:@"\r"];
+    [self.actionButton setHighlighted: YES];
 #endif
     
     [[self.window contentView] addSubview:actionButton];
