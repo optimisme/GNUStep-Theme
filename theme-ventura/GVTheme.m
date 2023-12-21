@@ -5,8 +5,7 @@
 
 @implementation GVTheme
 
-- (NSColorList*) colors
-{
+- (NSColorList*) colors {
     return GVThemeColors(); 
 }
 
@@ -14,8 +13,7 @@
                  in: (NSCell*)cell 
                view: (NSView*)view 
               style: (int)style 
-              state: (GSThemeControlState)state
-{
+              state: (GSThemeControlState)state {
 	GVThemeButtonDrawing(frame, cell, view, style, state, self);
 }
 
