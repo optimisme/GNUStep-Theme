@@ -10,13 +10,14 @@
 
 @property (nonatomic, strong) NSWindow *window;
 @property (nonatomic, strong) NSTextField *label;
-@property (nonatomic, strong) NSButton *button;
+@property (nonatomic, strong) NSButton *buttonDefault;
+/*
 @property (nonatomic, strong) NSButton *actionButton;
 @property (nonatomic, strong) NSButton *destructiveButton;
 @property (nonatomic, strong) NSProgressIndicator *progressBar1;
 @property (nonatomic, strong) NSProgressIndicator *progressBar2;
 @property (nonatomic, strong) NSButton *toggleButton;
-
+*/
 @end
 
 @implementation AppDelegate
@@ -51,9 +52,9 @@
     CGFloat buttonSpacing = 120;
 
     // Botó Per Defecte
-    NSButton *defaultButton = [self createButtonWithTitle:@"Default" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    [[self.window contentView] addSubview:defaultButton];
-
+    NSButton *buttonDefault = [self createButtonWithTitle:@"Default" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+    [[self.window contentView] addSubview:buttonDefault];
+/*
     // Botó Acció
     buttonX += buttonSpacing;
     NSButton *actionButton = [self createButtonWithTitle:@"Action" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
@@ -94,6 +95,7 @@
 
 
     [[self.window contentView] addSubview:self.button];
+ */
 #ifdef GNS
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(windowDidResize:)
@@ -104,8 +106,8 @@
     [self.window.contentView addConstraints:@[
     [self.label.topAnchor constraintEqualToAnchor:self.window.contentView.topAnchor constant:20],
     [self.label.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor constant:20],
-    [self.button.topAnchor constraintEqualToAnchor:self.label.bottomAnchor constant:10],
-    [self.button.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor constant:20]
+    [self.buttonDefault.topAnchor constraintEqualToAnchor:self.label.bottomAnchor constant:10],
+    [self.buttonDefault.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor constant:20]
     ]];
 #endif
 }
