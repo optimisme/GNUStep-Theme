@@ -7,7 +7,7 @@
 
 - (NSColorList*) colors
 {
-    return GVThemeColorList(); 
+    return GVThemeColors(); 
 }
 
 - (void) drawButton: (NSRect)frame 

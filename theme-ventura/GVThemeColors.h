@@ -4,6 +4,6 @@
 #import <Cocoa/Cocoa.h>
 
 NSColor         *GVThemeColorRGB(int r, int g, int b, float a);
-NSColorList     *GVThemeColorList(void);
+NSColorList     *GVThemeColors(void);
 
 #endif
