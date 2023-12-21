@@ -87,6 +87,8 @@ void GVThemeButtonDrawing(NSRect frame,
     CGFloat padding = 5.0;
 
 /* TODO : Revisar perquè la següent shadow no es veu
+// BUG https://github.com/gnustep/libs-gui/issues/217
+
     // Ajustar el frame original per a l'ombra, no el paddedFrame
     NSRect shadowFrame = NSInsetRect(frame, 5.0, 5.0);
     shadowFrame.origin.x += 5.0;
@@ -114,7 +116,7 @@ void GVThemeButtonDrawing(NSRect frame,
     [NSGraphicsContext restoreGraphicsState];
 */
 
-    // Ara dibuixar el botó amb el padding
+    // Dibuixar el botó amb el padding
     NSRect paddedFrame = NSInsetRect(frame, padding, padding);
 
     // Dibuixar el fons del botó
@@ -129,10 +131,14 @@ void GVThemeButtonDrawing(NSRect frame,
     [bezelPath stroke];
 
 
-    /*
+    
     // On es dibuixa el titol si no aquí?
 
+/*
     // Dibuixar el text
+
+BUG : https://github.com/gnustep/libs-gui/issues/219 per treure el moviment del text
+
     NSDictionary *attributes = @{
         NSFontAttributeName: [NSFont systemFontOfSize:[NSFont systemFontSize]],
         NSForegroundColorAttributeName: textColor
@@ -145,6 +151,6 @@ void GVThemeButtonDrawing(NSRect frame,
     titleRect.origin.y = NSMidY(paddedFrame) - (titleRect.size.height / 2);
 
     [attributedTitle drawInRect:titleRect];
-    */   
+     */
 
 }

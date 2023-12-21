@@ -201,6 +201,7 @@
     NSMenuItem *fileMenuItem = [NSMenuItem new];
     NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@""];
     [fileMenuItem setTitle:@"File"];
+    // BUG https://github.com/gnustep/libs-gui/issues/218
 #else
     NSMenuItem *fileMenuItem = [NSMenuItem new];
     NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@"File"];

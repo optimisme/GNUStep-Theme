@@ -30,6 +30,7 @@ Ventura_RESOURCE_FILES = \
 #
 Ventura_OBJC_FILES = \
 	GVTheme.m \
+	GV+NSButtonCell.m \
 	GVThemeColors.m \
 	GVThemeButton.m \
 
