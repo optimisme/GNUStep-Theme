@@ -1,3 +1,4 @@
+#import <Cocoa/Cocoa.h>
 #import "GVThemeColors.h"
 
 NSColor *GVThemeColorRGB(int r, int g, int b, float a) {

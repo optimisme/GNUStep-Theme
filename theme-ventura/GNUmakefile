@@ -31,6 +31,7 @@ Ventura_RESOURCE_FILES = \
 Ventura_OBJC_FILES = \
 	GVTheme.m \
 	GVThemeColors.m \
+	GVThemeButton.m \
 
 -include GNUmakefile.preamble
 

@@ -1,7 +1,9 @@
+#ifndef GNUstep_GVTHEMECOLORS_H
+#define GNUstep_GVTHEMECOLORS_H
+
 #import <Cocoa/Cocoa.h>
 
-NSColor *GVThemeColorRGB(int r, int g, int b, float a);
+NSColor         *GVThemeColorRGB(int r, int g, int b, float a);
+NSColorList     *GVThemeColorList(void);
 
-NSColor *GVColorForAccentColorName(NSString *accentColorName) ;
-
-NSColorList *GVThemeColorList(void);
+#endif
