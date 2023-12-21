@@ -119,7 +119,7 @@
     NSRect newLabelFrame = NSMakeRect(20, contentViewBounds.size.height - 50, 80, 30);
     [self.label setFrame:newLabelFrame];
     NSRect newButtonFrame = NSMakeRect(20, contentViewBounds.size.height - 90, 100, 30);
-    [self.button setFrame:newButtonFrame];
+    [self.buttonDefault setFrame:newButtonFrame];
 #endif
 }
 

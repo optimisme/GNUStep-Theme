@@ -1,0 +1,9 @@
+{
+  NOTE = "Automatically generated, do not edit!";
+  NSExecutable = "TestGUI";
+  NSMainNibFile = "";
+  NSMainStoryboardFile = "";
+  GSMainMarkupFile = "";
+  NSIcon = "AppIcon.png";
+  NSPrincipalClass = "NSApplication";
+}
