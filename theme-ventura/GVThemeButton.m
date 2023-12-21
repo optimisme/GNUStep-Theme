@@ -8,7 +8,6 @@ void GVThemeButtonDrawing(NSRect frame,
                           int style, 
                           GSThemeControlState state, 
                           GVTheme *theme) {
-{
   GSDrawTiles	*tiles = nil;
   NSColor	*color = nil;
   NSString	*name = [theme nameForElement: cell];

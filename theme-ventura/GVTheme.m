@@ -16,7 +16,7 @@
               style: (int)style 
               state: (GSThemeControlState)state
 {
-	[GVThemeButtonDrawing:frame in:cell view:view style:style state:state theme:self];
+	GVThemeButtonDrawing(frame, cell, view, style, state, self);
 }
 
 @end
