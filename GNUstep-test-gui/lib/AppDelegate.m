@@ -54,6 +54,27 @@
     // Botó Per Defecte
     NSButton *buttonDefault = [self createButtonWithTitle:@"Default" frame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
     [[self.window contentView] addSubview:buttonDefault];
+
+    [NSGraphicsContext saveGraphicsState];
+    
+    // Definir el color de l'ombra
+      NSColor *shadowColor = [NSColor blackColor];
+
+/*
+
+      // Crear l'ombra
+      NSShadow *shadow = [[NSShadow alloc] init];
+      [shadow setShadowColor:shadowColor];
+      [shadow setShadowOffset:NSMakeSize(0, 1)]; // Desplaçament de l'ombra 1 píxel cap avall
+      [shadow setShadowBlurRadius:20]; // Radi de difuminació de 20 píxels
+
+      // Aplicar l'ombra al botó
+      [buttonDefault setShadow:shadow];
+
+      // Restaurar el context gràfic
+      [NSGraphicsContext restoreGraphicsState];
+
+      */
 /*
     // Botó Acció
     buttonX += buttonSpacing;

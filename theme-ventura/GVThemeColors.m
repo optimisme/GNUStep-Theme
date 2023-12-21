@@ -16,6 +16,7 @@ NSColorList *GVThemeColors(void) {
         [colors setColor: GVThemeColorRGB(245, 245, 245, 1.0)   forKey: @"windowBackgroundColor"];
         [colors setColor: GVThemeColorRGB(64, 156, 255, 1.0)    forKey: @"selectedMenuItemColor"];  // TODO: action color
         [colors setColor: [NSColor blackColor]                  forKey: @"selectedMenuItemTextColor"];
+        [colors setColor: GVThemeColorRGB(240, 240, 240, 1.0)   forKey: @"selectedControlColor"];   // Color botó apretat
         
         // TODO: List of other colors from: https://github.com/gnustep/libs-gui/blob/master/Source/NSColor.m
     }
