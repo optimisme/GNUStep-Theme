@@ -2,8 +2,6 @@
 #import "GVThemeColors.h"
 #import "GVThemePrivate.h"
 
-//[colors setColor: GVThemeColorRGB(245, 239, 234, 1.0)  forKey:@"windowBackgroundColor"];
-
 @implementation GVTheme
 
 - (NSColorList*) colors

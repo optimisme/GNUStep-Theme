@@ -1,6 +1,6 @@
 #import "GVThemeColors.h"
 
-// List of values from: https://github.com/gnustep/plugins-themes-WinUXTheme/blob/1d9a37136b8dfc6dcea811ef28defbe52f954d0d/WinUXTheme.m
+// List of values from: https://github.com/gnustep/libs-gui/blob/master/Source/NSColor.m
 
 NSColor *GVThemeColorRGB(int r, int g, int b, float a) {
     return [NSColor colorWithCalibratedRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha: a];
@@ -13,10 +13,13 @@ NSColorList *GVThemeColorList(void) {
         colors = [[NSColorList alloc] initWithName:@"System" fromFile:nil];
 
         // Verified values
-        [colors setColor: GVThemeColorRGB(245, 245, 245, 1.0)  forKey:@"windowBackgroundColor"];
+        [colors setColor: [NSColor whiteColor]                  forKey: @"controlBackgroundColor"]; // Color de menu?
+        [colors setColor: GVThemeColorRGB(245, 245, 245, 1.0)   forKey: @"windowBackgroundColor"];
+        [colors setColor: GVThemeColorRGB(64, 156, 255, 1.0)    forKey: @"selectedMenuItemColor"];  // TODO: action color
+        [colors setColor: [NSColor blackColor]                  forKey: @"selectedMenuItemTextColor"];
         
         // TODO: Guesses that must be verified
-        [colors setColor: [NSColor whiteColor]                 forKey: @"controlBackgroundColor"];
+        /*
         [colors setColor: GVThemeColorRGB(237, 237, 237, 1.0)  forKey: @"controlColor"];
         [colors setColor: GVThemeColorRGB(255, 255, 255, 1.0)  forKey: @"controlHighlightColor"];
         [colors setColor: GVThemeColorRGB(227, 227, 227, 1.0)  forKey: @"controlLightHighlightColor"];
@@ -35,8 +38,7 @@ NSColorList *GVThemeColorList(void) {
         [colors setColor: GVThemeColorRGB(64, 156, 255, 1.0)   forKey: @"selectedControlColor"];
         [colors setColor: [NSColor blackColor]          forKey: @"selectedControlTextColor"];
         [colors setColor: GVThemeColorRGB(198, 198, 198, 1.0)  forKey: @"selectedKnobColor"];
-        [colors setColor: GVThemeColorRGB(64, 156, 255, 1.0)   forKey: @"selectedMenuItemColor"];
-        [colors setColor: [NSColor blackColor]          forKey: @"selectedMenuItemTextColor"];
+
         [colors setColor: GVThemeColorRGB(64, 156, 255, 1.0)   forKey: @"selectedTextBackgroundColor"];
         [colors setColor: [NSColor whiteColor]          forKey: @"selectedTextColor"];
         [colors setColor: GVThemeColorRGB(186, 186, 186, 1.0)  forKey: @"shadowColor"];
@@ -49,7 +51,7 @@ NSColorList *GVThemeColorList(void) {
         [colors setColor: [NSColor whiteColor]          forKey: @"rowBackgroundColor"];
         [colors setColor: [NSColor colorWithCalibratedWhite: 0.94901960784314 alpha: 1.0] forKey: @"alternateRowBackgroundColor"];
         [colors setColor: [NSColor colorWithCalibratedWhite: 0.8 alpha: 1.0] forKey: @"secondarySelectedControlColor"];
-        [colors setColor: [NSColor colorWithCalibratedWhite: 0.666667 alpha: 1.0] forKey: @"selectedInactiveColor"];
+        [colors setColor: [NSColor colorWithCalibratedWhite: 0.666667 alpha: 1.0] forKey: @"selectedInactiveColor"];*/
     }
 
     return colors;
