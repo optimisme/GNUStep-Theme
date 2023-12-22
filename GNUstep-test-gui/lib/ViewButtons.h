@@ -9,9 +9,10 @@
 #define ViewButtons_h
 
 #import <Cocoa/Cocoa.h>
-#import "ViewButtons.h"
 
 @interface ViewButtons : NSView
+
+- (void)windowDidResize:(NSRect)frame;
 
 @end
 
