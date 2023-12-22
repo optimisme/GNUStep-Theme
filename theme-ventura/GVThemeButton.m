@@ -18,7 +18,7 @@ void GVThemeButtonDrawing(NSRect frame,
     NSColor         *backgroundColor = [NSColor whiteColor]; 
 
     // For circular buttons
-    CGFloat diameter = MIN(frame.size.width, frame.size.height) - ((padding * 2) - 4);
+    CGFloat diameter = MIN(frame.size.width, frame.size.height) - ((padding * 2) - 2);
     NSRect circleRect = NSMakeRect(frame.origin.x, frame.origin.y, diameter, diameter);
     circleRect.origin.x += (frame.size.width - diameter) / 2;
     circleRect.origin.y += (frame.size.height - diameter) / 2;
@@ -150,7 +150,7 @@ void GVThemeButtonDrawing(NSRect frame,
 
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle setAlignment:NSTextAlignmentCenter];
-        NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:diameter / 1.5],
+        NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:diameter / 1.40],
                                     NSForegroundColorAttributeName: [NSColor blackColor],
                                     NSParagraphStyleAttributeName: paragraphStyle};
 
