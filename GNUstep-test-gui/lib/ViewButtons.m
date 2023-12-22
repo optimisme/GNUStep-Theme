@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSButton *bRecessed;
 @property (nonatomic, strong) NSButton *bTexRounded;
 @property (nonatomic, strong) NSButton *bTexSquare;
+@property (nonatomic, strong) NSButton *bAccept;
 
 @end
 
@@ -206,6 +207,20 @@
         [self.lActions setStringValue:@"Actions"];
         [self addSubview:self.lActions];
         
+#ifdef GNS
+        style = NSTexturedRoundedBezelStyle;
+#else
+        style = NSBezelStyleTexturedRounded;
+#endif
+        // Definir el color d'accent
+        self.bAccept = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
+#ifdef GNS
+        [self.bAccept setButtonType:NSMomentaryPushInButton];
+#else
+        [self.bAccept setButtonType:NSButtonTypeMomentaryPushIn];
+#endif
+        [self.bAccept setKeyEquivalent:@"\r"];
+        [self addSubview:self.bAccept];
     }
     
     return self;
@@ -284,6 +299,7 @@
     // 4th line
     buttonX = 20;
     buttonY = buttonY + 25;
+    [self.bAccept setFrame:NSMakeRect(20, buttonY, buttonWidth, 30)];
 }
 
 - (void)buttonClicked:(id)sender {
@@ -291,3 +307,4 @@
 }
 
 @end
+
