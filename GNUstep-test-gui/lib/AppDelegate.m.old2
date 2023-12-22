@@ -5,7 +5,6 @@
 //
 
 #import "AppDelegate.h"
-#import "MenuBuilder.h"
 #import "ViewButtons.h"
 
 @interface AppDelegate ()
@@ -13,6 +12,14 @@
 @property (nonatomic, strong) NSWindow *window;
 @property (nonatomic, strong) NSTextField *label;
 @property (nonatomic, strong) ViewButtons *vButtons;
+//@property (nonatomic, strong) NSButton *buttonDefault;
+/*
+@property (nonatomic, strong) NSButton *actionButton;
+@property (nonatomic, strong) NSButton *destructiveButton;
+@property (nonatomic, strong) NSProgressIndicator *progressBar1;
+@property (nonatomic, strong) NSProgressIndicator *progressBar2;
+@property (nonatomic, strong) NSButton *toggleButton;
+*/
 @end
 
 @implementation AppDelegate
@@ -28,7 +35,7 @@
     [self.window makeMainWindow];
 
     // Setup menu
-    [MenuBuilder setupMenu];
+    [self setupMenu];
 
     // Label
     self.label = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 560, 80, 30)];
@@ -139,6 +146,53 @@
 
 - (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)app {
     return YES;
+}
+
+- (void) setupMenu {
+
+    NSMenu *menubar = [NSMenu new];
+#ifdef GNS
+    [menubar addItemWithTitle:@"About" action:@selector(emptyAction:) keyEquivalent:@""];
+    [menubar addItem:[NSMenuItem separatorItem]];
+    [menubar addItemWithTitle:@"Settings" action:@selector(emptyAction:) keyEquivalent:@""];
+    [menubar addItemWithTitle:@"Accounts" action:@selector(emptyAction:) keyEquivalent:@""];
+    [menubar addItem:[NSMenuItem separatorItem]];
+    [menubar addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
+
+#else
+    NSMenuItem *appMenuItem = [NSMenuItem new];
+    [menubar addItem:appMenuItem];
+
+    NSMenu *appMenu = [[NSMenu alloc] initWithTitle:@""];
+    [appMenuItem setSubmenu:appMenu];
+
+    [appMenu addItemWithTitle:@"About" action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
+    [appMenu addItemWithTitle:@"Settings" action:@selector(emptyAction:) keyEquivalent:@","];
+    [appMenu addItemWithTitle:@"Accounts" action:@selector(emptyAction:) keyEquivalent:@""];
+    [appMenu addItem:[NSMenuItem separatorItem]];
+    [appMenu addItemWithTitle:@"Quit MyApp" action:@selector(terminate:) keyEquivalent:@"q"];
+
+#endif
+    [NSApp setMainMenu:menubar];
+
+
+#ifdef GNS
+    NSMenuItem *fileMenuItem = [NSMenuItem new];
+    NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@""];
+    [fileMenuItem setTitle:@"File"];
+#else
+    NSMenuItem *fileMenuItem = [NSMenuItem new];
+    NSMenu *fileMenu = [[NSMenu alloc] initWithTitle:@"File"];
+#endif
+
+    [fileMenu addItemWithTitle:@"Open" action:@selector(emptyAction:) keyEquivalent:@"o"];
+    [fileMenu addItemWithTitle:@"Save" action:@selector(emptyAction:) keyEquivalent:@"s"];
+    [fileMenuItem setSubmenu:fileMenu];
+    [menubar addItem:fileMenuItem];
+}
+
+- (void)emptyAction:(id)sender {
+
 }
 
 @end
