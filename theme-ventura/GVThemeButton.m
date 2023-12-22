@@ -1,5 +1,6 @@
 #import "GVTheme.h"
 #import "GVThemeButton.h"
+#import "GVThemeColors.h"
 #import "GVThemePrivate.h"
 
 void GVThemeButtonDrawing(NSRect frame, 
@@ -9,9 +10,11 @@ void GVThemeButtonDrawing(NSRect frame,
                           GSThemeControlState state, 
                           GVTheme *theme) {
 
-  NSColor	*color = nil;
-  NSColor   *backgroundColor = [NSColor whiteColor]; 
-  NSColor   *textColor = [NSColor blackColor];
+    CGFloat         padding = 5.0;
+    NSRect          paddedFrame = NSInsetRect(frame, padding, padding);
+    NSBezierPath    *bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
+    NSColor         *backgroundColor = [NSColor whiteColor]; 
+    NSColor         *bezelColor = [NSColor lightGrayColor];
 
 /* Què és això?
     NSString	*name = [theme nameForElement: cell];
@@ -29,46 +32,80 @@ void GVThemeButtonDrawing(NSRect frame,
         backgroundColor = [NSColor selectedControlColor];
     }
     else if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+        // This is while the button is being clicked
         backgroundColor = [NSColor selectedControlColor];
     }
     else {
         backgroundColor = [NSColor whiteColor];
     }
 
+
+
     switch (style)
     {
     case NSRoundRectBezelStyle:
-        NSLog(@"TODO GVThemeButton NSRoundRectBezelStyle");
-        break;
-    case NSTexturedRoundedBezelStyle:
-        NSLog(@"TODO GVThemeButton NSTexturedRoundedBezelStyle");
+        paddedFrame = NSInsetRect(frame, 0, padding + 1);
+        bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
+        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.1];
+            [backgroundColor set];
+            [bezelPath fill];
+        }
+        [bezelColor setStroke];
+        [bezelPath setLineWidth:1.0];
+        [bezelPath stroke];
         break;
     case NSRoundedBezelStyle:
-        NSLog(@"TODO GVThemeButton NSRoundedBezelStyle");
-        break;
-    case NSTexturedSquareBezelStyle:
-        NSLog(@"TODO GVThemeButton NSTexturedSquareBezelStyle");
+        [backgroundColor set];
+        [bezelPath fill];
+        [bezelColor setStroke];
+        [bezelPath setLineWidth:1.0];
+        [bezelPath stroke];
         break;
     case NSSmallSquareBezelStyle:
-        NSLog(@"TODO GVThemeButton NSSmallSquareBezelStyle");
+        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+            backgroundColor = GVThemeColorRGB(179, 179, 179, 1.0);
+        }
+        [backgroundColor set];
+        NSRectFill(frame);
+        NSBezierPath *borderPath = [NSBezierPath bezierPathWithRect:frame];
+        bezelColor = [NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:0.2 alpha:1.0];
+        [bezelColor setStroke];
+        [borderPath setLineWidth:1.0];
+        [borderPath stroke];
         break;
     case NSRegularSquareBezelStyle:
-        NSLog(@"TODO GVThemeButton NSRegularSquareBezelStyle");
+        paddedFrame = NSInsetRect(frame, 0, padding - 2);
+        bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
+        [backgroundColor set];
+        [bezelPath fill];
+        [bezelColor setStroke];
+        [bezelPath setLineWidth:1.0];
+        [bezelPath stroke];
         break;
     case NSShadowlessSquareBezelStyle:
         NSLog(@"TODO GVThemeButton NSShadowlessSquareBezelStyle");
         break;
-    case NSThickSquareBezelStyle:
-        NSLog(@"TODO GVThemeButton NSThickSquareBezelStyle");
-        break;
     case NSThickerSquareBezelStyle:
-        NSLog(@"TODO GVThemeButton NSThickerSquareBezelStyle");
+        paddedFrame = NSInsetRect(frame, 0, padding - 2);
+        bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
+        [backgroundColor set];
+        [bezelPath fill];
+        [bezelColor setStroke];
+        [bezelPath setLineWidth:1.0];
+        [bezelPath stroke];
+        break;
+    case NSThickSquareBezelStyle:
+        paddedFrame = NSInsetRect(frame, padding, padding - 2);
+        bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
+        [backgroundColor set];
+        [bezelPath fill];
+        [bezelColor setStroke];
+        [bezelPath setLineWidth:1.0];
+        [bezelPath stroke];
         break;
     case NSCircularBezelStyle:
         NSLog(@"TODO GVThemeButton NSCircularBezelStyle");
-        break;
-    case NSHelpButtonBezelStyle:
-        NSLog(@"TODO GVThemeButton NSHelpButtonBezelStyle");
         break;
     case NSDisclosureBezelStyle:
         NSLog(@"TODO GVThemeButton NSDisclosureBezelStyle");
@@ -76,15 +113,29 @@ void GVThemeButtonDrawing(NSRect frame,
     case NSRoundedDisclosureBezelStyle:
         NSLog(@"TODO GVThemeButton NSRoundedDisclosureBezelStyle");
         break;
+    case NSHelpButtonBezelStyle:
+        NSLog(@"TODO GVThemeButton NSHelpButtonBezelStyle");
+        break;
+
     case NSRecessedBezelStyle:
         NSLog(@"TODO GVThemeButton NSRecessedBezelStyle");
         break;
+    case NSTexturedRoundedBezelStyle:
+        NSLog(@"TODO GVThemeButton NSTexturedRoundedBezelStyle");
+        break;
+    case NSTexturedSquareBezelStyle:
+        NSLog(@"TODO GVThemeButton NSTexturedSquareBezelStyle");
+        break;
     default:
         NSLog(@"TODO GVThemeButton button default");
+        [backgroundColor set];
+        [bezelPath fill];
+        [bezelColor setStroke];
+        [bezelPath setLineWidth:1.0];
+        [bezelPath stroke];
     }
 
-    // Definir el padding desitjat
-    CGFloat padding = 5.0;
+   
 
 /* TODO : Revisar perquè la següent shadow no es veu
 // BUG https://github.com/gnustep/libs-gui/issues/217
@@ -116,19 +167,9 @@ void GVThemeButtonDrawing(NSRect frame,
     [NSGraphicsContext restoreGraphicsState];
 */
 
-    // Dibuixar el botó amb el padding
-    NSRect paddedFrame = NSInsetRect(frame, padding, padding);
 
-    // Dibuixar el fons del botó
-    [backgroundColor set];
-    NSBezierPath *bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
-    [bezelPath fill];
 
-    // Dibuixar el relleu del botó
-    NSColor *bezelColor = [NSColor lightGrayColor];  // Relleu gris
-    [bezelColor setStroke];
-    [bezelPath setLineWidth:1.0];
-    [bezelPath stroke];
+
 
 
     
