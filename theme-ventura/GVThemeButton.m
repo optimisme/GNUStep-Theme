@@ -25,12 +25,14 @@ void GVThemeButtonDrawing(NSRect frame,
     NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:circleSquareRect];
     NSBezierPath *squarePath = [NSBezierPath bezierPathWithRoundedRect:circleSquareRect xRadius:5.0 yRadius:5.0];
 
-
     // For chevron arrows
     NSPoint center = NSMakePoint(NSMidX(frame), NSMidY(frame));
     NSBezierPath *chevronPath = [NSBezierPath bezierPath];
     CGFloat chevronWidth = 2.5;
     CGFloat chevronHeight = 5.0;
+
+    // For action buttons
+    BOOL isAccept = NO;
 
 /* Què és això?
     NSString	*name = [theme nameForElement: cell];
@@ -242,7 +244,17 @@ void GVThemeButtonDrawing(NSRect frame,
         }
         break;
     default:
-        NSLog(@"TODO GVThemeButton style %@", [cell title]);
+        if ([cell isKindOfClass:[NSButtonCell class]]) {
+            NSButtonCell *buttonCell = (NSButtonCell *) cell;
+            NSString *keyEquivalent = [buttonCell keyEquivalent];
+            if ([keyEquivalent isEqualToString:@"\r"]) {
+                isAccept = YES;
+            }
+        }
+        if (isAccept) {
+            backgroundColor = GVThemeColorRGB(0, 128, 0, 1.0);
+        }
+
         [backgroundColor set];
         [bezelPath fill];
         [bezelColor setStroke];
