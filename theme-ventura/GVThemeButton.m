@@ -48,7 +48,7 @@ void GVThemeButtonDrawing(NSRect frame,
         paddedFrame = NSInsetRect(frame, 0.5, padding + 1);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
-            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.1];
+            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.15];
             [backgroundColor set];
             [bezelPath fill];
         }
@@ -70,7 +70,7 @@ void GVThemeButtonDrawing(NSRect frame,
         [backgroundColor set];
         NSRectFill(frame);
         borderPath = [NSBezierPath bezierPathWithRect:frame];
-        bezelColor = [NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:0.2 alpha:1.0];
+        bezelColor = GVThemeColorRGB(166, 166, 166, 1.0); // [NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:0.2 alpha:1.0];
         [bezelColor setStroke];
         [borderPath setLineWidth:1.0];
         [borderPath stroke];
@@ -96,7 +96,7 @@ void GVThemeButtonDrawing(NSRect frame,
             [gradient drawInRect:frame angle:90.0]; 
         }
         borderPath = [NSBezierPath bezierPathWithRect:frame];
-        bezelColor = [NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:0.2 alpha:1.0];
+        bezelColor = GVThemeColorRGB(166, 166, 166, 1.0); // [NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:0.2 alpha:1.0];
         [bezelColor setStroke];
         [borderPath setLineWidth:1.0];
         [borderPath stroke];
@@ -133,16 +133,44 @@ void GVThemeButtonDrawing(NSRect frame,
         break;
 
     case NSRecessedBezelStyle:
-        NSLog(@"TODO GVThemeButton NSRecessedBezelStyle");
+        paddedFrame = NSInsetRect(frame, 0.5, padding + 1);
+        bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
+        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.15];
+            [backgroundColor set];
+            [bezelPath fill];
+        } else {
+            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.1];
+            [backgroundColor set];
+            [bezelPath fill];
+        }
         break;
     case NSTexturedRoundedBezelStyle:
-        NSLog(@"TODO GVThemeButton NSTexturedRoundedBezelStyle");
+        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.15];
+            [backgroundColor set];
+            [bezelPath fill];
+        } else {
+            [bezelColor setStroke];
+            [bezelPath setLineWidth:1.0];
+            [bezelPath stroke];
+        }
         break;
     case NSTexturedSquareBezelStyle:
         NSLog(@"TODO GVThemeButton NSTexturedSquareBezelStyle");
+        paddedFrame = NSInsetRect(frame, 0.5, padding - 2);
+        bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
+        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.15];
+            [backgroundColor set];
+            [bezelPath fill];
+        } else {
+            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.1];
+            [backgroundColor set];
+            [bezelPath fill];
+        }
         break;
     default:
-        NSLog(@"TODO GVThemeButton button default");
         [backgroundColor set];
         [bezelPath fill];
         [bezelColor setStroke];
