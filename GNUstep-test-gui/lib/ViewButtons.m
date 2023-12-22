@@ -30,13 +30,13 @@
 @end
 
 @implementation ViewButtons
-
+/*
 - (void)drawRect:(NSRect)dirtyRect {
     NSColor *customColor = [NSColor redColor];
     [customColor set];
     NSRectFill(dirtyRect);
 }
-
+*/
 - (instancetype)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect];
     if (self) {
