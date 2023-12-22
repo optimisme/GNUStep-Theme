@@ -66,6 +66,8 @@ void GVThemeButtonDrawing(NSRect frame,
     case NSSmallSquareBezelStyle:
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
             backgroundColor = GVThemeColorRGB(179, 179, 179, 1.0);
+        } else {
+            backgroundColor = GVThemeColorRGB(247, 247, 247, 1.0);
         }
         [backgroundColor set];
         NSRectFill(frame);
