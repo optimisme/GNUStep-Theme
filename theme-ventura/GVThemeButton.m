@@ -92,15 +92,6 @@ void GVThemeButtonDrawing(NSRect frame,
         [borderPath setLineWidth:1.0];
         [borderPath stroke];
         break;
-    case NSRegularSquareBezelStyle:
-        paddedFrame = NSInsetRect(frame, 0.5, padding - 2);
-        bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
-        [backgroundColor set];
-        [bezelPath fill];
-        [bezelColor setStroke];
-        [bezelPath setLineWidth:1.0];
-        [bezelPath stroke];
-        break;
     case NSShadowlessSquareBezelStyle:
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
             backgroundColor = GVThemeColorRGB(179, 179, 179, 1.0);
@@ -118,15 +109,8 @@ void GVThemeButtonDrawing(NSRect frame,
         [borderPath setLineWidth:1.0];
         [borderPath stroke];
         break;
+    case NSRegularSquareBezelStyle:
     case NSThickerSquareBezelStyle:
-        paddedFrame = NSInsetRect(frame, 0.5, padding - 2);
-        bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
-        [backgroundColor set];
-        [bezelPath fill];
-        [bezelColor setStroke];
-        [bezelPath setLineWidth:1.0];
-        [bezelPath stroke];
-        break;
     case NSThickSquareBezelStyle:
         paddedFrame = NSInsetRect(frame, padding, padding - 2);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
@@ -258,6 +242,7 @@ void GVThemeButtonDrawing(NSRect frame,
         }
         break;
     default:
+        NSLog(@"TODO GVThemeButton style %@", [cell title]);
         [backgroundColor set];
         [bezelPath fill];
         [bezelColor setStroke];

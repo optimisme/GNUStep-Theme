@@ -4,7 +4,7 @@
 //
 //  Created by Albert Palacios Jimenez on 22/12/23.
 //
-
+#import "Constants.h"
 #import "ViewButtons.h"
 
 @interface ViewButtons()
@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSButton *bRecessed;
 @property (nonatomic, strong) NSButton *bTexRounded;
 @property (nonatomic, strong) NSButton *bTexSquare;
+@property (nonatomic, strong) NSButton *bToolbar;
 @property (nonatomic, strong) NSButton *bAccept;
 
 @end
@@ -71,133 +72,84 @@
         [self.buttonDefault setShadow:shadow];
 
 */
-#ifdef GNS
-        style = NSRoundRectBezelStyle;
-#else
-        style = NSBezelStyleAccessoryBarAction;
-#endif
+
+        style = CTBezelStyleAccessoryBarAction;
         self.bRoundRect = [self createButtonWithTitle:@"R Rect" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bRoundRect];
         
-#ifdef GNS
-        style = NSRoundedBezelStyle;
-#else
-        style = NSBezelStylePush;
-#endif
+
+        style = CTBezelStylePush;
         self.bRounded = [self createButtonWithTitle:@"Rounded" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bRounded];
         
-#ifdef GNS
-        style = NSSmallSquareBezelStyle;
-#else
-        style = NSBezelStyleSmallSquare;
-#endif
+
+        style = CTBezelStyleSmallSquare;
         self.bSmallSquare = [self createButtonWithTitle:@"Small Sqr" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bSmallSquare];
         
-#ifdef GNS
-        style = NSRegularSquareBezelStyle;
-#else
-        style = NSBezelStyleFlexiblePush;
-#endif
+
+        style = CTBezelStyleFlexiblePush;
         self.bRegularSquare = [self createButtonWithTitle:@"Regular Sqr" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bRegularSquare];
 
-#ifdef GNS
-        style = NSShadowlessSquareBezelStyle;
-#else
-        style = NSBezelStyleShadowlessSquare;
-#endif
+
+        style = CTBezelStyleShadowlessSquare;
         self.bShadowless = [self createButtonWithTitle:@"Shadowless" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bShadowless];
 
         // 2nd line
 
-#ifdef GNS
-        style = NSThickerSquareBezelStyle;
-#else
-        style = NSBezelStyleFlexiblePush;
-#endif
+
+        style = CTBezelStyleFlexiblePush;
         self.bThicker = [self createButtonWithTitle:@"Thicker" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bThicker];
 
-#ifdef GNS
-        style = NSThickSquareBezelStyle;
-#else
-        style = NSBezelStyleFlexiblePush;
-#endif
+
+        style = CTBezelStyleFlexiblePush;
         self.bThickSquare = [self createButtonWithTitle:@"Thick Sqr" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bThickSquare];
-        
-#ifdef GNS
-        style = NSCircularBezelStyle;
-#else
-        style = NSBezelStyleCircular;
-#endif
+
+        style = CTBezelStyleCircular;
         self.bCircular = [self createButtonWithTitle:@"Circular" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bCircular];
         
-#ifdef GNS
-        style = NSDisclosureBezelStyle;
-#else
-        style = NSBezelStyleDisclosure;
-#endif
+
+        style = CTBezelStyleDisclosure;
         self.disclosureButtonIsOpen = NO;
         self.bDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-#ifdef GNS
-        [self.bDisclosure setButtonType:NSPushOnPushOffButton];
-#else
-        [self.bDisclosure setButtonType:NSButtonTypePushOnPushOff];
-#endif
+
+        [self.bDisclosure setButtonType:CTButtonTypePushOnPushOff];
         [self addSubview:self.bDisclosure];
         
-#ifdef GNS
-        style = NSRoundedDisclosureBezelStyle;
-#else
-        style = NSBezelStylePushDisclosure;
-#endif
+        style = CTBezelStylePushDisclosure;
         self.bRoundedDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-#ifdef GNS
-        [self.bRoundedDisclosure setButtonType:NSPushOnPushOffButton];
-#else
-        [self.bRoundedDisclosure setButtonType:NSButtonTypePushOnPushOff];
-#endif
+
+        [self.bRoundedDisclosure setButtonType:CTButtonTypePushOnPushOff];
         [self addSubview:self.bRoundedDisclosure];
-        
-#ifdef GNS
-        style = NSHelpButtonBezelStyle;
-#else
-        style = NSBezelStyleHelpButton;
-#endif
+
+        style = CTBezelStyleHelpButton;
         self.bHelp = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bHelp];
 
         // 3rd line
 
-#ifdef GNS
-        style = NSRecessedBezelStyle;
-#else
-        style = NSBezelStyleAccessoryBar;
-#endif
+        style = CTBezelStyleAccessoryBar;
         self.bRecessed = [self createButtonWithTitle:@"Recessed" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bRecessed];
 
-#ifdef GNS
-        style = NSTexturedRoundedBezelStyle;
-#else
-        style = NSBezelStyleToolbar;
-#endif
+
+        style = CTBezelStyleTexturedRounded;
         self.bTexRounded = [self createButtonWithTitle:@"T Rounded" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bTexRounded];
         
-#ifdef GNS
-        style = NSTexturedSquareBezelStyle;
-#else
-        style = NSBezelStyleTexturedSquare;
-#endif
+        style = CTBezelStyleTexturedSquare;
         self.bTexSquare = [self createButtonWithTitle:@"T Sqr" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bTexSquare];
  
+        style = CTBezelStyleToolbar;
+        self.bToolbar = [self createButtonWithTitle:@"Toolbar" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
+        [self addSubview:self.bToolbar];
+
         // Action styles
         self.lActions = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.lActions setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -207,18 +159,14 @@
         [self.lActions setStringValue:@"Actions"];
         [self addSubview:self.lActions];
         
-#ifdef GNS
-        style = NSTexturedRoundedBezelStyle;
-#else
-        style = NSBezelStyleTexturedRounded;
-#endif
+
+        style = CTBezelStyleTexturedRounded;
+
         // Definir el color d'accent
         self.bAccept = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
-#ifdef GNS
-        [self.bAccept setButtonType:NSMomentaryPushInButton];
-#else
-        [self.bAccept setButtonType:NSButtonTypeMomentaryPushIn];
-#endif
+        [self.bAccept setTitle:@"Accept"];
+
+        [self.bAccept setButtonType:CTButtonTypeMomentaryPushIn];
         [self.bAccept setKeyEquivalent:@"\r"];
         [self addSubview:self.bAccept];
     }
@@ -290,6 +238,8 @@
     [self.bTexRounded setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
     buttonX = buttonX + buttonSpacingHorizontal;
     [self.bTexSquare setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+    buttonX = buttonX + buttonSpacingHorizontal;
+    [self.bToolbar setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
     
     // Label actions
     buttonX = 20;
