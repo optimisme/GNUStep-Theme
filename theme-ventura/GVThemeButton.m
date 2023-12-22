@@ -45,7 +45,7 @@ void GVThemeButtonDrawing(NSRect frame,
         backgroundColor = [NSColor controlBackgroundColor];
     }
     else if (state == GSThemeHighlightedState || state == GSThemeHighlightedFirstResponderState) {
-        backgroundColor = [NSColor selectedControlColor];
+        backgroundColor = [NSColor controlBackgroundColor];
     }
     else if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
         // This is while the button is being clicked
@@ -144,7 +144,7 @@ void GVThemeButtonDrawing(NSRect frame,
         [circlePath stroke];
         break;
     case NSDisclosureBezelStyle:
-        if (state == NSOffState) {
+        if (cell.state == NSOffState) {
             // Dibuixa chevron mirant a la dreta
             [chevronPath moveToPoint:NSMakePoint(center.x - chevronWidth, center.y + chevronHeight)];
             [chevronPath lineToPoint:NSMakePoint(center.x + chevronWidth, center.y)];
@@ -167,13 +167,12 @@ void GVThemeButtonDrawing(NSRect frame,
         [chevronPath stroke];
         break;
     case NSRoundedDisclosureBezelStyle:
-        NSLog(@"TODO GVThemeButton NSRoundedDisclosureBezelStyle");
         [backgroundColor set];
         [squarePath fill];
         [bezelColor setStroke];
         [squarePath setLineWidth:1.0];
         [squarePath stroke];
-        if (state == NSOffState) {
+        if (cell.state == NSOffState) {
             // Dibuixa chevron mirant avall
             [chevronPath moveToPoint:NSMakePoint(center.x - chevronHeight, center.y - chevronWidth)];
             [chevronPath lineToPoint:NSMakePoint(center.x, center.y + chevronWidth)];
@@ -184,8 +183,6 @@ void GVThemeButtonDrawing(NSRect frame,
             [chevronPath lineToPoint:NSMakePoint(center.x, center.y - chevronWidth)];
             [chevronPath lineToPoint:NSMakePoint(center.x + chevronHeight, center.y + chevronWidth)];
         }
-            NSLog(@"El valor de l'estat del botó és: %ld", (long)state);
-
 
         // Estableix el dibuix
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
@@ -248,7 +245,6 @@ void GVThemeButtonDrawing(NSRect frame,
         }
         break;
     case NSTexturedSquareBezelStyle:
-        NSLog(@"TODO GVThemeButton NSTexturedSquareBezelStyle");
         paddedFrame = NSInsetRect(frame, 0.5, padding - 2);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
