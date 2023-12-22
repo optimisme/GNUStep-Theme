@@ -143,7 +143,11 @@
 #endif
         self.disclosureButtonIsOpen = NO;
         self.bDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        //[self.bDisclosure setButtonType:NSButtonTypePushOnPushOff];
+#ifdef GNS
+        [self.bDisclosure setButtonType:NSPushOnPushOffButton];
+#else
+        [self.bDisclosure setButtonType:NSButtonTypePushOnPushOff];
+#endif
         [self addSubview:self.bDisclosure];
         
 #ifdef GNS
@@ -152,7 +156,11 @@
         style = NSBezelStylePushDisclosure;
 #endif
         self.bRoundedDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        //[self.bRoundedDisclosure setButtonType:NSButtonTypePushOnPushOff];
+#ifdef GNS
+        [self.bRoundedDisclosure setButtonType:NSPushOnPushOffButton];
+#else
+        [self.bRoundedDisclosure setButtonType:NSButtonTypePushOnPushOff];
+#endif
         [self addSubview:self.bRoundedDisclosure];
         
 #ifdef GNS

@@ -17,12 +17,20 @@ void GVThemeButtonDrawing(NSRect frame,
     NSBezierPath    *borderPath = [NSBezierPath bezierPathWithRect:frame];
     NSColor         *backgroundColor = [NSColor whiteColor]; 
 
-    // For circular buttons
+    // For circular buttons (and chevron square)
     CGFloat diameter = MIN(frame.size.width, frame.size.height) - ((padding * 2) - 2);
-    NSRect circleRect = NSMakeRect(frame.origin.x, frame.origin.y, diameter, diameter);
-    circleRect.origin.x += (frame.size.width - diameter) / 2;
-    circleRect.origin.y += (frame.size.height - diameter) / 2;
-    NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:circleRect];
+    NSRect circleSquareRect = NSMakeRect(frame.origin.x, frame.origin.y, diameter, diameter);
+    circleSquareRect.origin.x += (frame.size.width - diameter) / 2;
+    circleSquareRect.origin.y += (frame.size.height - diameter) / 2;
+    NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:circleSquareRect];
+    NSBezierPath *squarePath = [NSBezierPath bezierPathWithRoundedRect:circleSquareRect xRadius:5.0 yRadius:5.0];
+
+
+    // For chevron arrows
+    NSPoint center = NSMakePoint(NSMidX(frame), NSMidY(frame));
+    NSBezierPath *chevronPath = [NSBezierPath bezierPath];
+    CGFloat chevronWidth = 2.5;
+    CGFloat chevronHeight = 5.0;
 
 /* Què és això?
     NSString	*name = [theme nameForElement: cell];
@@ -136,10 +144,58 @@ void GVThemeButtonDrawing(NSRect frame,
         [circlePath stroke];
         break;
     case NSDisclosureBezelStyle:
-        NSLog(@"TODO GVThemeButton NSDisclosureBezelStyle");
+        if (state == NSOffState) {
+            // Dibuixa chevron mirant a la dreta
+            [chevronPath moveToPoint:NSMakePoint(center.x - chevronWidth, center.y + chevronHeight)];
+            [chevronPath lineToPoint:NSMakePoint(center.x + chevronWidth, center.y)];
+            [chevronPath lineToPoint:NSMakePoint(center.x - chevronWidth, center.y - chevronHeight)];
+        } else {
+            // Dibuixa chevron mirant avall
+            [chevronPath moveToPoint:NSMakePoint(center.x - chevronHeight, center.y - chevronWidth)];
+            [chevronPath lineToPoint:NSMakePoint(center.x, center.y + chevronWidth)];
+            [chevronPath lineToPoint:NSMakePoint(center.x + chevronHeight, center.y - chevronWidth)];
+        }
+
+        // Estableix el dibuix
+        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+            bezelColor = GVThemeColorRGB(64, 64, 64, 1.0);
+        } else {
+            bezelColor = GVThemeColorRGB(128, 128, 128, 1.0);
+        }
+        [bezelColor setStroke];
+        [chevronPath setLineWidth:2.0];
+        [chevronPath stroke];
         break;
     case NSRoundedDisclosureBezelStyle:
         NSLog(@"TODO GVThemeButton NSRoundedDisclosureBezelStyle");
+        [backgroundColor set];
+        [squarePath fill];
+        [bezelColor setStroke];
+        [squarePath setLineWidth:1.0];
+        [squarePath stroke];
+        if (state == NSOffState) {
+            // Dibuixa chevron mirant avall
+            [chevronPath moveToPoint:NSMakePoint(center.x - chevronHeight, center.y - chevronWidth)];
+            [chevronPath lineToPoint:NSMakePoint(center.x, center.y + chevronWidth)];
+            [chevronPath lineToPoint:NSMakePoint(center.x + chevronHeight, center.y - chevronWidth)];
+        } else {
+            // Dibuixa chevron mirant amunt
+            [chevronPath moveToPoint:NSMakePoint(center.x - chevronHeight, center.y + chevronWidth)];
+            [chevronPath lineToPoint:NSMakePoint(center.x, center.y - chevronWidth)];
+            [chevronPath lineToPoint:NSMakePoint(center.x + chevronHeight, center.y + chevronWidth)];
+        }
+            NSLog(@"El valor de l'estat del botó és: %ld", (long)state);
+
+
+        // Estableix el dibuix
+        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+            bezelColor = GVThemeColorRGB(64, 64, 64, 1.0);
+        } else {
+            bezelColor = GVThemeColorRGB(128, 128, 128, 1.0);
+        }
+        [bezelColor setStroke];
+        [chevronPath setLineWidth:2.0];
+        [chevronPath stroke];
         break;
     case NSHelpButtonBezelStyle:
         [backgroundColor set];
@@ -157,8 +213,8 @@ void GVThemeButtonDrawing(NSRect frame,
         // Calcular el rectangle centrat per al text
         NSString *questionMark = @"?";
         NSSize textSize = [questionMark sizeWithAttributes:attributes];
-        NSRect textRect = NSMakeRect(circleRect.origin.x,
-                                    circleRect.origin.y + (diameter - textSize.height) / 2,
+        NSRect textRect = NSMakeRect(circleSquareRect.origin.x,
+                                    circleSquareRect.origin.y + (diameter - textSize.height) / 2,
                                     diameter,
                                     textSize.height);
 
