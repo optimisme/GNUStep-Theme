@@ -17,6 +17,13 @@ void GVThemeButtonDrawing(NSRect frame,
     NSBezierPath    *borderPath = [NSBezierPath bezierPathWithRect:frame];
     NSColor         *backgroundColor = [NSColor whiteColor]; 
 
+    // For circular buttons
+    CGFloat diameter = MIN(frame.size.width, frame.size.height) - ((padding * 2) - 4);
+    NSRect circleRect = NSMakeRect(frame.origin.x, frame.origin.y, diameter, diameter);
+    circleRect.origin.x += (frame.size.width - diameter) / 2;
+    circleRect.origin.y += (frame.size.height - diameter) / 2;
+    NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:circleRect];
+
 /* Què és això?
     NSString	*name = [theme nameForElement: cell];
     if (name == nil) {
@@ -122,7 +129,11 @@ void GVThemeButtonDrawing(NSRect frame,
         [bezelPath stroke];
         break;
     case NSCircularBezelStyle:
-        NSLog(@"TODO GVThemeButton NSCircularBezelStyle");
+        [backgroundColor set];
+        [circlePath fill];
+        [bezelColor setStroke];
+        [circlePath setLineWidth:1.0];
+        [circlePath stroke];
         break;
     case NSDisclosureBezelStyle:
         NSLog(@"TODO GVThemeButton NSDisclosureBezelStyle");
@@ -131,7 +142,29 @@ void GVThemeButtonDrawing(NSRect frame,
         NSLog(@"TODO GVThemeButton NSRoundedDisclosureBezelStyle");
         break;
     case NSHelpButtonBezelStyle:
-        NSLog(@"TODO GVThemeButton NSHelpButtonBezelStyle");
+        [backgroundColor set];
+        [circlePath fill];
+        [bezelColor setStroke];
+        [circlePath setLineWidth:1.0];
+        [circlePath stroke];
+
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setAlignment:NSTextAlignmentCenter];
+        NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:diameter / 1.5],
+                                    NSForegroundColorAttributeName: [NSColor blackColor],
+                                    NSParagraphStyleAttributeName: paragraphStyle};
+
+        // Calcular el rectangle centrat per al text
+        NSString *questionMark = @"?";
+        NSSize textSize = [questionMark sizeWithAttributes:attributes];
+        NSRect textRect = NSMakeRect(circleRect.origin.x,
+                                    circleRect.origin.y + (diameter - textSize.height) / 2,
+                                    diameter,
+                                    textSize.height);
+
+        // Dibuixar el signe d'interrogació dins del cercle
+        [questionMark drawInRect:textRect withAttributes:attributes];
+
         break;
 
     case NSRecessedBezelStyle:

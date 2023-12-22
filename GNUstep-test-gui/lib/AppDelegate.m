@@ -40,6 +40,10 @@
     [self windowDidResize:nil];
 }
 
+- (BOOL) isFlipped {
+    return YES;
+}
+
 - (void)windowDidResize:(NSNotification *)notification {
     NSView *contentView = (NSView *)self.window.contentView;
     NSRect contentViewBounds = contentView.bounds;

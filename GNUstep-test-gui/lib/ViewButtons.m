@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSButton *bThickSquare;
 @property (nonatomic, strong) NSButton *bCircular;
 @property (nonatomic, strong) NSButton *bDisclosure;
+@property (nonatomic, assign) BOOL disclosureButtonIsOpen;
 @property (nonatomic, strong) NSButton *bRoundedDisclosure;
 @property (nonatomic, strong) NSButton *bHelp;
 @property (nonatomic, strong) NSButton *bRecessed;
@@ -140,7 +141,9 @@
 #else
         style = NSBezelStyleDisclosure;
 #endif
+        self.disclosureButtonIsOpen = NO;
         self.bDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
+        //[self.bDisclosure setButtonType:NSButtonTypePushOnPushOff];
         [self addSubview:self.bDisclosure];
         
 #ifdef GNS
@@ -149,6 +152,7 @@
         style = NSBezelStylePushDisclosure;
 #endif
         self.bRoundedDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
+        //[self.bRoundedDisclosure setButtonType:NSButtonTypePushOnPushOff];
         [self addSubview:self.bRoundedDisclosure];
         
 #ifdef GNS
@@ -208,11 +212,15 @@
     return button;
 }
 
+- (BOOL) isFlipped {
+    return YES;
+}
+
 - (void)windowDidResize:(NSRect)frame {
 
     // Reposicionar els elements en base a les noves mides
     CGFloat buttonX = 20;
-    CGFloat buttonY = frame.size.height - 35;
+    CGFloat buttonY = 35;
     CGFloat buttonWidth = 100;
     CGFloat buttonHeight = 30;
     CGFloat buttonSpacingHorizontal = buttonWidth + 20;
@@ -223,7 +231,7 @@
 
     // 1st line
     buttonX = 20;
-    buttonY = buttonY - buttonSpacingVertical;
+    buttonY = buttonY + buttonSpacingVertical;
     [self.bDefault setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
     buttonX = buttonX + buttonSpacingHorizontal;
     [self.bRoundRect setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
@@ -238,7 +246,7 @@
     
     // 2nd line
     buttonX = 20;
-    buttonY = buttonY - buttonSpacingVertical;
+    buttonY = buttonY + buttonSpacingVertical;
     [self.bThicker setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
     buttonX = buttonX + buttonSpacingHorizontal;
     [self.bThickSquare setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
@@ -253,7 +261,7 @@
     
     // 3rd line
     buttonX = 20;
-    buttonY = buttonY - buttonSpacingVertical;
+    buttonY = buttonY + buttonSpacingVertical;
     [self.bRecessed setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
     buttonX = buttonX + buttonSpacingHorizontal;
     [self.bTexRounded setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
@@ -262,7 +270,7 @@
     
     // Label actions
     buttonX = 20;
-    buttonY = buttonY - 35;
+    buttonY = buttonY + 35;
     [self.lActions setFrame:NSMakeRect(20, buttonY, 150, 30)];
 }
 
