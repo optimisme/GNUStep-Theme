@@ -228,18 +228,18 @@
 
     // Reposicionar els elements en base a les noves mides
     CGFloat buttonX = 20;
-    CGFloat buttonY = 35;
+    CGFloat buttonY = 15;
     CGFloat buttonWidth = 100;
     CGFloat buttonHeight = 30;
     CGFloat buttonSpacingHorizontal = buttonWidth + 20;
-    CGFloat buttonSpacingVertical = buttonHeight + 20;
+    CGFloat buttonSpacingVertical = buttonHeight + 10;
     
     // Label styles
     [self.lStyles setFrame:NSMakeRect(20, buttonY, 150, 30)];
 
     // 1st line
     buttonX = 20;
-    buttonY = buttonY + buttonSpacingVertical;
+    buttonY = buttonY + 25;
     [self.bDefault setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
     buttonX = buttonX + buttonSpacingHorizontal;
     [self.bRoundRect setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
@@ -278,8 +278,12 @@
     
     // Label actions
     buttonX = 20;
-    buttonY = buttonY + 35;
+    buttonY = buttonY + 50;
     [self.lActions setFrame:NSMakeRect(20, buttonY, 150, 30)];
+    
+    // 4th line
+    buttonX = 20;
+    buttonY = buttonY + 25;
 }
 
 - (void)buttonClicked:(id)sender {
