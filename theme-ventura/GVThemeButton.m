@@ -13,8 +13,9 @@ void GVThemeButtonDrawing(NSRect frame,
     CGFloat         padding = 5.0;
     NSRect          paddedFrame = NSInsetRect(frame, padding, padding);
     NSBezierPath    *bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
-    NSColor         *backgroundColor = [NSColor whiteColor]; 
     NSColor         *bezelColor = [NSColor lightGrayColor];
+    NSBezierPath    *borderPath = [NSBezierPath bezierPathWithRect:frame];
+    NSColor         *backgroundColor = [NSColor whiteColor]; 
 
 /* Què és això?
     NSString	*name = [theme nameForElement: cell];
@@ -44,7 +45,7 @@ void GVThemeButtonDrawing(NSRect frame,
     switch (style)
     {
     case NSRoundRectBezelStyle:
-        paddedFrame = NSInsetRect(frame, 0, padding + 1);
+        paddedFrame = NSInsetRect(frame, 0.5, padding + 1);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
             backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.1];
@@ -68,14 +69,14 @@ void GVThemeButtonDrawing(NSRect frame,
         }
         [backgroundColor set];
         NSRectFill(frame);
-        NSBezierPath *borderPath = [NSBezierPath bezierPathWithRect:frame];
+        borderPath = [NSBezierPath bezierPathWithRect:frame];
         bezelColor = [NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:0.2 alpha:1.0];
         [bezelColor setStroke];
         [borderPath setLineWidth:1.0];
         [borderPath stroke];
         break;
     case NSRegularSquareBezelStyle:
-        paddedFrame = NSInsetRect(frame, 0, padding - 2);
+        paddedFrame = NSInsetRect(frame, 0.5, padding - 2);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
         [backgroundColor set];
         [bezelPath fill];
@@ -84,10 +85,24 @@ void GVThemeButtonDrawing(NSRect frame,
         [bezelPath stroke];
         break;
     case NSShadowlessSquareBezelStyle:
-        NSLog(@"TODO GVThemeButton NSShadowlessSquareBezelStyle");
+        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
+            backgroundColor = GVThemeColorRGB(179, 179, 179, 1.0);
+            [backgroundColor set];
+            NSRectFill(frame);
+        } else {
+            NSColor *startColor = GVThemeColorRGB(225, 225, 225, 1.0);
+            NSColor *endColor = GVThemeColorRGB(246, 246, 246, 1.0);
+            NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
+            [gradient drawInRect:frame angle:90.0]; 
+        }
+        borderPath = [NSBezierPath bezierPathWithRect:frame];
+        bezelColor = [NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:0.2 alpha:1.0];
+        [bezelColor setStroke];
+        [borderPath setLineWidth:1.0];
+        [borderPath stroke];
         break;
     case NSThickerSquareBezelStyle:
-        paddedFrame = NSInsetRect(frame, 0, padding - 2);
+        paddedFrame = NSInsetRect(frame, 0.5, padding - 2);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
         [backgroundColor set];
         [bezelPath fill];
