@@ -57,8 +57,6 @@ void GVThemeButtonDrawing(NSRect frame,
         backgroundColor = [NSColor whiteColor];
     }
 
-
-
     switch (style)
     {
     case NSRoundRectBezelStyle:
