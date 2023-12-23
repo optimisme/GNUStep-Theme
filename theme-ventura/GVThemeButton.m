@@ -3,6 +3,13 @@
 #import "GVThemeColors.h"
 #import "GVThemePrivate.h"
 
+/* List of related bugs
+    https://github.com/gnustep/libs-gui/issues/219 prevent text movement
+    https://github.com/gnustep/libs-gui/issues/224 NSCircularBezelStyle should cut text
+    https://github.com/gnustep/libs-gui/issues/227 theming accpet button
+    https://github.com/gnustep/libs-gui/issues/217 shadow not working
+*/
+
 void GVThemeButtonDrawing(NSRect frame, 
                           NSCell *cell, 
                           NSView *view, 
@@ -16,13 +23,7 @@ void GVThemeButtonDrawing(NSRect frame,
     NSColor         *bezelColor = [NSColor lightGrayColor];
     NSBezierPath    *borderPath = [NSBezierPath bezierPathWithRect:frame];
     NSColor         *backgroundColor = [NSColor whiteColor]; 
-
-/* List of related bugs
-    https://github.com/gnustep/libs-gui/issues/219 prevent text movement
-    https://github.com/gnustep/libs-gui/issues/224 NSCircularBezelStyle should cut text
-    https://github.com/gnustep/libs-gui/issues/227 theming accpet button
-    https://github.com/gnustep/libs-gui/issues/217 shadow not working
-*/
+    NSColor         *textColor = [NSColor blackColor];
 
     // For customizing the text and action cells
     NSMutableParagraphStyle *paragraphStyle;
@@ -199,7 +200,7 @@ void GVThemeButtonDrawing(NSRect frame,
         paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle setAlignment:NSTextAlignmentCenter];
         attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:diameter / 1.40],
-                                    NSForegroundColorAttributeName: [NSColor blackColor],
+                                    NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: paragraphStyle};
 
         // Calcular el rectangle centrat per al text
@@ -214,7 +215,6 @@ void GVThemeButtonDrawing(NSRect frame,
         [questionMark drawInRect:textRect withAttributes:attributes];
         break;
     case NSRecessedBezelStyle:
-        bezelColor = GVThemeColorRGB(111, 111, 111, 1.0);
         paddedFrame = NSInsetRect(frame, 0.5, padding + 1);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
@@ -227,10 +227,11 @@ void GVThemeButtonDrawing(NSRect frame,
             [bezelPath fill];
         }
         if (buttonCell != nil) {
+            textColor = GVThemeColorRGB(111, 111, 111, 1.0);
             paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             [paragraphStyle setAlignment:NSTextAlignmentCenter];
             attributes = @{
-                NSForegroundColorAttributeName: bezelColor,
+                NSForegroundColorAttributeName: textColor,
                 NSParagraphStyleAttributeName: paragraphStyle,
             };
             coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
@@ -238,7 +239,6 @@ void GVThemeButtonDrawing(NSRect frame,
         }
         break;
     case NSTexturedRoundedBezelStyle:
-        bezelColor = GVThemeColorRGB(111, 111, 111, 1.0);
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
             backgroundColor = [[NSColor lightGrayColor] colorWithAlphaComponent:0.15];
             [backgroundColor set];
@@ -249,10 +249,11 @@ void GVThemeButtonDrawing(NSRect frame,
             [bezelPath stroke];
         }
         if (buttonCell != nil) {
+            textColor = GVThemeColorRGB(111, 111, 111, 1.0);
             paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             [paragraphStyle setAlignment:NSTextAlignmentCenter];
             attributes = @{
-                NSForegroundColorAttributeName: bezelColor,
+                NSForegroundColorAttributeName: textColor,
                 NSParagraphStyleAttributeName: paragraphStyle,
             };
             coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
@@ -273,10 +274,11 @@ void GVThemeButtonDrawing(NSRect frame,
             [bezelPath fill];
         }
         if (buttonCell != nil) {
+            textColor = bezelColor;
             paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             [paragraphStyle setAlignment:NSTextAlignmentCenter];
             attributes = @{
-                NSForegroundColorAttributeName: bezelColor,
+                NSForegroundColorAttributeName: textColor,
                 NSParagraphStyleAttributeName: paragraphStyle,
             };
             coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
@@ -286,10 +288,11 @@ void GVThemeButtonDrawing(NSRect frame,
     default:
         if (buttonCell != nil && keyEquivalent != nil && [keyEquivalent isEqualToString:@"\r"]) {
             // Accept button style is different
+            textColor = [NSColor whiteColor];
             paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             [paragraphStyle setAlignment:NSTextAlignmentCenter];
             attributes = @{
-                NSForegroundColorAttributeName: [NSColor whiteColor],
+                NSForegroundColorAttributeName: textColor,
                 NSParagraphStyleAttributeName: paragraphStyle,
                 NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont systemFontSize]]
             };
