@@ -248,7 +248,13 @@ void GVThemeButtonDrawing(NSRect frame,
             NSButtonCell *buttonCell = (NSButtonCell *) cell;
             NSString *keyEquivalent = [buttonCell keyEquivalent];
             if ([keyEquivalent isEqualToString:@"\r"]) {
-                NSDictionary *attributes = @{NSForegroundColorAttributeName: [NSColor whiteColor]};
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                [paragraphStyle setAlignment:NSTextAlignmentCenter];
+                NSDictionary *attributes = @{
+                    NSForegroundColorAttributeName: [NSColor whiteColor],
+                    NSParagraphStyleAttributeName: paragraphStyle,
+                    NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont systemFontSize]]
+                };
                 NSAttributedString *coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
                 [buttonCell setAttributedTitle:coloredTitle];
                 //backgroundColor = GVThemeColorRGB(0, 122, 255, 1.0);
