@@ -31,7 +31,7 @@ void GVThemeButtonDrawing(NSRect frame,
     CGFloat chevronWidth = 2.5;
     CGFloat chevronHeight = 5.0;
 
-    // For action buttons
+    // Action buttoins
     BOOL isAccept = NO;
 
 /* Què és això?
@@ -248,18 +248,20 @@ void GVThemeButtonDrawing(NSRect frame,
             NSButtonCell *buttonCell = (NSButtonCell *) cell;
             NSString *keyEquivalent = [buttonCell keyEquivalent];
             if ([keyEquivalent isEqualToString:@"\r"]) {
+                NSDictionary *attributes = @{NSForegroundColorAttributeName: [NSColor whiteColor]};
+                NSAttributedString *coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
+                [buttonCell setAttributedTitle:coloredTitle];
+                backgroundColor = GVThemeColorRGB(0, 122, 255, 1.0);
                 isAccept = YES;
             }
         }
-        if (isAccept) {
-            backgroundColor = GVThemeColorRGB(0, 128, 0, 1.0);
-        }
-
         [backgroundColor set];
         [bezelPath fill];
-        [bezelColor setStroke];
-        [bezelPath setLineWidth:1.0];
-        [bezelPath stroke];
+        if (isAccept == NO) {
+            [bezelColor setStroke];
+            [bezelPath setLineWidth:1.0];
+            [bezelPath stroke];
+        }
     }
 
    

@@ -70,13 +70,11 @@
         [shadow setShadowOffset:NSMakeSize(0, 1)];
         [shadow setShadowBlurRadius:20];
         [self.buttonDefault setShadow:shadow];
-
 */
 
         style = CTBezelStyleAccessoryBarAction;
         self.bRoundRect = [self createButtonWithTitle:@"R Rect" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bRoundRect];
-        
 
         style = CTBezelStylePush;
         self.bRounded = [self createButtonWithTitle:@"Rounded" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
@@ -158,7 +156,6 @@
         [self.lActions setDrawsBackground:NO];
         [self.lActions setStringValue:@"Actions"];
         [self addSubview:self.lActions];
-        
 
         style = CTBezelStyleTexturedRounded;
 
