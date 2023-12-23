@@ -33,16 +33,58 @@
 @end
 
 @implementation ViewButtons
-/*
+
 - (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
+/*
+    // View background color
     NSColor *customColor = [NSColor redColor];
     [customColor set];
     NSRectFill(dirtyRect);
-}
 */
+/*
+    // Clipped gradient example
+    NSColor *startColor = [NSColor greenColor];
+    NSColor *endColor = [NSColor blueColor];
+    NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
+
+    NSRect frame = NSMakeRect(50, 50, 100, 50);
+    NSBezierPath *bezelPath = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:15.0 yRadius:15.0];
+    [NSGraphicsContext saveGraphicsState];
+    [bezelPath setClip];
+    [gradient drawInRect:frame angle:90.0];
+    [NSGraphicsContext restoreGraphicsState];
+*/
+/*
+    // Shadow example
+    NSShadow *shadow = [[NSShadow alloc] init];
+    [shadow setShadowColor:[NSColor blackColor]];
+    [shadow setShadowOffset:NSMakeSize(0, -1)];
+    [shadow setShadowBlurRadius:20];
+    [shadow set];
+    NSRect shadowFrame = NSMakeRect(50, 50, 100, 50);
+    NSBezierPath *path = [NSBezierPath bezierPathWithRect:shadowFrame];
+    [NSGraphicsContext saveGraphicsState];
+    [[NSColor whiteColor] setFill];
+    [path fill];
+    [NSGraphicsContext restoreGraphicsState];
+*/
+}
+
 - (instancetype)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect];
     if (self) {
+        
+        NSColor *startColor = [NSColor greenColor];
+        NSColor *endColor = [NSColor blueColor];
+        NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
+
+        NSRect frame = NSMakeRect(50, 50, 100, 50);
+        NSBezierPath    *bezelPath = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:5.0 yRadius:5.0];
+        [NSGraphicsContext saveGraphicsState];
+        [bezelPath setClip];
+        [gradient drawInRect:frame angle:90.0];
+        [NSGraphicsContext restoreGraphicsState];
         
         NSBezelStyle style;
         
@@ -64,17 +106,17 @@
         [self.bDefault setAction:@selector(buttonClicked:)];
         [self addSubview:self.bDefault];
 /*
-        // Crear i aplicar l'ombra
+        // Button with shadow example
         NSShadow *shadow = [[NSShadow alloc] init];
         [shadow setShadowColor:[NSColor blackColor]];
         [shadow setShadowOffset:NSMakeSize(0, 1)];
         [shadow setShadowBlurRadius:20];
         [self.buttonDefault setShadow:shadow];
 */
-
         style = CTBezelStyleAccessoryBarAction;
         self.bRoundRect = [self createButtonWithTitle:@"R Rect" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
         [self addSubview:self.bRoundRect];
+        
 
         style = CTBezelStylePush;
         self.bRounded = [self createButtonWithTitle:@"Rounded" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
@@ -96,7 +138,6 @@
         [self addSubview:self.bShadowless];
 
         // 2nd line
-
 
         style = CTBezelStyleFlexiblePush;
         self.bThicker = [self createButtonWithTitle:@"Thicker" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
@@ -156,13 +197,13 @@
         [self.lActions setDrawsBackground:NO];
         [self.lActions setStringValue:@"Actions"];
         [self addSubview:self.lActions];
+        
 
         style = CTBezelStyleTexturedRounded;
 
         // Definir el color d'accent
         self.bAccept = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
         [self.bAccept setTitle:@"Accept"];
-
         [self.bAccept setButtonType:CTButtonTypeMomentaryPushIn];
         [self.bAccept setKeyEquivalent:@"\r"];
         [self addSubview:self.bAccept];
