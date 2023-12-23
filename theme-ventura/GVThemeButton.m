@@ -184,11 +184,7 @@ void GVThemeButtonDrawing(NSRect frame,
         }
 
         // Estableix el dibuix
-        if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
-            bezelColor = GVThemeColorRGB(64, 64, 64, 1.0);
-        } else {
-            bezelColor = GVThemeColorRGB(128, 128, 128, 1.0);
-        }
+        bezelColor = GVThemeColorRGB(35, 35, 35, 1.0);
         [bezelColor setStroke];
         [chevronPath setLineWidth:2.0];
         [chevronPath stroke];
