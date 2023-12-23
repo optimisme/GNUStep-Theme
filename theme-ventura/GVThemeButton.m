@@ -17,6 +17,10 @@ void GVThemeButtonDrawing(NSRect frame,
     NSBezierPath    *borderPath = [NSBezierPath bezierPathWithRect:frame];
     NSColor         *backgroundColor = [NSColor whiteColor]; 
 
+/* List of related bugs
+    BUG : https://github.com/gnustep/libs-gui/issues/219 prevent text movement
+*/
+
     // For customizing the text
     NSMutableParagraphStyle *paragraphStyle;
     NSDictionary *attributes;
@@ -284,6 +288,7 @@ void GVThemeButtonDrawing(NSRect frame,
     default:
         if (buttonCell != nil) {
             NSString *keyEquivalent = [buttonCell keyEquivalent];
+            // Accept button style is different
             if ([keyEquivalent isEqualToString:@"\r"]) {
                 paragraphStyle = [[NSMutableParagraphStyle alloc] init];
                 [paragraphStyle setAlignment:NSTextAlignmentCenter];
@@ -344,32 +349,4 @@ void GVThemeButtonDrawing(NSRect frame,
     // Restaurar l'estat gràfic per a que la configuració de l'ombra no afecti el fons del botó
     [NSGraphicsContext restoreGraphicsState];
 */
-
-
-
-
-
-
-    
-    // On es dibuixa el titol si no aquí?
-
-/*
-    // Dibuixar el text
-
-BUG : https://github.com/gnustep/libs-gui/issues/219 per treure el moviment del text
-
-    NSDictionary *attributes = @{
-        NSFontAttributeName: [NSFont systemFontOfSize:[NSFont systemFontSize]],
-        NSForegroundColorAttributeName: textColor
-    };
-
-    NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
-    NSRect titleRect;
-    titleRect.size = [attributedTitle size];
-    titleRect.origin.x = NSMidX(paddedFrame) - (titleRect.size.width / 2);
-    titleRect.origin.y = NSMidY(paddedFrame) - (titleRect.size.height / 2);
-
-    [attributedTitle drawInRect:titleRect];
-     */
-
 }
