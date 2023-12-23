@@ -278,8 +278,6 @@ void GVThemeButtonDrawing(NSRect frame,
         }
     }
 
-   
-
 /* TODO : Revisar perquè la següent shadow no es veu
 // BUG https://github.com/gnustep/libs-gui/issues/217
 
