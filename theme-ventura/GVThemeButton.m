@@ -251,13 +251,21 @@ void GVThemeButtonDrawing(NSRect frame,
                 NSDictionary *attributes = @{NSForegroundColorAttributeName: [NSColor whiteColor]};
                 NSAttributedString *coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
                 [buttonCell setAttributedTitle:coloredTitle];
-                backgroundColor = GVThemeColorRGB(0, 122, 255, 1.0);
+                //backgroundColor = GVThemeColorRGB(0, 122, 255, 1.0);
                 isAccept = YES;
+                NSColor *startColor = GVThemeColorRGB(35, 135, 255, 1.0);
+                NSColor *endColor = GVThemeColorRGB(0, 110, 255, 1.0);
+                NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
+
+                [NSGraphicsContext saveGraphicsState];
+                [bezelPath setClip];
+                [gradient drawInRect:frame angle:90.0]; 
+                [NSGraphicsContext restoreGraphicsState];
             }
         }
-        [backgroundColor set];
-        [bezelPath fill];
         if (isAccept == NO) {
+            [backgroundColor set];
+            [bezelPath fill];
             [bezelColor setStroke];
             [bezelPath setLineWidth:1.0];
             [bezelPath stroke];
