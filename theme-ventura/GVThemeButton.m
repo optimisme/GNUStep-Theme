@@ -21,13 +21,15 @@ void GVThemeButtonDrawing(NSRect frame,
     BUG : https://github.com/gnustep/libs-gui/issues/219 prevent text movement
 */
 
-    // For customizing the text
+    // For customizing the text and action cells
     NSMutableParagraphStyle *paragraphStyle;
     NSDictionary *attributes;
     NSAttributedString *coloredTitle;
     NSButtonCell *buttonCell = nil;
+    NSString *keyEquivalent;
     if ([cell isKindOfClass:[NSButtonCell class]]) {
         buttonCell = (NSButtonCell *) cell;
+        keyEquivalent = [buttonCell keyEquivalent];
     }
 
     // For circular buttons (and chevron square)
@@ -43,9 +45,6 @@ void GVThemeButtonDrawing(NSRect frame,
     NSBezierPath *chevronPath = [NSBezierPath bezierPath];
     CGFloat chevronWidth = 2.5;
     CGFloat chevronHeight = 5.0;
-
-    // Action buttoins
-    BOOL isAccept = NO;
 
 /* Què és això?
     NSString	*name = [theme nameForElement: cell];
@@ -286,32 +285,27 @@ void GVThemeButtonDrawing(NSRect frame,
         }
         break;
     default:
-        if (buttonCell != nil) {
-            NSString *keyEquivalent = [buttonCell keyEquivalent];
+        if (buttonCell != nil && keyEquivalent != nil && [keyEquivalent isEqualToString:@"\r"]) {
             // Accept button style is different
-            if ([keyEquivalent isEqualToString:@"\r"]) {
-                paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-                [paragraphStyle setAlignment:NSTextAlignmentCenter];
-                attributes = @{
-                    NSForegroundColorAttributeName: [NSColor whiteColor],
-                    NSParagraphStyleAttributeName: paragraphStyle,
-                    NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont systemFontSize]]
-                };
-                coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
-                [buttonCell setAttributedTitle:coloredTitle];
-                //backgroundColor = GVThemeColorRGB(0, 122, 255, 1.0);
-                isAccept = YES;
-                NSColor *startColor = GVThemeColorRGB(35, 135, 255, 1.0);
-                NSColor *endColor = GVThemeColorRGB(0, 110, 255, 1.0);
-                NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
+            paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            [paragraphStyle setAlignment:NSTextAlignmentCenter];
+            attributes = @{
+                NSForegroundColorAttributeName: [NSColor whiteColor],
+                NSParagraphStyleAttributeName: paragraphStyle,
+                NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont systemFontSize]]
+            };
+            coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
+            [buttonCell setAttributedTitle:coloredTitle];
+            //backgroundColor = GVThemeColorRGB(0, 122, 255, 1.0);
+            NSColor *startColor = GVThemeColorRGB(35, 135, 255, 1.0);
+            NSColor *endColor = GVThemeColorRGB(0, 110, 255, 1.0);
+            NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
 
-                [NSGraphicsContext saveGraphicsState];
-                [bezelPath setClip];
-                [gradient drawInRect:frame angle:90.0]; 
-                [NSGraphicsContext restoreGraphicsState];
-            }
-        }
-        if (isAccept == NO) {
+            [NSGraphicsContext saveGraphicsState];
+            [bezelPath setClip];
+            [gradient drawInRect:frame angle:90.0]; 
+            [NSGraphicsContext restoreGraphicsState];
+        } else {
             [backgroundColor set];
             [bezelPath fill];
             [bezelColor setStroke];
