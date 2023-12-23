@@ -210,9 +210,7 @@ void GVThemeButtonDrawing(NSRect frame,
 
         // Dibuixar el signe d'interrogació dins del cercle
         [questionMark drawInRect:textRect withAttributes:attributes];
-
         break;
-
     case NSRecessedBezelStyle:
         paddedFrame = NSInsetRect(frame, 0.5, padding + 1);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
