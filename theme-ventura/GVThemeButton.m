@@ -17,6 +17,15 @@ void GVThemeButtonDrawing(NSRect frame,
     NSBezierPath    *borderPath = [NSBezierPath bezierPathWithRect:frame];
     NSColor         *backgroundColor = [NSColor whiteColor]; 
 
+    // For customizing the text
+    NSMutableParagraphStyle *paragraphStyle;
+    NSDictionary *attributes;
+    NSAttributedString *coloredTitle;
+    NSButtonCell *buttonCell = nil;
+    if ([cell isKindOfClass:[NSButtonCell class]]) {
+        buttonCell = (NSButtonCell *) cell;
+    }
+
     // For circular buttons (and chevron square)
     CGFloat diameter = MIN(frame.size.width, frame.size.height) - ((padding * 2) - 2);
     NSRect circleSquareRect = NSMakeRect(frame.origin.x, frame.origin.y, diameter, diameter);
@@ -185,9 +194,9 @@ void GVThemeButtonDrawing(NSRect frame,
         [circlePath setLineWidth:1.0];
         [circlePath stroke];
 
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle setAlignment:NSTextAlignmentCenter];
-        NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:diameter / 1.40],
+        attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:diameter / 1.40],
                                     NSForegroundColorAttributeName: [NSColor blackColor],
                                     NSParagraphStyleAttributeName: paragraphStyle};
 
@@ -216,6 +225,17 @@ void GVThemeButtonDrawing(NSRect frame,
             [backgroundColor set];
             [bezelPath fill];
         }
+        if (buttonCell != nil) {
+            bezelColor = GVThemeColorRGB(111, 111, 111, 1.0);
+            paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            [paragraphStyle setAlignment:NSTextAlignmentCenter];
+            attributes = @{
+                NSForegroundColorAttributeName: bezelColor,
+                NSParagraphStyleAttributeName: paragraphStyle,
+            };
+            coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
+            [buttonCell setAttributedTitle:coloredTitle];
+        }
         break;
     case NSTexturedRoundedBezelStyle:
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
@@ -227,33 +247,54 @@ void GVThemeButtonDrawing(NSRect frame,
             [bezelPath setLineWidth:1.0];
             [bezelPath stroke];
         }
+        if (buttonCell != nil) {
+            bezelColor = GVThemeColorRGB(111, 111, 111, 1.0);
+            paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            [paragraphStyle setAlignment:NSTextAlignmentCenter];
+            attributes = @{
+                NSForegroundColorAttributeName: bezelColor,
+                NSParagraphStyleAttributeName: paragraphStyle,
+            };
+            coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
+            [buttonCell setAttributedTitle:coloredTitle];
+        }
         break;
     case NSTexturedSquareBezelStyle:
         paddedFrame = NSInsetRect(frame, 0.5, padding - 2);
         bezelPath = [NSBezierPath bezierPathWithRoundedRect:paddedFrame xRadius:5.0 yRadius:5.0];
         if (state == GSThemeSelectedState || state == GSThemeSelectedFirstResponderState) {
-            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.15];
+            backgroundColor = [[NSColor lightGrayColor] colorWithAlphaComponent:0.15];
             [backgroundColor set];
             [bezelPath fill];
         } else {
-            backgroundColor = [[NSColor blackColor] colorWithAlphaComponent:0.1];
+            backgroundColor = [[NSColor lightGrayColor] colorWithAlphaComponent:0.1];
             [backgroundColor set];
             [bezelPath fill];
         }
+        if (buttonCell != nil) {
+            bezelColor = GVThemeColorRGB(111, 111, 111, 1.0);
+            paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            [paragraphStyle setAlignment:NSTextAlignmentCenter];
+            attributes = @{
+                NSForegroundColorAttributeName: bezelColor,
+                NSParagraphStyleAttributeName: paragraphStyle,
+            };
+            coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
+            [buttonCell setAttributedTitle:coloredTitle];
+        }
         break;
     default:
-        if ([cell isKindOfClass:[NSButtonCell class]]) {
-            NSButtonCell *buttonCell = (NSButtonCell *) cell;
+        if (buttonCell != nil) {
             NSString *keyEquivalent = [buttonCell keyEquivalent];
             if ([keyEquivalent isEqualToString:@"\r"]) {
-                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                paragraphStyle = [[NSMutableParagraphStyle alloc] init];
                 [paragraphStyle setAlignment:NSTextAlignmentCenter];
-                NSDictionary *attributes = @{
+                attributes = @{
                     NSForegroundColorAttributeName: [NSColor whiteColor],
                     NSParagraphStyleAttributeName: paragraphStyle,
                     NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont systemFontSize]]
                 };
-                NSAttributedString *coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
+                coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
                 [buttonCell setAttributedTitle:coloredTitle];
                 //backgroundColor = GVThemeColorRGB(0, 122, 255, 1.0);
                 isAccept = YES;
