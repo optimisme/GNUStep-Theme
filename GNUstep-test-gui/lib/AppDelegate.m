@@ -18,7 +18,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Window
-    NSRect contentRect = NSMakeRect(0, 0, 800, 600);
+    CGFloat windowWidth = 800;
+    CGFloat windowHeight = 600;
+    
+    NSRect contentRect = NSMakeRect(0, 0, windowWidth, 600);
     NSWindowStyleMask styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
     self.window = [[NSWindow alloc] initWithContentRect:contentRect styleMask:styleMask backing:NSBackingStoreBuffered defer:NO];
     [self.window setTitle:@"Theme test"];
@@ -29,7 +32,7 @@
     // Setup menu
     [MenuBuilder setupMenu];
    
-    self.vButtons = [[ViewButtons alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
+    self.vButtons = [[ViewButtons alloc] initWithFrame:NSMakeRect(0, 0, windowWidth, windowHeight)];
     [[self.window contentView] addSubview:self.vButtons];
 
     // Manage constraints positioning (GNUStep does not have constraints autolayouts)
@@ -49,7 +52,7 @@
     NSRect contentViewBounds = contentView.bounds;
     NSRect newViewFrame = NSMakeRect(0, 0, contentViewBounds.size.width, contentViewBounds.size.height);
     [self.vButtons setFrame:newViewFrame];
-    [self.vButtons windowDidResize:newViewFrame];
+    [self.vButtons updateLayout:newViewFrame];
 }
 
 - (NSButton *)createButtonWithTitle:(NSString *)title frame:(NSRect)frame {

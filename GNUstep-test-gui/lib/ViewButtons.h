@@ -12,7 +12,7 @@
 
 @interface ViewButtons : NSView
 
-- (void)windowDidResize:(NSRect)frame;
+- (void)updateLayout:(NSRect)frame;
 
 @end
 

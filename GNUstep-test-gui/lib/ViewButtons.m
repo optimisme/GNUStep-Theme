@@ -6,9 +6,16 @@
 //
 #import "Constants.h"
 #import "ViewButtons.h"
+#import "VTColumn.h"
+#import "VTRow.h"
+#import "VTScroll.h"
 
 @interface ViewButtons()
 
+@property (nonatomic, strong) VTScroll *scroll;
+@property (nonatomic, strong) VTColumn *column;
+@property (nonatomic, strong) VTRow *rStyles;
+@property (nonatomic, strong) VTRow *rActions;
 @property (nonatomic, strong) NSTextField *lStyles;
 @property (nonatomic, strong) NSTextField *lActions;
 @property (nonatomic, strong) NSButton *bDefault;
@@ -74,20 +81,19 @@
 - (instancetype)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect];
     if (self) {
-        
-        NSColor *startColor = [NSColor greenColor];
-        NSColor *endColor = [NSColor blueColor];
-        NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
 
-        NSRect frame = NSMakeRect(50, 50, 100, 50);
-        NSBezierPath    *bezelPath = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:5.0 yRadius:5.0];
-        [NSGraphicsContext saveGraphicsState];
-        [bezelPath setClip];
-        [gradient drawInRect:frame angle:90.0];
-        [NSGraphicsContext restoreGraphicsState];
+        CGFloat buttonWidth = 100;
+        CGFloat buttonHeight = 30;
         
+        self.scroll = [[VTScroll alloc] initWithFrame:frameRect];
+        [self addSubview:self.scroll];
+        
+        self.column = [[VTColumn alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.scroll addSubviewToScroll:self.column];
+        //[self addSubview:self.column];
+               
         NSBezelStyle style;
-        
+
         // Label styles
         self.lStyles = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.lStyles setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -95,16 +101,18 @@
         [self.lStyles setBezeled:NO];
         [self.lStyles setDrawsBackground:NO];
         [self.lStyles setStringValue:@"Bezel styles"];
-        [self addSubview:self.lStyles];
-        
-        // 1st line
+        [self.lStyles sizeToFit]; // After setting the string
+        [self.column addSubview:self.lStyles];
+
+        self.rStyles = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rStyles];
         
         // Default button
-        self.bDefault = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        self.bDefault = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
         [self.bDefault setTitle:@"Default"];
         [self.bDefault setTarget:self];
         [self.bDefault setAction:@selector(buttonClicked:)];
-        [self addSubview:self.bDefault];
+        [self.rStyles addSubview:self.bDefault];
 /*
         // Button with shadow example
         NSShadow *shadow = [[NSShadow alloc] init];
@@ -114,80 +122,67 @@
         [self.buttonDefault setShadow:shadow];
 */
         style = CTBezelStyleAccessoryBarAction;
-        self.bRoundRect = [self createButtonWithTitle:@"R Rect" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bRoundRect];
-        
-
+        self.bRoundRect = [self createButtonWithTitle:@"R Rect" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bRoundRect];
+    
         style = CTBezelStylePush;
-        self.bRounded = [self createButtonWithTitle:@"Rounded" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bRounded];
+        self.bRounded = [self createButtonWithTitle:@"Rounded" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bRounded];
         
-
         style = CTBezelStyleSmallSquare;
-        self.bSmallSquare = [self createButtonWithTitle:@"Small Sqr" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bSmallSquare];
+        self.bSmallSquare = [self createButtonWithTitle:@"Small Sqr" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bSmallSquare];
         
-
         style = CTBezelStyleFlexiblePush;
-        self.bRegularSquare = [self createButtonWithTitle:@"Regular Sqr" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bRegularSquare];
-
+        self.bRegularSquare = [self createButtonWithTitle:@"Regular Sqr" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bRegularSquare];
 
         style = CTBezelStyleShadowlessSquare;
-        self.bShadowless = [self createButtonWithTitle:@"Shadowless" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bShadowless];
-
-        // 2nd line
+        self.bShadowless = [self createButtonWithTitle:@"Shadowless" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bShadowless];
 
         style = CTBezelStyleFlexiblePush;
-        self.bThicker = [self createButtonWithTitle:@"Thicker" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bThicker];
-
+        self.bThicker = [self createButtonWithTitle:@"Thicker" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bThicker];
 
         style = CTBezelStyleFlexiblePush;
-        self.bThickSquare = [self createButtonWithTitle:@"Thick Sqr" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bThickSquare];
+        self.bThickSquare = [self createButtonWithTitle:@"Thick Sqr" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bThickSquare];
 
         style = CTBezelStyleCircular;
-        self.bCircular = [self createButtonWithTitle:@"Circular" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bCircular];
+        self.bCircular = [self createButtonWithTitle:@"Circular" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bCircular];
         
-
         style = CTBezelStyleDisclosure;
         self.disclosureButtonIsOpen = NO;
-        self.bDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-
+        self.bDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
         [self.bDisclosure setButtonType:CTButtonTypePushOnPushOff];
-        [self addSubview:self.bDisclosure];
+        [self.rStyles addSubview:self.bDisclosure];
         
         style = CTBezelStylePushDisclosure;
-        self.bRoundedDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-
+        self.bRoundedDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
         [self.bRoundedDisclosure setButtonType:CTButtonTypePushOnPushOff];
-        [self addSubview:self.bRoundedDisclosure];
+        [self.rStyles addSubview:self.bRoundedDisclosure];
 
         style = CTBezelStyleHelpButton;
-        self.bHelp = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bHelp];
-
-        // 3rd line
+        self.bHelp = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bHelp];
 
         style = CTBezelStyleAccessoryBar;
-        self.bRecessed = [self createButtonWithTitle:@"Recessed" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bRecessed];
-
+        self.bRecessed = [self createButtonWithTitle:@"Recessed" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bRecessed];
 
         style = CTBezelStyleTexturedRounded;
-        self.bTexRounded = [self createButtonWithTitle:@"T Rounded" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bTexRounded];
+        self.bTexRounded = [self createButtonWithTitle:@"T Rounded" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bTexRounded];
         
         style = CTBezelStyleTexturedSquare;
-        self.bTexSquare = [self createButtonWithTitle:@"T Sqr" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bTexSquare];
+        self.bTexSquare = [self createButtonWithTitle:@"T Sqr" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bTexSquare];
  
         style = CTBezelStyleToolbar;
-        self.bToolbar = [self createButtonWithTitle:@"Toolbar" frame:NSMakeRect(0, 0, 0, 0) bezelStyle:style];
-        [self addSubview:self.bToolbar];
+        self.bToolbar = [self createButtonWithTitle:@"Toolbar" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bToolbar];
 
         // Action styles
         self.lActions = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
@@ -196,17 +191,21 @@
         [self.lActions setBezeled:NO];
         [self.lActions setDrawsBackground:NO];
         [self.lActions setStringValue:@"Actions"];
-        [self addSubview:self.lActions];
+        [self.lActions sizeToFit]; // After setting the string
+        [self.column addSubview:self.lActions];
+
+        self.rActions = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rActions];
         
-
-        style = CTBezelStyleTexturedRounded;
-
         // Definir el color d'accent
-        self.bAccept = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
+        self.bAccept = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
         [self.bAccept setTitle:@"Accept"];
         [self.bAccept setButtonType:CTButtonTypeMomentaryPushIn];
         [self.bAccept setKeyEquivalent:@"\r"];
-        [self addSubview:self.bAccept];
+        [self.rActions addSubview:self.bAccept];
+        
+        // Update layout
+        [self updateLayout:frameRect];
     }
     
     return self;
@@ -220,74 +219,25 @@
     [button setBezelStyle:bezelStyle];
     return button;
 }
-
+ 
 - (BOOL) isFlipped {
     return YES;
 }
 
-- (void)windowDidResize:(NSRect)frame {
+- (void)updateLayout:(NSRect)frame {
 
-    // Reposicionar els elements en base a les noves mides
-    CGFloat buttonX = 20;
-    CGFloat buttonY = 15;
-    CGFloat buttonWidth = 100;
-    CGFloat buttonHeight = 30;
-    CGFloat buttonSpacingHorizontal = buttonWidth + 20;
-    CGFloat buttonSpacingVertical = buttonHeight + 10;
+    [self.rStyles setFrame:frame];
+    [self.rStyles updateLayout];
     
-    // Label styles
-    [self.lStyles setFrame:NSMakeRect(20, buttonY, 150, 30)];
-
-    // 1st line
-    buttonX = 20;
-    buttonY = buttonY + 25;
-    [self.bDefault setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bRoundRect setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bRounded setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bSmallSquare setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bRegularSquare setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bShadowless setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+    [self.rActions setFrame:frame];
+    [self.rActions updateLayout];
     
-    // 2nd line
-    buttonX = 20;
-    buttonY = buttonY + buttonSpacingVertical;
-    [self.bThicker setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bThickSquare setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bCircular setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bDisclosure setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bRoundedDisclosure setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bHelp setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
+    [self.column setFrame:frame];
+    [self.column updateLayout];
     
-    // 3rd line
-    buttonX = 20;
-    buttonY = buttonY + buttonSpacingVertical;
-    [self.bRecessed setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bTexRounded setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bTexSquare setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    buttonX = buttonX + buttonSpacingHorizontal;
-    [self.bToolbar setFrame:NSMakeRect(buttonX, buttonY, buttonWidth, buttonHeight)];
-    
-    // Label actions
-    buttonX = 20;
-    buttonY = buttonY + 50;
-    [self.lActions setFrame:NSMakeRect(20, buttonY, 150, 30)];
-    
-    // 4th line
-    buttonX = 20;
-    buttonY = buttonY + 25;
-    [self.bAccept setFrame:NSMakeRect(20, buttonY, buttonWidth, 30)];
+    //[self.scroll setFrame:frame];
+    [self.scroll.documentView setFrameSize:self.column.frame.size];
+    [self.scroll reflectScrolledClipView:self.scroll.contentView];
 }
 
 - (void)buttonClicked:(id)sender {

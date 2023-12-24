@@ -307,6 +307,11 @@ void GVThemeButtonDrawing(NSRect frame,
             [bezelPath setClip];
             [gradient drawInRect:frame angle:90.0]; 
             [NSGraphicsContext restoreGraphicsState];
+
+            // Remove 'new line' image
+            [cell setImage: nil];
+            //NSImage *originalImage = AUTORELEASE(RETAIN([cell image]));
+            //[cell setImage: originalImage];
         } else {
             [backgroundColor set];
             [bezelPath fill];
