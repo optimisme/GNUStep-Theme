@@ -235,7 +235,7 @@
     [self.column setFrame:frame];
     [self.column updateLayout];
     
-    [self.scroll setFrame:frame];
+    [self.scroll setFrame:frame]; // TODO: Sometimes produces a segmentation fault on GNUStep
     [self.scroll.documentView setFrameSize:self.column.frame.size];
     [self.scroll reflectScrolledClipView:self.scroll.contentView];
 }
