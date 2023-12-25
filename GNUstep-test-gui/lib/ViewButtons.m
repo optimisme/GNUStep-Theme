@@ -222,7 +222,7 @@
         [self.lControls setStringValue:@"Controls"];
         [self.lControls sizeToFit]; // After setting the string
         [self.column addSubview:self.lControls];
-        
+
         self.rControls = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.column addSubview:self.rControls];
         
@@ -233,7 +233,7 @@
         [self.bCheckboxOff setTarget:self];
         [self.bCheckboxOff setAction:@selector(checkboxClicked:)];
         [self.bCheckboxOff sizeToFit];
-        [self.rActions addSubview:self.bCheckboxOff];
+        [self.rControls addSubview:self.bCheckboxOff];
         
         self.bCheckboxOn = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.bCheckboxOn setTitle:@"Initial value 'ON'"];
@@ -242,8 +242,8 @@
         [self.bCheckboxOn setTarget:self];
         [self.bCheckboxOn setAction:@selector(checkboxClicked:)];
         [self.bCheckboxOn sizeToFit];
-        [self.rActions addSubview:self.bCheckboxOn];
-        
+        [self.rControls addSubview:self.bCheckboxOn];
+
         // Update layout
         [self updateLayout:frameRect];
     }
@@ -271,6 +271,9 @@
     
     [self.rActions setFrame:frame];
     [self.rActions updateLayout];
+    
+    [self.rControls setFrame:frame];
+    [self.rControls updateLayout];
     
     [self.column setFrame:frame];
     [self.column updateLayout];
