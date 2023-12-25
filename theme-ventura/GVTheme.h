@@ -9,6 +9,7 @@
 
 @interface GVTheme : GSTheme 
 
+- (NSColor *)GVGetAccentColor:(NSString *)shade;
 
 @end
 

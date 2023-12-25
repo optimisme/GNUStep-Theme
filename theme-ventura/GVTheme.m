@@ -3,10 +3,81 @@
 #import "GVThemeColors.h"
 #import "GVThemePrivate.h"
 
+@interface GVTheme ()
+
+@property (nonatomic, strong) NSDictionary *adjustedAccents;
+
+@end
+
+
 @implementation GVTheme
+
+- (void)activate
+{
+    [super activate];
+    [self GVLoadColorsFromConfigPlist];
+}
+
+- (void)GVLoadColorsFromConfigPlist {
+
+    NSArray *roots = @[
+        NSHomeDirectory(),
+        NSOpenStepRootDirectory(),
+        NSTemporaryDirectory(),
+        NSHomeDirectory()
+    ];
+
+    NSString *plistPath = nil;
+
+    for (NSString *root in roots) {
+        NSString *themesPath = [root stringByAppendingPathComponent:@"GNUstep/Library/Themes"];
+        NSString *themePath = [themesPath stringByAppendingPathComponent:@"Ventura.theme"];
+        NSString *potentialPlistPath = [themePath stringByAppendingPathComponent:@"Resources/config.plist"];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:potentialPlistPath]) {
+            plistPath = potentialPlistPath;
+            break;
+        }
+    }
+
+    if (plistPath) {
+        NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+        [self GVSetAccentColor:plistData[@"GVThemeAccentColor"]];
+    } else {
+        [self GVSetAccentColor:@"Blue"];
+    }
+}
 
 - (NSColorList*) colors {
     return GVThemeColors(); 
+}
+
+- (void)GVSetAccentColor:(NSString *) accentColorName {
+    NSColor *themeColor = GVColorForAccentColorName(accentColorName);
+    self.adjustedAccents = @{
+        @"50": GVAdjustColor(themeColor,1 ,1.5), 
+        @"60": GVAdjustColor(themeColor,1 ,1.46), 
+        @"70": GVAdjustColor(themeColor,1 ,1.42),
+        @"80": GVAdjustColor(themeColor,1 ,1.38), 
+        @"90": GVAdjustColor(themeColor,1 ,1.34), 
+        @"100": GVAdjustColor(themeColor,1 ,1.3), 
+        @"200": GVAdjustColor(themeColor,1 ,1.2), 
+        @"300": GVAdjustColor(themeColor,1 ,1.1), 
+        @"400": GVAdjustColor(themeColor,1 ,1.0), 
+        @"500": GVAdjustColor(themeColor,1 ,0.9), 
+        @"600": GVAdjustColor(themeColor,1 ,0.8), 
+        @"700": GVAdjustColor(themeColor,1 ,0.7),
+        @"800": GVAdjustColor(themeColor,1 ,0.6)
+    };
+}
+
+- (NSColor *)GVGetAccentColor:(NSString *)shade {
+    NSColor *color = self.adjustedAccents[shade];
+    if (color) {
+        return color;
+    } else {
+        return self.adjustedAccents[@"400"];
+    }
 }
 
 - (void) drawButton: (NSRect)frame 

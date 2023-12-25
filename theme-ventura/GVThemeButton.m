@@ -299,8 +299,8 @@ void GVThemeButtonDrawing(NSRect frame,
             coloredTitle = [[NSAttributedString alloc] initWithString:[cell title] attributes:attributes];
             [buttonCell setAttributedTitle:coloredTitle];
             //backgroundColor = GVThemeColorRGB(0, 122, 255, 1.0);
-            NSColor *startColor = GVThemeColorRGB(35, 135, 255, 1.0);
-            NSColor *endColor = GVThemeColorRGB(0, 110, 255, 1.0);
+            NSColor *startColor = [theme GVGetAccentColor:@"100"];
+            NSColor *endColor = [theme GVGetAccentColor:@"default"];
             NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
 
             [NSGraphicsContext saveGraphicsState];
