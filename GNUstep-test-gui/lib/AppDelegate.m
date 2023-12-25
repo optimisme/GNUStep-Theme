@@ -51,20 +51,9 @@
     NSView *contentView = (NSView *)self.window.contentView;
     NSRect contentViewBounds = contentView.bounds;
     NSRect newViewFrame = NSMakeRect(0, 0, contentViewBounds.size.width, contentViewBounds.size.height);
+    
     [self.vButtons setFrame:newViewFrame];
     [self.vButtons updateLayout:newViewFrame];
-}
-
-- (NSButton *)createButtonWithTitle:(NSString *)title frame:(NSRect)frame {
-    NSButton *button = [[NSButton alloc] initWithFrame:frame];
-    [button setTitle:title];
-    [button setTarget:self];
-    [button setAction:@selector(buttonClicked:)];
-    return button;
-}
-
-- (void)buttonClicked:(id)sender {
-    NSLog(@"Button clicked");
 }
 
 // Terminates the application when the window is closed.

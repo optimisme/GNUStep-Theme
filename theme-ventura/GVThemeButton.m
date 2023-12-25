@@ -3,6 +3,8 @@
 #import "GVThemeColors.h"
 #import "GVThemePrivate.h"
 
+// https://mackuba.eu/2014/10/06/a-guide-to-nsbutton-styles/
+
 /* List of related bugs
     https://github.com/gnustep/libs-gui/issues/219 prevent text movement
     https://github.com/gnustep/libs-gui/issues/224 NSCircularBezelStyle should cut text

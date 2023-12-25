@@ -27,6 +27,8 @@
 #define CTButtonTypePushOnPushOff NSPushOnPushOffButton
 #define CTButtonTypeMomentaryPushIn NSMomentaryPushInButton
 
+#define CTButtonTypeSwitch NSSwitchButton
+
 #else
 
 #define CTBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
@@ -45,6 +47,8 @@
 
 #define CTButtonTypePushOnPushOff NSButtonTypePushOnPushOff
 #define CTButtonTypeMomentaryPushIn NSButtonTypeMomentaryPushIn
+
+#define CTButtonTypeSwitch NSButtonTypeSwitch
 
 #endif
 

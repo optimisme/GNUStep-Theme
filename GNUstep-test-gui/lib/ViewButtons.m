@@ -16,8 +16,10 @@
 @property (nonatomic, strong) VTColumn *column;
 @property (nonatomic, strong) VTRow *rStyles;
 @property (nonatomic, strong) VTRow *rActions;
+@property (nonatomic, strong) VTRow *rControls;
 @property (nonatomic, strong) NSTextField *lStyles;
 @property (nonatomic, strong) NSTextField *lActions;
+@property (nonatomic, strong) NSTextField *lControls;
 @property (nonatomic, strong) NSButton *bDefault;
 @property (nonatomic, strong) NSButton *bRoundRect;
 @property (nonatomic, strong) NSButton *bRounded;
@@ -36,6 +38,8 @@
 @property (nonatomic, strong) NSButton *bTexSquare;
 @property (nonatomic, strong) NSButton *bToolbar;
 @property (nonatomic, strong) NSButton *bAccept;
+@property (nonatomic, strong) NSButton *bCheckboxOff;
+@property (nonatomic, strong) NSButton *bCheckboxOn;
 
 @end
 
@@ -202,7 +206,41 @@
         [self.bAccept setTitle:@"Accept"];
         [self.bAccept setButtonType:CTButtonTypeMomentaryPushIn];
         [self.bAccept setKeyEquivalent:@"\r"];
+        [self.bAccept setTarget:self];
+        [self.bAccept setAction:@selector(buttonClicked:)];
         [self.rActions addSubview:self.bAccept];
+        
+        // Controls styles
+        self.lControls = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lControls setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lControls setSelectable:NO];
+        [self.lControls setBezeled:NO];
+        [self.lControls setDrawsBackground:NO];
+        [self.lControls setStringValue:@"Controls"];
+        [self.lControls sizeToFit]; // After setting the string
+        [self.column addSubview:self.lControls];
+
+        
+        self.rControls = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        //[self.column addSubview:self.rControls];
+        
+        // Definir el color d'accent
+        self.bCheckboxOff = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bCheckboxOff setTitle:@"Inital value 'default'"];
+        [self.bCheckboxOff setButtonType:CTButtonTypeSwitch];
+        [self.bCheckboxOff setTarget:self];
+        [self.bCheckboxOff setAction:@selector(checkboxClicked:)];
+        [self.bCheckboxOff sizeToFit];
+        [self.rActions addSubview:self.bCheckboxOff];
+        
+        self.bCheckboxOn = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bCheckboxOn setTitle:@"Initial value 'ON'"];
+        [self.bCheckboxOn setButtonType:CTButtonTypeSwitch];
+        [self.bCheckboxOn setState:NSControlStateValueOn];
+        [self.bCheckboxOn setTarget:self];
+        [self.bCheckboxOn setAction:@selector(checkboxClicked:)];
+        [self.bCheckboxOn sizeToFit];
+        [self.rActions addSubview:self.bCheckboxOn];
         
         // Update layout
         [self updateLayout:frameRect];
@@ -242,6 +280,13 @@
 
 - (void)buttonClicked:(id)sender {
     NSLog(@"Button clicked in custom view");
+}
+
+- (void)checkboxClicked:(id)sender {
+    NSButton *checkbox = (NSButton *)sender;
+    if (checkbox) {
+        NSLog(@"Checkbox state %ld", (long)checkbox.state);
+    }
 }
 
 @end
