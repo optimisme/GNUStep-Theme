@@ -210,6 +210,9 @@
         [self.bAccept setAction:@selector(buttonClicked:)];
         [self.rActions addSubview:self.bAccept];
         
+        // TODO: hasDestructiveAction
+        // TODO: custom bezelColor
+        
         // Controls styles
         self.lControls = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.lControls setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -219,10 +222,9 @@
         [self.lControls setStringValue:@"Controls"];
         [self.lControls sizeToFit]; // After setting the string
         [self.column addSubview:self.lControls];
-
         
         self.rControls = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
-        //[self.column addSubview:self.rControls];
+        [self.column addSubview:self.rControls];
         
         // Definir el color d'accent
         self.bCheckboxOff = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
