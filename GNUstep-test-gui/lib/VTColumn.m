@@ -18,7 +18,6 @@
 
 - (void)addSubview:(NSView *)view {
     [super addSubview:view];
-    [self updateLayout];
 }
 
 - (BOOL)isFlipped {
@@ -26,9 +25,15 @@
 }
 
 - (void)updateLayout {
+    NSRect containerFrame = self.frame;
     CGFloat y = 0;
 
     for (NSView *subview in self.subviews) {
+        if ([subview respondsToSelector:@selector(updateLayout)]) {
+            [subview setFrame:containerFrame];
+            [subview performSelector:@selector(updateLayout)];
+        }
+        
         NSRect frame = subview.frame;
         frame.origin.y = y;
         frame.origin.x = subview.frame.origin.x;

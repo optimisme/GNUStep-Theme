@@ -13,9 +13,10 @@
 
 @interface VTScroll : NSScrollView
 
-@property (nonatomic, strong) VTColumn *contents;
+@property (nonatomic, strong) NSView *content;
 
-- (void)addSubviewToScroll:(NSView *)view;
+- (instancetype)initWithFrame:(NSRect)frame content:(NSView *)content;
+- (void)updateLayout;
 
 @end
 

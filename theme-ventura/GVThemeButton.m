@@ -288,6 +288,7 @@ void GVThemeButtonDrawing(NSRect frame,
         }
         break;
     default:
+
         if (buttonCell != nil && keyEquivalent != nil && [keyEquivalent isEqualToString:@"\r"]) {
             // Accept button style is different
             textColor = [NSColor whiteColor];

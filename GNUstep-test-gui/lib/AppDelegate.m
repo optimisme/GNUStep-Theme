@@ -48,12 +48,15 @@
 }
 
 - (void)windowDidResize:(NSNotification *)notification {
+    [self updateLayout];
+}
+
+- (void)updateLayout {
     NSView *contentView = (NSView *)self.window.contentView;
-    NSRect contentViewBounds = contentView.bounds;
-    NSRect newViewFrame = NSMakeRect(0, 0, contentViewBounds.size.width, contentViewBounds.size.height);
-    
-    [self.vButtons setFrame:newViewFrame];
-    [self.vButtons updateLayout:newViewFrame];
+    NSRect newFrame = NSMakeRect(0, 0, contentView.bounds.size.width, contentView.bounds.size.height);
+
+    [self.vButtons setFrame:newFrame];
+    [self.vButtons updateLayout:newFrame];
 }
 
 // Terminates the application when the window is closed.

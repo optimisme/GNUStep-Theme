@@ -24,12 +24,17 @@
 #define CTBezelStyleTexturedRounded NSTexturedRoundedBezelStyle
 #define CTBezelStyleToolbar NSTexturedRoundedBezelStyle
 
-#define CTButtonTypePushOnPushOff NSPushOnPushOffButton
-#define CTButtonTypeMomentaryPushIn NSMomentaryPushInButton
 
+#define CTButtonTypeMomentaryPushIn NSMomentaryPushInButton
+#define CTButtonTypePushOnPushOff NSPushOnPushOffButton
+#define CTButtonTypeOnOff NSOnOffButton
+#define CTButtonTypeToggle NSToggleButton
 #define CTButtonTypeSwitch NSSwitchButton
+#define CTButtonTypeRadio NSRadioButton
+
 
 #else
+
 
 #define CTBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
 #define CTBezelStylePush NSBezelStylePush
@@ -45,10 +50,14 @@
 #define CTBezelStyleTexturedRounded NSBezelStyleTexturedRounded
 #define CTBezelStyleToolbar NSBezelStyleToolbar
 
-#define CTButtonTypePushOnPushOff NSButtonTypePushOnPushOff
-#define CTButtonTypeMomentaryPushIn NSButtonTypeMomentaryPushIn
 
+#define CTButtonTypeMomentaryPushIn NSButtonTypeMomentaryPushIn
+#define CTButtonTypePushOnPushOff NSButtonTypePushOnPushOff
+#define CTButtonTypeOnOff NSButtonTypeOnOff
+#define CTButtonTypeToggle NSButtonTypeToggle
 #define CTButtonTypeSwitch NSButtonTypeSwitch
+#define CTButtonTypeRadio NSButtonTypeRadio
+
 
 #endif
 

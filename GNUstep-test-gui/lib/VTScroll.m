@@ -9,21 +9,30 @@
 
 @implementation VTScroll
 
-- (instancetype)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame content:(NSView *)content {
     self = [super initWithFrame:frame];
     if (self) {
-        self.contents = [[VTColumn alloc] initWithFrame:NSMakeRect(0, 0, frame.size.width, frame.size.height)];
+        self.content = content;
         self.drawsBackground = NO;
         self.backgroundColor = [NSColor clearColor];
-        self.documentView = self.contents;
+        self.documentView = content;
         self.hasVerticalScroller = YES;
         self.autohidesScrollers = YES;
     }
     return self;
 }
 
-- (void)addSubviewToScroll:(NSView *)view {
-    [self.contents addSubview:view];
+- (void)updateLayout {
+    NSRect containerFrame = self.frame;
+    //NSLog(@"Container Frame: %@", NSStringFromRect(containerFrame));
+    
+    if ([self.content respondsToSelector:@selector(updateLayout)]) {
+        [self.content setFrame:containerFrame];
+        [self.content performSelector:@selector(updateLayout)];
+    }
+
+    [self.documentView setFrameSize:self.content.frame.size];
+    [self reflectScrolledClipView:self.contentView];
 }
 
 @end

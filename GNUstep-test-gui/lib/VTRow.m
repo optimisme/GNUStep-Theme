@@ -1,3 +1,9 @@
+//
+//  VTRow.m
+//  TestGUI
+//
+//  Created by Albert Palacios Jimenez on 24/12/23.
+//
 #import "VTRow.h"
 
 @implementation VTRow
@@ -16,10 +22,10 @@
 
 - (void)addSubview:(NSView *)view {
     [super addSubview:view];
-    [self updateLayout];
 }
 
 - (void)updateLayout {
+    NSRect containerFrame = self.frame;
     CGFloat horizontalSpacing = 10.0; // Espaiament horitzontal entre les subvistes
     CGFloat verticalSpacing = 10.0;   // Espaiament vertical entre les files
     CGFloat x = 0;
@@ -27,6 +33,11 @@
     CGFloat maxHeightInRow = 0;
 
     for (NSView *subview in self.subviews) {
+        if ([subview respondsToSelector:@selector(updateLayout)]) {
+            [subview setFrame:containerFrame];
+            [subview performSelector:@selector(updateLayout)];
+        }
+        
         if (x + subview.frame.size.width > self.frame.size.width) {
             // Comença una nova fila
             x = 0;
