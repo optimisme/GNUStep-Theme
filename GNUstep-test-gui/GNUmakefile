@@ -2,6 +2,7 @@ CC=clang
 OBJC = clang
 ADDITIONAL_OBJCFLAGS += -fobjc-arc
 ADDITIONAL_OBJCFLAGS += -DGNS
+#ADDITIONAL_CPPFLAGS += -DGNS
 
 include $(GNUSTEP_MAKEFILES)/common.make
 

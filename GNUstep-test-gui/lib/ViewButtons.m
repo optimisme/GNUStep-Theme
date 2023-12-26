@@ -15,39 +15,75 @@
 
 @property (nonatomic, strong) VTScroll *scroll;
 @property (nonatomic, strong) VTColumn *column;
-@property (nonatomic, strong) VTRow *rStyles;
-@property (nonatomic, strong) VTRow *rTypes;
-@property (nonatomic, strong) VTRow *rActions;
-@property (nonatomic, strong) VTRow *rControls;
-@property (nonatomic, strong) NSTextField *lStyles;
-@property (nonatomic, strong) NSTextField *lTypes;
-@property (nonatomic, strong) NSTextField *lActions;
-@property (nonatomic, strong) NSTextField *lControls;
-@property (nonatomic, strong) NSButton *bDefault;
-@property (nonatomic, strong) NSButton *bRoundRect;
-@property (nonatomic, strong) NSButton *bRounded;
-@property (nonatomic, strong) NSButton *bSmallSquare;
-@property (nonatomic, strong) NSButton *bRegularSquare;
-@property (nonatomic, strong) NSButton *bShadowless;
-@property (nonatomic, strong) NSButton *bThicker;
-@property (nonatomic, strong) NSButton *bThickSquare;
-@property (nonatomic, strong) NSButton *bCircular;
-@property (nonatomic, strong) NSButton *bDisclosure;
-@property (nonatomic, assign) BOOL disclosureButtonIsOpen;
-@property (nonatomic, strong) NSButton *bRoundedDisclosure;
-@property (nonatomic, strong) NSButton *bHelp;
-@property (nonatomic, strong) NSButton *bRecessed;
-@property (nonatomic, strong) NSButton *bTexRounded;
-@property (nonatomic, strong) NSButton *bTexSquare;
-@property (nonatomic, strong) NSButton *bToolbar;
-@property (nonatomic, strong) NSButton *bToolBarPushOnPushOff;
-@property (nonatomic, strong) NSButton *bToogle;
-@property (nonatomic, strong) NSButton *bAccept;
-@property (nonatomic, strong) NSButton *bCheckbox;
-@property (nonatomic, strong) NSButton *bCheckboxMixed;
+
+@property (nonatomic, strong) NSTextField *lPush;
+@property (nonatomic, strong) VTRow *rPush;
+@property (nonatomic, strong) NSButton *bPushMomentary;
+@property (nonatomic, strong) NSButton *bPushMomentaryBorderless;
+@property (nonatomic, strong) NSButton *bPushOnOff;
+@property (nonatomic, strong) NSButton *bPushOnOffDisabled;
+@property (nonatomic, strong) NSButton *bPushOnOffBorderless;
+@property (nonatomic, strong) NSButton *bPushAccept;
+@property (nonatomic, strong) NSButton *bPushDestructive;
+@property (nonatomic, strong) NSButton *bPushStyle0;
+@property (nonatomic, strong) NSButton *bPushStyle0Disabled;
+@property (nonatomic, strong) NSButton *bPushStyle1;
+@property (nonatomic, strong) NSButton *bPushDisabled;
+@property (nonatomic, strong) NSTextField *lTexRounded;
+@property (nonatomic, strong) VTRow *rTexRounded;/*
+@property (nonatomic, strong) NSButton *bTRBTitleMomentary;
+@property (nonatomic, strong) NSButton *bTRBTitleToggle;
+@property (nonatomic, strong) NSButton *bTRBTitleMomentaryNotBordered;
+@property (nonatomic, strong) NSButton *bTRBImageMomentary;
+@property (nonatomic, strong) NSButton *bTRBImageToogle;
+@property (nonatomic, strong) NSButton *bTRBImageToogleNotBordered;
+@property (nonatomic, strong) NSTextField *lGradient;
+@property (nonatomic, strong) VTRow *rGradient;
+@property (nonatomic, strong) NSButton *bGradient0;
+@property (nonatomic, strong) NSButton *bGradient1;
+@property (nonatomic, strong) NSTextField *lCheckbox;
+@property (nonatomic, strong) VTRow *rCheckbox;
+@property (nonatomic, strong) NSButton *bCheckbox0;
+@property (nonatomic, strong) NSButton *bCheckbox1;
+@property (nonatomic, strong) NSButton *bCheckbox2;
+@property (nonatomic, strong) NSTextField *lRadio;
+@property (nonatomic, strong) VTRow *rRadio;
 @property (nonatomic, strong) NSButton *bRadio0;
 @property (nonatomic, strong) NSButton *bRadio1;
-
+@property (nonatomic, strong) NSTextField *lPopUp;
+@property (nonatomic, strong) VTRow *rPopUp;
+@property (nonatomic, strong) NSButton *bCheckboxPopup;
+@property (nonatomic, strong) NSButton *bCheckboxPopupOver;
+@property (nonatomic, strong) NSButton *bCheckboxPullDown;
+@property (nonatomic, strong) NSTextField *lRoundRect;
+@property (nonatomic, strong) VTRow *rRoundRect;
+@property (nonatomic, strong) NSButton *bRoundRect;
+@property (nonatomic, strong) NSButton *bRoundRectTransparent;
+@property (nonatomic, strong) NSButton *bRoundRectNotBordered;
+@property (nonatomic, strong) NSButton *bRoundRectTransparentNotBordered;
+@property (nonatomic, strong) NSTextField *lRecesed;
+@property (nonatomic, strong) VTRow *rRecesed;
+@property (nonatomic, strong) NSButton *bRecesed;
+@property (nonatomic, strong) NSButton *RecesedTransparent;
+@property (nonatomic, strong) NSButton *bRecesedNotBordered;
+@property (nonatomic, strong) NSButton *bRecesedTransparentNotBordered;
+@property (nonatomic, strong) NSTextField *lInline;
+@property (nonatomic, strong) VTRow *rInline;
+@property (nonatomic, strong) NSButton *bInline0;
+@property (nonatomic, strong) NSButton *bInline1;
+@property (nonatomic, strong) NSTextField *lImage;
+@property (nonatomic, strong) VTRow *rImage;
+@property (nonatomic, strong) NSButton *bImageMomentary;
+@property (nonatomic, strong) NSButton *bImageToggle;
+@property (nonatomic, strong) NSButton *bImageMomentaryChange;
+@property (nonatomic, strong) NSTextField *lDisclosure;
+@property (nonatomic, strong) VTRow *rDisclosure;
+@property (nonatomic, strong) NSButton *bDisclosureButton;
+@property (nonatomic, strong) NSButton *bDisclosureTriangle;
+@property (nonatomic, strong) NSTextField *lHelp;
+@property (nonatomic, strong) VTRow *rHelp;
+@property (nonatomic, strong) NSButton *bHelp;
+*/
 @end
 
 @implementation ViewButtons
@@ -176,8 +212,181 @@
         self.scroll = [[VTScroll alloc] initWithFrame:frameRect content:self.column];
         [self addSubview:self.scroll];
         
-        NSBezelStyle style;
+        self.lPush = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lPush setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lPush setSelectable:NO];
+        [self.lPush setBezeled:NO];
+        [self.lPush setDrawsBackground:NO];
+        [self.lPush setStringValue:@"Push Button"];
+        [self.lPush sizeToFit]; // After setting the string
+        [self.column addSubview:self.lPush];
 
+        self.rPush = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rPush];
+        
+        self.bPushMomentary = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushMomentary setTitle:@"Momentary"];
+        [self.bPushMomentary setBezelStyle:CTBezelStyleRounded];
+        [self.bPushMomentary setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bPushMomentary setTarget:self];
+        [self.bPushMomentary setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushMomentary];
+        
+        self.bPushMomentaryBorderless = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushMomentaryBorderless setTitle:@"Borderless"];
+        [self.bPushMomentaryBorderless setBezelStyle:CTBezelStyleRounded];
+        [self.bPushMomentaryBorderless setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bPushMomentaryBorderless setBordered:NO];
+        [self.bPushMomentaryBorderless setTarget:self];
+        [self.bPushMomentaryBorderless setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushMomentaryBorderless];
+        
+        self.bPushDisabled = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushDisabled setTitle:@"Disabled"];
+        [self.bPushDisabled setBezelStyle:CTBezelStyleRounded];
+        [self.bPushDisabled setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bPushDisabled setEnabled:NO];
+        [self.bPushDisabled setTarget:self];
+        [self.bPushDisabled setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushDisabled];
+        
+        // TODO Fix this toggle
+        self.bPushOnOff = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushOnOff setTitle:@"OnOff"];
+        [self.bPushOnOff setBezelStyle:CTBezelStyleRounded];
+        [self.bPushOnOff setButtonType:CTButtonTypeOnOff];
+        [self.bPushOnOff setState:CTControlStateValueOn];
+        [self.bPushOnOff setTarget:self];
+        [self.bPushOnOff setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushOnOff];
+        
+        self.bPushOnOffBorderless = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushOnOffBorderless setTitle:@"OnOff"];
+        [self.bPushOnOffBorderless setBezelStyle:CTBezelStyleRounded];
+        [self.bPushOnOffBorderless setButtonType:CTButtonTypeOnOff];
+        [self.bPushOnOffBorderless setState:CTControlStateValueOn];
+        [self.bPushOnOffBorderless setEnabled:NO];
+        [self.bPushOnOffBorderless setBordered:NO];
+        [self.bPushOnOffBorderless setTarget:self];
+        [self.bPushOnOffBorderless setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushOnOffBorderless];
+        
+        self.bPushOnOffDisabled = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushOnOffDisabled setTitle:@"OnOff Dis"];
+        [self.bPushOnOffDisabled setBezelStyle:CTBezelStyleRounded];
+        [self.bPushOnOffDisabled setButtonType:CTButtonTypeOnOff];
+        [self.bPushOnOffDisabled setState:CTControlStateValueOn];
+        [self.bPushOnOffDisabled setEnabled:NO];
+        [self.bPushOnOffDisabled setTarget:self];
+        [self.bPushOnOffDisabled setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushOnOffDisabled];
+        
+        self.bPushAccept = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushAccept setTitle:@"Accept"];
+        [self.bPushAccept setBezelStyle:CTBezelStyleRounded];
+        [self.bPushAccept setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bPushAccept setKeyEquivalent:@"\r"];
+        [self.bPushAccept setTarget:self];
+        [self.bPushAccept setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushAccept];
+                
+        self.bPushDestructive = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushDestructive setTitle:@"Destructive"];
+        [self.bPushDestructive setBezelStyle:CTBezelStyleRounded];
+        //[self.bPushDestructive setHasDestructiveAction:YES];
+        NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithAttributedString:[self.bPushDestructive attributedTitle]];
+        NSRange range = NSMakeRange(0, [attrTitle length]);
+        [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor redColor] range:range];
+        [attrTitle fixAttributesInRange:range];
+        [self.bPushDestructive setAttributedTitle:attrTitle];
+        [self.bPushDestructive setTarget:self];
+        [self.bPushDestructive setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushDestructive];
+        
+        self.bPushStyle0 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushStyle0 setTitle:@"Style 0"];
+        [self.bPushStyle0 setBezelStyle:CTBezelStyleRounded];
+        //[self.bPushStyle0 setBezelColor:[NSColor yellowColor]];
+        [self.bPushStyle0 setTarget:self];
+        [self.bPushStyle0 setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushStyle0];
+        
+        self.bPushStyle0Disabled = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushStyle0Disabled setTitle:@"0 Disabled"];
+        [self.bPushStyle0Disabled setBezelStyle:CTBezelStyleRounded];
+        //[self.bPushStyle0Disabled setBezelColor:[NSColor yellowColor]];
+        [self.bPushStyle0Disabled setEnabled:NO];
+        [self.bPushStyle0Disabled setTarget:self];
+        [self.bPushStyle0Disabled setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushStyle0Disabled];
+        
+        self.bPushStyle1 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushStyle1 setTitle:@"Style 1"];
+        [self.bPushStyle1 setBezelStyle:CTBezelStyleRounded];
+        [self.bPushStyle1 setButtonType:CTButtonTypeMomentaryPushIn];
+        //[self.bPushStyle1 setBezelColor:[NSColor orangeColor]];
+        [self.bPushStyle1 setTarget:self];
+        [self.bPushStyle1 setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushStyle1];
+        
+        self.lTexRounded = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lTexRounded setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lTexRounded setSelectable:NO];
+        [self.lTexRounded setBezeled:NO];
+        [self.lTexRounded setDrawsBackground:NO];
+        [self.lTexRounded setStringValue:@"Texured Rounded Button"];
+        [self.lTexRounded sizeToFit]; // After setting the string
+        [self.column addSubview:self.lTexRounded];
+
+        self.rTexRounded = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rTexRounded];
+        
+        /*
+        @property (nonatomic, strong) VTRow *rTexturedRoundedButton;
+        @property (nonatomic, strong) NSButton *bTRBTitleMomentary;
+        @property (nonatomic, strong) NSButton *bTRBTitleToggle;
+        @property (nonatomic, strong) NSButton *bTRBTitleMomentaryNotBordered;
+        @property (nonatomic, strong) NSButton *bTRBImageMomentary;
+        @property (nonatomic, strong) NSButton *bTRBImageToogle;
+        @property (nonatomic, strong) NSButton *bTRBImageToogleNotBordered;
+        @property (nonatomic, strong) VTRow *rGradient;
+        @property (nonatomic, strong) NSButton *bGradient0;
+        @property (nonatomic, strong) NSButton *bGradient1;
+        @property (nonatomic, strong) VTRow *rCheckbox;
+        @property (nonatomic, strong) NSButton *bCheckbox0;
+        @property (nonatomic, strong) NSButton *bCheckbox1;
+        @property (nonatomic, strong) NSButton *bCheckbox2;
+        @property (nonatomic, strong) VTRow *rRadio;
+        @property (nonatomic, strong) NSButton *bRadio0;
+        @property (nonatomic, strong) NSButton *bRadio1;
+        @property (nonatomic, strong) VTRow *rPopUp;
+        @property (nonatomic, strong) NSButton *bCheckboxPopup;
+        @property (nonatomic, strong) NSButton *bCheckboxPopupOver;
+        @property (nonatomic, strong) NSButton *bCheckboxPullDown;
+        @property (nonatomic, strong) VTRow *rRoundRect;
+        @property (nonatomic, strong) NSButton *bRoundRect;
+        @property (nonatomic, strong) NSButton *bRoundRectTransparent;
+        @property (nonatomic, strong) NSButton *bRoundRectNotBordered;
+        @property (nonatomic, strong) NSButton *bRoundRectTransparentNotBordered;
+        @property (nonatomic, strong) VTRow *rRecesed;
+        @property (nonatomic, strong) NSButton *bRecesed;
+        @property (nonatomic, strong) NSButton *RecesedTransparent;
+        @property (nonatomic, strong) NSButton *bRecesedNotBordered;
+        @property (nonatomic, strong) NSButton *bRecesedTransparentNotBordered;
+        @property (nonatomic, strong) VTRow *rInline;
+        @property (nonatomic, strong) NSButton *bInline0;
+        @property (nonatomic, strong) NSButton *bInline1;
+        @property (nonatomic, strong) VTRow *rImage;
+        @property (nonatomic, strong) NSButton *bImageMomentary;
+        @property (nonatomic, strong) NSButton *bImageToggle;
+        @property (nonatomic, strong) NSButton *bImageMomentaryChange;
+        @property (nonatomic, strong) VTRow *rDisclosure;
+        @property (nonatomic, strong) NSButton *bDisclosureButton;
+        @property (nonatomic, strong) NSButton *bDisclosureTriangle;
+        @property (nonatomic, strong) VTRow *rHelp;
+        @property (nonatomic, strong) NSButton *bHelp;*/
+        
+        /*
         // Label styles
         self.lStyles = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.lStyles setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -197,14 +406,14 @@
         [self.bDefault setTarget:self];
         [self.bDefault setAction:@selector(buttonClicked:)];
         [self.rStyles addSubview:self.bDefault];
-/*
+/ *
         // Button with shadow example
         NSShadow *shadow = [[NSShadow alloc] init];
         [shadow setShadowColor:[NSColor blackColor]];
         [shadow setShadowOffset:NSMakeSize(0, 1)];
         [shadow setShadowBlurRadius:20];
         [self.buttonDefault setShadow:shadow];
-*/
+* /
         style = CTBezelStyleAccessoryBarAction;
         self.bRoundRect = [self createButtonWithTitle:@"R Rect" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
         [self.rStyles addSubview:self.bRoundRect];
@@ -366,19 +575,10 @@
         [self.column addSubview:self.rControls];
 
         // Update layout
+        [self updateLayout:frameRect];*/
         [self updateLayout:frameRect];
  }
     return self;
-}
-
-- (NSButton *)createButtonWithTitle:(NSString *)title frame:(NSRect)frame bezelStyle:(NSBezelStyle)bezelStyle {
-    NSButton *button = [[NSButton alloc] initWithFrame:frame];
-
-    [button setTitle:title];
-    [button setTarget:self];
-    [button setAction:@selector(buttonClicked:)];
-    [button setBezelStyle:bezelStyle];
-    return button;
 }
 
 - (BOOL) isFlipped {
@@ -387,6 +587,7 @@
 
 - (void)updateLayout:(NSRect)frame {
     [self.scroll updateLayout:frame];
+    [self setFrame:frame];
 }
 
 - (void)buttonClicked:(id)sender {
@@ -402,8 +603,8 @@
 }
 
 - (void)radioClicked:(id)sender {
-    NSButton *radio = (NSButton *)sender;
-    
+    //NSButton *radio = (NSButton *)sender;
+    /*
     if (radio) {
         NSLog(@"Radio state %ld", (long)radio.state);
     }
@@ -412,7 +613,7 @@
         NSLog(@"Sender radio 0");
     } else if (sender == self.bRadio1) {
         NSLog(@"Sender radio 1");
-    }
+    }*/
 }
 
 @end

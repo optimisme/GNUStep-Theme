@@ -11,7 +11,7 @@
 #ifdef GNS
 
 #define CTBezelStyleAccessoryBarAction NSRoundRectBezelStyle
-#define CTBezelStylePush NSRoundedBezelStyle
+#define CTBezelStyleRounded NSRoundedBezelStyle
 #define CTBezelStyleSmallSquare NSSmallSquareBezelStyle
 #define CTBezelStyleFlexiblePush NSRegularSquareBezelStyle // Same as : NSThickerSquareBezelStyle, NSThickSquareBezelStyle
 #define CTBezelStyleShadowlessSquare NSShadowlessSquareBezelStyle
@@ -32,12 +32,12 @@
 #define CTButtonTypeSwitch NSSwitchButton
 #define CTButtonTypeRadio NSRadioButton
 
+#define CTControlStateValueOn NSControlStateValueOn
 
 #else
 
-
+#define CTBezelStyleRounded NSBezelStyleRounded
 #define CTBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
-#define CTBezelStylePush NSBezelStylePush
 #define CTBezelStyleSmallSquare NSBezelStyleSmallSquare
 #define CTBezelStyleFlexiblePush NSBezelStyleFlexiblePush
 #define CTBezelStyleShadowlessSquare NSBezelStyleShadowlessSquare
@@ -57,6 +57,8 @@
 #define CTButtonTypeToggle NSButtonTypeToggle
 #define CTButtonTypeSwitch NSButtonTypeSwitch
 #define CTButtonTypeRadio NSButtonTypeRadio
+
+#define CTControlStateValueOn NSControlStateValueOn
 
 
 #endif
