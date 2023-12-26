@@ -35,6 +35,8 @@
 @property (nonatomic, strong) NSButton *bTexRTitleToggle;
 @property (nonatomic, strong) NSButton *bTRBTitleMomentaryNotBordered;
 @property (nonatomic, strong) NSButton *bTRBImageMomentary;
+@property (nonatomic, strong) NSImage *iTRBImageMomentaryOff;
+@property (nonatomic, strong) NSImage *iTRBImageMomentaryOn;
 @property (nonatomic, strong) NSButton *bTRBImageToogle;
 @property (nonatomic, strong) NSButton *bTRBImageToogleNotBordered;
 @property (nonatomic, strong) NSTextField *lGradient;
@@ -389,6 +391,28 @@
         [self.bTRBImageMomentary setAction:@selector(buttonClicked:)];
         [self.rTexRounded addSubview:self.bTRBImageMomentary];
 
+#ifdef GNS
+        NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"imglock" ofType:@"png"];
+        self.iTRBImageMomentaryOff = [[NSImage alloc] initWithContentsOfFile:imagePath2];
+#else
+        self.iTRBImageMomentaryOff = [NSImage imageNamed:@"imglock"];
+#endif
+
+#ifdef GNS
+        NSString *imagePath3 = [[NSBundle mainBundle] pathForResource:@"imgunlock" ofType:@"png"];
+        self.iTRBImageMomentaryOn = [[NSImage alloc] initWithContentsOfFile:imagePath3];
+#else
+        self.iTRBImageMomentaryOn = [NSImage imageNamed:@"imgunlock"];
+#endif
+
+        self.bTRBImageToogle = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, iTRBImageMomentarySize.width, iTRBImageMomentarySize.height)];
+        [self.bTRBImageToogle setImage:self.iTRBImageMomentaryOff];
+        [self.bTRBImageToogle setBezelStyle:CTBezelStyleTexturedRounded];
+        [self.bTRBImageToogle setButtonType:CTButtonTypeToggle];
+        [self.bTRBImageToogle setTarget:self];
+        [self.bTRBImageToogle setAction:@selector(buttonClickedToggleImage:)];
+        [self.rTexRounded addSubview:self.bTRBImageToogle];
+
         /*
 
         @property (nonatomic, strong) NSButton *bTRBImageMomentary;
@@ -637,6 +661,14 @@
 
 - (void)buttonClicked:(id)sender {
     NSLog(@"Button clicked in custom view");
+}
+
+- (void)buttonClickedToggleImage:(NSButton *)sender {
+    if (sender.state == NSControlStateValueOn) {
+        [sender setImage:self.iTRBImageMomentaryOn];
+    } else {
+        [sender setImage:self.iTRBImageMomentaryOff];
+    }
 }
 
 - (void)checkboxClicked:(id)sender {

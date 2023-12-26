@@ -31,6 +31,7 @@
 #define CTButtonTypeToggle NSToggleButton
 #define CTButtonTypeSwitch NSSwitchButton
 #define CTButtonTypeRadio NSRadioButton
+#define NSButtonTypeToggle NSToggleButton
 
 #define CTControlStateValueOn NSControlStateValueOn
 
@@ -57,6 +58,8 @@
 #define CTButtonTypeToggle NSButtonTypeToggle
 #define CTButtonTypeSwitch NSButtonTypeSwitch
 #define CTButtonTypeRadio NSButtonTypeRadio
+#define CTButtonTypeToggle NSButtonTypeToggle
+
 
 #define CTControlStateValueOn NSControlStateValueOn
 
