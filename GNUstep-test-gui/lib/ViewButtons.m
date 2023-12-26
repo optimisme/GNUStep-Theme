@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) VTScroll *scroll;
 @property (nonatomic, strong) VTColumn *column;
+
 @property (nonatomic, strong) NSTextField *lPush;
 @property (nonatomic, strong) VTRow *rPush;
 @property (nonatomic, strong) NSButton *bPushMomentary;
@@ -30,8 +31,8 @@
 @property (nonatomic, strong) NSButton *bPushDisabled;
 @property (nonatomic, strong) NSTextField *lTexRounded;
 @property (nonatomic, strong) VTRow *rTexRounded;
-@property (nonatomic, strong) NSButton *bTRBTitleMomentary;
-@property (nonatomic, strong) NSButton *bTRBTitleToggle;
+@property (nonatomic, strong) NSButton *bTexRTitleMomentary;
+@property (nonatomic, strong) NSButton *bTexRTitleToggle;
 @property (nonatomic, strong) NSButton *bTRBTitleMomentaryNotBordered;
 @property (nonatomic, strong) NSButton *bTRBImageMomentary;
 @property (nonatomic, strong) NSButton *bTRBImageToogle;
@@ -292,7 +293,9 @@
         self.bPushDestructive = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
         [self.bPushDestructive setTitle:@"Destructive"];
         [self.bPushDestructive setBezelStyle:CTBezelStyleRounded];
-        //[self.bPushDestructive setHasDestructiveAction:YES];
+#ifndef GNS
+        [self.bPushDestructive setHasDestructiveAction:YES];
+#endif
         NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithAttributedString:[self.bPushDestructive attributedTitle]];
         NSRange range = NSMakeRange(0, [attrTitle length]);
         [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor redColor] range:range];
@@ -301,19 +304,19 @@
         [self.bPushDestructive setTarget:self];
         [self.bPushDestructive setAction:@selector(buttonClicked:)];
         [self.rPush addSubview:self.bPushDestructive];
-        
+#ifndef GNS
         self.bPushStyle0 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
         [self.bPushStyle0 setTitle:@"Style 0"];
         [self.bPushStyle0 setBezelStyle:CTBezelStyleRounded];
-        //[self.bPushStyle0 setBezelColor:[NSColor yellowColor]];
+        [self.bPushStyle0 setBezelColor:[NSColor yellowColor]];
         [self.bPushStyle0 setTarget:self];
         [self.bPushStyle0 setAction:@selector(buttonClicked:)];
         [self.rPush addSubview:self.bPushStyle0];
-        
+
         self.bPushStyle0Disabled = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
         [self.bPushStyle0Disabled setTitle:@"0 Disabled"];
         [self.bPushStyle0Disabled setBezelStyle:CTBezelStyleRounded];
-        //[self.bPushStyle0Disabled setBezelColor:[NSColor yellowColor]];
+        [self.bPushStyle0Disabled setBezelColor:[NSColor yellowColor]];
         [self.bPushStyle0Disabled setEnabled:NO];
         [self.bPushStyle0Disabled setTarget:self];
         [self.bPushStyle0Disabled setAction:@selector(buttonClicked:)];
@@ -323,11 +326,11 @@
         [self.bPushStyle1 setTitle:@"Style 1"];
         [self.bPushStyle1 setBezelStyle:CTBezelStyleRounded];
         [self.bPushStyle1 setButtonType:CTButtonTypeMomentaryPushIn];
-        //[self.bPushStyle1 setBezelColor:[NSColor orangeColor]];
+        [self.bPushStyle1 setBezelColor:[NSColor orangeColor]];
         [self.bPushStyle1 setTarget:self];
         [self.bPushStyle1 setAction:@selector(buttonClicked:)];
         [self.rPush addSubview:self.bPushStyle1];
-        
+#endif
         self.lTexRounded = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.lTexRounded setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.lTexRounded setSelectable:NO];
@@ -340,6 +343,284 @@
         self.rTexRounded = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.column addSubview:self.rTexRounded];
         
+        self.bTexRTitleMomentary = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bTexRTitleMomentary setTitle:@"TexR Mom"];
+        [self.bTexRTitleMomentary setBezelStyle:CTBezelStyleTexturedRounded];
+        [self.bTexRTitleMomentary setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bTexRTitleMomentary setTarget:self];
+        [self.bTexRTitleMomentary setAction:@selector(buttonClicked:)];
+        [self.rTexRounded addSubview:self.bTexRTitleMomentary];
+        
+        self.bTexRTitleToggle = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bTexRTitleToggle setTitle:@"TexR Tog"];
+        [self.bTexRTitleToggle setBezelStyle:CTBezelStyleTexturedRounded];
+        [self.bTexRTitleToggle setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bTexRTitleToggle setButtonType:CTButtonTypeOnOff];
+        [self.bTexRTitleToggle setState:CTControlStateValueOn];
+        [self.bTexRTitleToggle setTarget:self];
+        [self.bTexRTitleToggle setAction:@selector(buttonClicked:)];
+        [self.rTexRounded addSubview:self.bTexRTitleToggle];
+        
+        self.bTexRTitleToggle = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bTexRTitleToggle setTitle:@"TexR TBL"];
+        [self.bTexRTitleToggle setBezelStyle:CTBezelStyleTexturedRounded];
+        [self.bTexRTitleToggle setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bTexRTitleToggle setButtonType:CTButtonTypeOnOff];
+        [self.bTexRTitleToggle setState:CTControlStateValueOn];
+        [self.bTexRTitleToggle setBordered:NO];
+        [self.bTexRTitleToggle setTarget:self];
+        [self.bTexRTitleToggle setAction:@selector(buttonClicked:)];
+        [self.rTexRounded addSubview:self.bTexRTitleToggle];
+#ifdef GNS
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"imglock" ofType:@"png"];
+        NSImage *iTRBImageMomentary = [[NSImage alloc] initWithContentsOfFile:imagePath];
+#else
+        NSImage *iTRBImageMomentary = [NSImage imageNamed:@"imglock"];
+#endif
+        self.bTexRTitleMomentary = [[NSButton alloc] init];
+        [self.bTexRTitleMomentary setImage:iTRBImageMomentary];
+        NSSize iTRBImageMomentarySize = iTRBImageMomentary.size;
+        
+        self.bTRBImageMomentary = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, iTRBImageMomentarySize.width, iTRBImageMomentarySize.height)];
+        [self.bTRBImageMomentary setImage:iTRBImageMomentary];
+        [self.bTRBImageMomentary setBezelStyle:CTBezelStyleTexturedRounded];
+        [self.bTRBImageMomentary setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bTRBImageMomentary setTarget:self];
+        [self.bTRBImageMomentary setAction:@selector(buttonClicked:)];
+        [self.rTexRounded addSubview:self.bTRBImageMomentary];
+
+        /*
+
+        @property (nonatomic, strong) NSButton *bTRBImageMomentary;
+        @property (nonatomic, strong) NSButton *bTRBImageToogle;
+        @property (nonatomic, strong) NSButton *bTRBImageToogleNotBordered;
+        @property (nonatomic, strong) VTRow *rGradient;
+        @property (nonatomic, strong) NSButton *bGradient0;
+        @property (nonatomic, strong) NSButton *bGradient1;
+        @property (nonatomic, strong) VTRow *rCheckbox;
+        @property (nonatomic, strong) NSButton *bCheckbox0;
+        @property (nonatomic, strong) NSButton *bCheckbox1;
+        @property (nonatomic, strong) NSButton *bCheckbox2;
+        @property (nonatomic, strong) VTRow *rRadio;
+        @property (nonatomic, strong) NSButton *bRadio0;
+        @property (nonatomic, strong) NSButton *bRadio1;
+        @property (nonatomic, strong) VTRow *rPopUp;
+        @property (nonatomic, strong) NSButton *bCheckboxPopup;
+        @property (nonatomic, strong) NSButton *bCheckboxPopupOver;
+        @property (nonatomic, strong) NSButton *bCheckboxPullDown;
+        @property (nonatomic, strong) VTRow *rRoundRect;
+        @property (nonatomic, strong) NSButton *bRoundRect;
+        @property (nonatomic, strong) NSButton *bRoundRectTransparent;
+        @property (nonatomic, strong) NSButton *bRoundRectNotBordered;
+        @property (nonatomic, strong) NSButton *bRoundRectTransparentNotBordered;
+        @property (nonatomic, strong) VTRow *rRecesed;
+        @property (nonatomic, strong) NSButton *bRecesed;
+        @property (nonatomic, strong) NSButton *RecesedTransparent;
+        @property (nonatomic, strong) NSButton *bRecesedNotBordered;
+        @property (nonatomic, strong) NSButton *bRecesedTransparentNotBordered;
+        @property (nonatomic, strong) VTRow *rInline;
+        @property (nonatomic, strong) NSButton *bInline0;
+        @property (nonatomic, strong) NSButton *bInline1;
+        @property (nonatomic, strong) VTRow *rImage;
+        @property (nonatomic, strong) NSButton *bImageMomentary;
+        @property (nonatomic, strong) NSButton *bImageToggle;
+        @property (nonatomic, strong) NSButton *bImageMomentaryChange;
+        @property (nonatomic, strong) VTRow *rDisclosure;
+        @property (nonatomic, strong) NSButton *bDisclosureButton;
+        @property (nonatomic, strong) NSButton *bDisclosureTriangle;
+        @property (nonatomic, strong) VTRow *rHelp;
+        @property (nonatomic, strong) NSButton *bHelp;*/
+        
+        /*
+        // Label styles
+        self.lStyles = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lStyles setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lStyles setSelectable:NO];
+        [self.lStyles setBezeled:NO];
+        [self.lStyles setDrawsBackground:NO];
+        [self.lStyles setStringValue:@"Bezel styles"];
+        [self.lStyles sizeToFit]; // After setting the string
+        [self.column addSubview:self.lStyles];
+
+        self.rStyles = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rStyles];
+
+        // Default button
+        self.bDefault = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bDefault setTitle:@"Default"];
+        [self.bDefault setTarget:self];
+        [self.bDefault setAction:@selector(buttonClicked:)];
+        [self.rStyles addSubview:self.bDefault];
+/ *
+        // Button with shadow example
+        NSShadow *shadow = [[NSShadow alloc] init];
+        [shadow setShadowColor:[NSColor blackColor]];
+        [shadow setShadowOffset:NSMakeSize(0, 1)];
+        [shadow setShadowBlurRadius:20];
+        [self.buttonDefault setShadow:shadow];
+* /
+        style = CTBezelStyleAccessoryBarAction;
+        self.bRoundRect = [self createButtonWithTitle:@"R Rect" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bRoundRect];
+
+        style = CTBezelStylePush;
+        self.bRounded = [self createButtonWithTitle:@"Rounded" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bRounded];
+
+        style = CTBezelStyleSmallSquare;
+        self.bSmallSquare = [self createButtonWithTitle:@"Small Sqr" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bSmallSquare];
+
+        style = CTBezelStyleFlexiblePush;
+        self.bRegularSquare = [self createButtonWithTitle:@"Regular Sqr" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bRegularSquare];
+
+        style = CTBezelStyleShadowlessSquare;
+        self.bShadowless = [self createButtonWithTitle:@"Shadowless" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bShadowless];
+
+        style = CTBezelStyleFlexiblePush;
+        self.bThicker = [self createButtonWithTitle:@"Thicker" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bThicker];
+
+        style = CTBezelStyleFlexiblePush;
+        self.bThickSquare = [self createButtonWithTitle:@"Thick Sqr" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bThickSquare];
+
+        style = CTBezelStyleCircular;
+        self.bCircular = [self createButtonWithTitle:@"Ci" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bCircular];
+        
+        style = CTBezelStyleDisclosure;
+        self.disclosureButtonIsOpen = NO;
+        self.bDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.bDisclosure setButtonType:CTButtonTypePushOnPushOff];
+        [self.rStyles addSubview:self.bDisclosure];
+
+        style = CTBezelStylePushDisclosure;
+        self.bRoundedDisclosure = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.bRoundedDisclosure setButtonType:CTButtonTypePushOnPushOff];
+        [self.rStyles addSubview:self.bRoundedDisclosure];
+
+        style = CTBezelStyleHelpButton;
+        self.bHelp = [self createButtonWithTitle:@"" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bHelp];
+
+        style = CTBezelStyleAccessoryBar;
+        self.bRecessed = [self createButtonWithTitle:@"Recessed" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.bRecessed setButtonType:CTButtonTypeOnOff];
+        [self.rStyles addSubview:self.bRecessed];
+
+        style = CTBezelStyleTexturedRounded;
+        self.bTexRounded = [self createButtonWithTitle:@"T Rounded" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bTexRounded];
+
+        style = CTBezelStyleTexturedSquare;
+        self.bTexSquare = [self createButtonWithTitle:@"T Sqr" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bTexSquare];
+
+        style = CTBezelStyleToolbar;
+        self.bToolbar = [self createButtonWithTitle:@"Toolbar" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.rStyles addSubview:self.bToolbar];
+
+        // Action types
+        self.lTypes = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lTypes setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lTypes setSelectable:NO];
+        [self.lTypes setBezeled:NO];
+        [self.lTypes setDrawsBackground:NO];
+        [self.lTypes setStringValue:@"Types"];
+        [self.lTypes sizeToFit]; // After setting the string
+        [self.column addSubview:self.lTypes];
+
+        self.rTypes = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rTypes];
+
+        style = CTBezelStyleAccessoryBar;
+        self.bToolBarPushOnPushOff = [self createButtonWithTitle:@"Recessed OnOff" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.bToolBarPushOnPushOff setButtonType:CTButtonTypePushOnPushOff];
+        [self.rTypes addSubview:self.bToolBarPushOnPushOff];
+
+        self.bToogle = [self createButtonWithTitle:@"Toggle" frame:NSMakeRect(0, 0, buttonWidth, buttonHeight) bezelStyle:style];
+        [self.bToogle setButtonType:CTButtonTypeToggle];
+        [self.rTypes addSubview:self.bToogle];
+
+        self.bCheckbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bCheckbox setTitle:@"Checkbox"];
+        [self.bCheckbox setButtonType:CTButtonTypeSwitch];
+        [self.bCheckbox setState:NSControlStateValueOn];
+        [self.bCheckbox setTarget:self];
+        [self.bCheckbox setAction:@selector(checkboxClicked:)];
+        [self.bCheckbox sizeToFit];
+        [self.rTypes addSubview:self.bCheckbox];
+
+        self.bCheckboxMixed = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bCheckboxMixed setTitle:@"Checkbox"];
+        [self.bCheckboxMixed setButtonType:CTButtonTypeSwitch];
+        [self.bCheckboxMixed setAllowsMixedState:YES];
+        [self.bCheckboxMixed setState:NSControlStateValueMixed];
+        [self.bCheckboxMixed setTarget:self];
+        [self.bCheckboxMixed setAction:@selector(checkboxClicked:)];
+        [self.bCheckboxMixed sizeToFit];
+        [self.rTypes addSubview:self.bCheckboxMixed];
+
+        self.bRadio0 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bRadio0 setTitle:@"Radio 0"];
+        [self.bRadio0 setButtonType:CTButtonTypeRadio];
+        [self.bRadio0 setState:NSControlStateValueOn];
+        [self.bRadio0 setTarget:self];
+        [self.bRadio0 setAction:@selector(radioClicked:)];
+        [self.bRadio0 sizeToFit];
+        [self.rTypes addSubview:self.bRadio0];
+
+        self.bRadio1 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bRadio1 setTitle:@"Radio 1"];
+        [self.bRadio1 setButtonType:CTButtonTypeRadio];
+        [self.bRadio1 setTarget:self];
+        [self.bRadio1 setAction:@selector(radioClicked:)];
+        [self.bRadio1 sizeToFit];
+        [self.rTypes addSubview:self.bRadio1];
+
+        // Action styles
+        self.lActions = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lActions setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lActions setSelectable:NO];
+        [self.lActions setBezeled:NO];
+        [self.lActions setDrawsBackground:NO];
+        [self.lActions setStringValue:@"Actions"];
+        [self.lActions sizeToFit]; // After setting the string
+        [self.column addSubview:self.lActions];
+
+        self.rActions = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rActions];
+
+        // Definir el color d'accent
+        self.bAccept = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bAccept setTitle:@"Accept"];
+        [self.bAccept setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bAccept setKeyEquivalent:@"\r"];
+        [self.bAccept setTarget:self];
+        [self.bAccept setAction:@selector(buttonClicked:)];
+        [self.rActions addSubview:self.bAccept];
+
+        // TODO: hasDestructiveAction
+        // TODO: custom bezelColor
+
+        // Controls styles
+        self.lControls = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lControls setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lControls setSelectable:NO];
+        [self.lControls setBezeled:NO];
+        [self.lControls setDrawsBackground:NO];
+        [self.lControls setStringValue:@"Controls"];
+        [self.lControls sizeToFit]; // After setting the string
+        [self.column addSubview:self.lControls];
+
+        self.rControls = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rControls];
+
+        // Update layout
+        [self updateLayout:frameRect];*/
         [self updateLayout:frameRect];
  }
     return self;
@@ -368,7 +649,7 @@
 
 - (void)radioClicked:(id)sender {
     NSButton *radio = (NSButton *)sender;
-    /*
+    
     if (radio) {
         NSLog(@"Radio state %ld", (long)radio.state);
     }
@@ -377,7 +658,7 @@
         NSLog(@"Sender radio 0");
     } else if (sender == self.bRadio1) {
         NSLog(@"Sender radio 1");
-    }*/
+    }
 }
 
 @end

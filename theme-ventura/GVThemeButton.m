@@ -46,11 +46,12 @@ void GVThemeButtonDrawing(NSRect frame,
     NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:circleSquareRect];
     NSBezierPath *squarePath = [NSBezierPath bezierPathWithRoundedRect:circleSquareRect xRadius:5.0 yRadius:5.0];
 
-    // For chevron arrows
+    // For chevron arrows and help
     NSPoint center = NSMakePoint(NSMidX(frame), NSMidY(frame));
     NSBezierPath *chevronPath = [NSBezierPath bezierPath];
     CGFloat chevronWidth = 2.5;
     CGFloat chevronHeight = 5.0;
+    NSString *questionMark = @"?";
 
 /* Què és això?
     NSString	*name = [theme nameForElement: cell];
@@ -206,7 +207,7 @@ void GVThemeButtonDrawing(NSRect frame,
                                     NSParagraphStyleAttributeName: paragraphStyle};
 
         // Calcular el rectangle centrat per al text
-        NSString *questionMark = @"?";
+        questionMark = @"?";
         NSSize textSize = [questionMark sizeWithAttributes:attributes];
         NSRect textRect = NSMakeRect(circleSquareRect.origin.x,
                                     circleSquareRect.origin.y + (diameter - textSize.height) / 2,
