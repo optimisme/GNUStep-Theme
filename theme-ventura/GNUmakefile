@@ -5,6 +5,10 @@ ifeq ($(GNUSTEP_MAKEFILES),)
  $(error You need to set GNUSTEP_MAKEFILES before compiling!)
 endif
 
+CC=clang
+OBJC = clang
+ADDITIONAL_OBJCFLAGS += -fobjc-arc
+ADDITIONAL_OBJCFLAGS += -DGNS
 
 include $(GNUSTEP_MAKEFILES)/common.make
 
