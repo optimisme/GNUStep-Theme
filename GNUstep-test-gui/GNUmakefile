@@ -1,3 +1,8 @@
+CC=clang
+OBJC = clang
+ADDITIONAL_OBJCFLAGS += -fobjc-arc
+ADDITIONAL_OBJCFLAGS += -DGNS
+
 include $(GNUSTEP_MAKEFILES)/common.make
 
 APP_NAME = TestGUI
@@ -13,8 +18,6 @@ TestGUI_OBJC_FILES = \
 
 TestGUI_RESOURCE_FILES = \
   Resources/AppIcon.png \
-
-ADDITIONAL_CPPFLAGS += -DGNS
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/application.make

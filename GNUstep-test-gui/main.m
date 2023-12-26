@@ -3,10 +3,9 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        AppDelegate *delegate = [[AppDelegate alloc] init];
-
         [NSApplication sharedApplication];
+        AppDelegate *delegate = [[AppDelegate alloc] init];
         [NSApp setDelegate:delegate];
+        return NSApplicationMain(argc, argv);
     }
-    return NSApplicationMain(argc, argv);
 }

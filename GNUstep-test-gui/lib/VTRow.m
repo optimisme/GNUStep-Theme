@@ -24,8 +24,8 @@
     [super addSubview:view];
 }
 
-- (void)updateLayout {
-    NSRect containerFrame = self.frame;
+- (void)updateLayout:(NSRect)frame {
+
     CGFloat horizontalSpacing = 10.0; // Espaiament horitzontal entre les subvistes
     CGFloat verticalSpacing = 10.0;   // Espaiament vertical entre les files
     CGFloat x = 0;
@@ -33,32 +33,29 @@
     CGFloat maxHeightInRow = 0;
 
     for (NSView *subview in self.subviews) {
-        if ([subview respondsToSelector:@selector(updateLayout)]) {
-            [subview setFrame:containerFrame];
-            [subview performSelector:@selector(updateLayout)];
-        }
-        
-        if (x + subview.frame.size.width > self.frame.size.width) {
-            // Comença una nova fila
+
+        NSRect subviewFrame = subview.frame;
+        if ((x + subviewFrame.size.width) > self.frame.size.width) {
             x = 0;
             y += maxHeightInRow + verticalSpacing;
             maxHeightInRow = 0;
         }
 
-        NSRect newFrame = NSMakeRect(x, y, subview.frame.size.width, subview.frame.size.height);
-        subview.frame = newFrame;
+        subviewFrame.origin = NSMakePoint(x, y);
+        subview.frame = subviewFrame;
 
-        x += subview.frame.size.width + horizontalSpacing;
-        if (subview.frame.size.height > maxHeightInRow) {
-            maxHeightInRow = subview.frame.size.height;
-        }
+        x += subviewFrame.size.width + horizontalSpacing;
+        maxHeightInRow = MAX(maxHeightInRow, subviewFrame.size.height);
     }
 
     // Calcula l'alçada total necessària
     CGFloat totalHeight = y + maxHeightInRow;
-
+    totalHeight = MAX(totalHeight, 0);
+    
     // Actualitza el frame de la vista VTRow
-    self.frame = NSMakeRect(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, totalHeight);
+    NSRect newFrame = NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, totalHeight);
+    [self setFrame:newFrame];
 }
+
 
 @end

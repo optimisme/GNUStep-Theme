@@ -12,7 +12,7 @@
 
 @interface VTRow : NSView
 
-- (void)updateLayout;
+- (void)updateLayout:(NSRect)frame;
 
 @end
 

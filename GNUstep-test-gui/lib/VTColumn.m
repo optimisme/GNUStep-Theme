@@ -24,28 +24,28 @@
     return YES;
 }
 
-- (void)updateLayout {
-    NSRect containerFrame = self.frame;
+- (void)updateLayout:(NSRect)frame {
     CGFloat y = 0;
-
     for (NSView *subview in self.subviews) {
-        if ([subview respondsToSelector:@selector(updateLayout)]) {
-            [subview setFrame:containerFrame];
-            [subview performSelector:@selector(updateLayout)];
-        }
-        
-        NSRect frame = subview.frame;
-        frame.origin.y = y;
-        frame.origin.x = subview.frame.origin.x;
-        subview.frame = frame;
 
-        y += frame.size.height;
+        if ([subview respondsToSelector:@selector(updateLayout:)]) {
+            NSRect viewFrame = NSMakeRect(0, y, frame.size.width, 0);
+            NSValue *frameValue = [NSValue valueWithRect:viewFrame];
+            [subview performSelector:@selector(updateLayout:) withObject:frameValue];
+        }
+
+        NSRect newFrame = NSMakeRect(0, y, subview.frame.size.width, subview.frame.size.height);
+        [subview setFrame:newFrame];
+
+        y += subview.frame.size.height;
     }
 
-    // Actualitza la mida de la vista per ajustar-se al contingut
-    NSRect frame = self.frame;
-    frame.size.height = y;
-    self.frame = frame;
+    // Update the height of the container view
+    CGFloat totalHeight = MAX(y, self.superview.bounds.size.height); 
+    totalHeight = MAX(totalHeight, 0);
+    
+    NSRect newFrame = NSMakeRect(self.frame.origin.x, self.frame.origin.y, frame.size.width, totalHeight);
+    [self setFrame:newFrame];
 }
 
 @end

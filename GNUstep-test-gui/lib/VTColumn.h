@@ -12,7 +12,7 @@
 
 @interface VTColumn : NSView
 
-- (void)updateLayout;
+- (void)updateLayout:(NSRect)frame;
 
 @end
 

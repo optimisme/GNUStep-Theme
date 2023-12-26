@@ -386,8 +386,7 @@
 }
 
 - (void)updateLayout:(NSRect)frame {
-    [self.scroll setFrame:frame]; // TODO: Sometimes produces a segmentation fault on GNUStep
-    [self.scroll updateLayout];
+    [self.scroll updateLayout:frame];
 }
 
 - (void)buttonClicked:(id)sender {

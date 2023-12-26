@@ -22,17 +22,20 @@
     return self;
 }
 
-- (void)updateLayout {
-    NSRect containerFrame = self.frame;
-    //NSLog(@"Container Frame: %@", NSStringFromRect(containerFrame));
-    
-    if ([self.content respondsToSelector:@selector(updateLayout)]) {
-        [self.content setFrame:containerFrame];
-        [self.content performSelector:@selector(updateLayout)];
+- (void)updateLayout:(NSRect)frame {
+
+    if ([self.content respondsToSelector:@selector(updateLayout:)]) {
+        NSValue *frameValue = [NSValue valueWithRect:frame];
+        [self.content performSelector:@selector(updateLayout:) withObject:frameValue];
     }
 
-    [self.documentView setFrameSize:self.content.frame.size];
+    NSSize contentSize = self.content.frame.size;
+    contentSize.height = MAX(contentSize.height, 1);
+    [self.documentView setFrameSize:contentSize];
     [self reflectScrolledClipView:self.contentView];
+    [self setFrame:frame];
 }
+
+
 
 @end
