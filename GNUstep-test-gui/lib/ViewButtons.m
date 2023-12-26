@@ -33,7 +33,6 @@
 @property (nonatomic, strong) VTRow *rTexRounded;
 @property (nonatomic, strong) NSButton *bTexRTitleMomentary;
 @property (nonatomic, strong) NSButton *bTexRTitleToggle;
-@property (nonatomic, strong) NSButton *bTRBTitleMomentaryNotBordered;
 @property (nonatomic, strong) NSButton *bTRBImageMomentary;
 @property (nonatomic, strong) NSImage *iTRBImageMomentaryOff;
 @property (nonatomic, strong) NSImage *iTRBImageMomentaryOn;
@@ -414,10 +413,6 @@
         [self.rTexRounded addSubview:self.bTRBImageToogle];
 
         /*
-
-        @property (nonatomic, strong) NSButton *bTRBImageMomentary;
-        @property (nonatomic, strong) NSButton *bTRBImageToogle;
-        @property (nonatomic, strong) NSButton *bTRBImageToogleNotBordered;
         @property (nonatomic, strong) VTRow *rGradient;
         @property (nonatomic, strong) NSButton *bGradient0;
         @property (nonatomic, strong) NSButton *bGradient1;
