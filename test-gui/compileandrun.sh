@@ -6,6 +6,4 @@ make clean
 
 make
 
-cp Resources/*.png TestGUI.app/Resources/
-
 openapp ../test-gui/TestGUI.app

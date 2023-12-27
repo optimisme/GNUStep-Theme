@@ -12,13 +12,14 @@ TestGUI_APPLICATION_ICON=AppIcon.png
 TestGUI_HEADERS = \
   $(wildcard lib/*.h) \
   $(wildcard libInterface/*.h)
+
 TestGUI_OBJC_FILES = \
   $(wildcard lib/*.m) \
   $(wildcard libInterface/*.m) \
   main.m
 
 TestGUI_RESOURCE_FILES = \
-  Resources/AppIcon.png \
+  Resources/*.png \
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/application.make

@@ -34,6 +34,7 @@
 #define NSButtonTypeToggle NSToggleButton
 
 #define CTControlStateValueOn NSControlStateValueOn
+#define CTCompositingOperationCopy NSCompositeCopy
 
 #else
 
@@ -51,7 +52,6 @@
 #define CTBezelStyleTexturedRounded NSBezelStyleTexturedRounded
 #define CTBezelStyleToolbar NSBezelStyleToolbar
 
-
 #define CTButtonTypeMomentaryPushIn NSButtonTypeMomentaryPushIn
 #define CTButtonTypePushOnPushOff NSButtonTypePushOnPushOff
 #define CTButtonTypeOnOff NSButtonTypeOnOff
@@ -62,7 +62,7 @@
 
 
 #define CTControlStateValueOn NSControlStateValueOn
-
+#define CTCompositingOperationCopy NSCompositingOperationCopy
 
 #endif
 
