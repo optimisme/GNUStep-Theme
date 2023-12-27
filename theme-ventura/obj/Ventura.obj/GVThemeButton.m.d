@@ -475,7 +475,6 @@ obj/Ventura.obj/GVThemeButton.m.o: GVThemeButton.m GVTheme.h \
   /usr/GNUstep/Local/Library/Headers/AppKit/DPSOperators.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h \
   /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h \
-  /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h \
   GVThemeButton.h GVThemeColors.h GVThemePrivate.h
 
 GVTheme.h:
@@ -1431,8 +1430,6 @@ GVTheme.h:
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSDisplayServer.h:
 
 /usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSTheme.h:
-
-/usr/GNUstep/Local/Library/Headers/GNUstepGUI/GSWindowDecorationView.h:
 
 GVThemeButton.h:
 
