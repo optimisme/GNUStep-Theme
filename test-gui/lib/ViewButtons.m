@@ -26,8 +26,8 @@
 @property (nonatomic, strong) NSButton *bPushAccept;
 @property (nonatomic, strong) NSButton *bPushDestructive;
 @property (nonatomic, strong) NSButton *bPushStyle0;
-@property (nonatomic, strong) NSButton *bPushStyle0Disabled;
 @property (nonatomic, strong) NSButton *bPushStyle1;
+@property (nonatomic, strong) NSButton *bPushStyle1Disabled;
 @property (nonatomic, strong) NSButton *bPushDisabled;
 @property (nonatomic, strong) NSTextField *lTexRounded;
 @property (nonatomic, strong) VTRow *rTexRounded;
@@ -313,16 +313,7 @@
         [self.bPushStyle0 setTarget:self];
         [self.bPushStyle0 setAction:@selector(buttonClicked:)];
         [self.rPush addSubview:self.bPushStyle0];
-
-        self.bPushStyle0Disabled = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
-        [self.bPushStyle0Disabled setTitle:@"0 Disabled"];
-        [self.bPushStyle0Disabled setBezelStyle:CTBezelStyleRounded];
-        [self.bPushStyle0Disabled setBezelColor:[NSColor yellowColor]];
-        [self.bPushStyle0Disabled setEnabled:NO];
-        [self.bPushStyle0Disabled setTarget:self];
-        [self.bPushStyle0Disabled setAction:@selector(buttonClicked:)];
-        [self.rPush addSubview:self.bPushStyle0Disabled];
-        
+       
         self.bPushStyle1 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
         [self.bPushStyle1 setTitle:@"Style 1"];
         [self.bPushStyle1 setBezelStyle:CTBezelStyleRounded];
@@ -331,6 +322,16 @@
         [self.bPushStyle1 setTarget:self];
         [self.bPushStyle1 setAction:@selector(buttonClicked:)];
         [self.rPush addSubview:self.bPushStyle1];
+
+        self.bPushStyle1Disabled = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bPushStyle1Disabled setTitle:@"1 Disabled"];
+        [self.bPushStyle1Disabled setBezelStyle:CTBezelStyleRounded];
+        [self.bPushStyle1Disabled setBezelColor:[NSColor orangeColor]];
+        [self.bPushStyle1Disabled setEnabled:NO];
+        [self.bPushStyle1Disabled setTarget:self];
+        [self.bPushStyle1Disabled setAction:@selector(buttonClicked:)];
+        [self.rPush addSubview:self.bPushStyle1Disabled];
+
 #endif
         self.lTexRounded = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.lTexRounded setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -372,45 +373,62 @@
         [self.bTexRTitleToggle setTarget:self];
         [self.bTexRTitleToggle setAction:@selector(buttonClicked:)];
         [self.rTexRounded addSubview:self.bTexRTitleToggle];
+
+        NSSize imgSize = NSMakeSize(12, 18);
 #ifdef GNS
         NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"imglock" ofType:@"png"];
         NSImage *iTRBImageMomentary = [[NSImage alloc] initWithContentsOfFile:imagePath];
 #else
         NSImage *iTRBImageMomentary = [NSImage imageNamed:@"imglock"];
 #endif
+        iTRBImageMomentary = [self resizeImage:[NSImage imageNamed:@"imglock"] toSize:imgSize];
+
         self.bTexRTitleMomentary = [[NSButton alloc] init];
         [self.bTexRTitleMomentary setImage:iTRBImageMomentary];
-        NSSize iTRBImageMomentarySize = iTRBImageMomentary.size;
         
-        self.bTRBImageMomentary = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, iTRBImageMomentarySize.width, iTRBImageMomentarySize.height)];
+        self.bTRBImageMomentary = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.bTRBImageMomentary setImage:iTRBImageMomentary];
         [self.bTRBImageMomentary setBezelStyle:CTBezelStyleTexturedRounded];
         [self.bTRBImageMomentary setButtonType:CTButtonTypeMomentaryPushIn];
         [self.bTRBImageMomentary setTarget:self];
         [self.bTRBImageMomentary setAction:@selector(buttonClicked:)];
+        [self.bTRBImageMomentary sizeToFit]; // After setting the image
         [self.rTexRounded addSubview:self.bTRBImageMomentary];
 
 #ifdef GNS
-        NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"imglock" ofType:@"png"];
-        self.iTRBImageMomentaryOff = [[NSImage alloc] initWithContentsOfFile:imagePath2];
+        imagePath = [[NSBundle mainBundle] pathForResource:@"imglock" ofType:@"png"];
+        self.iTRBImageMomentaryOff = [[NSImage alloc] initWithContentsOfFile:imagePath];
 #else
         self.iTRBImageMomentaryOff = [NSImage imageNamed:@"imglock"];
 #endif
+        self.iTRBImageMomentaryOff = [self resizeImage:[NSImage imageNamed:@"imglock"] toSize:imgSize];
 
 #ifdef GNS
-        NSString *imagePath3 = [[NSBundle mainBundle] pathForResource:@"imgunlock" ofType:@"png"];
-        self.iTRBImageMomentaryOn = [[NSImage alloc] initWithContentsOfFile:imagePath3];
+        imagePath = [[NSBundle mainBundle] pathForResource:@"imgunlock" ofType:@"png"];
+        self.iTRBImageMomentaryOn = [[NSImage alloc] initWithContentsOfFile:imagePath];
 #else
         self.iTRBImageMomentaryOn = [NSImage imageNamed:@"imgunlock"];
 #endif
+        self.iTRBImageMomentaryOn = [self resizeImage:[NSImage imageNamed:@"imgunlock"] toSize:imgSize];
 
-        self.bTRBImageToogle = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, iTRBImageMomentarySize.width, iTRBImageMomentarySize.height)];
+        self.bTRBImageToogle = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.bTRBImageToogle setImage:self.iTRBImageMomentaryOff];
         [self.bTRBImageToogle setBezelStyle:CTBezelStyleTexturedRounded];
         [self.bTRBImageToogle setButtonType:CTButtonTypeToggle];
         [self.bTRBImageToogle setTarget:self];
         [self.bTRBImageToogle setAction:@selector(buttonClickedToggleImage:)];
+        [self.bTRBImageToogle sizeToFit]; // After setting the image
         [self.rTexRounded addSubview:self.bTRBImageToogle];
+        
+        self.bTRBImageToogleNotBordered = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bTRBImageToogleNotBordered setImage:self.iTRBImageMomentaryOff];
+        [self.bTRBImageToogleNotBordered setBezelStyle:CTBezelStyleTexturedRounded];
+        [self.bTRBImageToogleNotBordered setButtonType:CTButtonTypeToggle];
+        [self.bTRBImageToogleNotBordered setBordered:NO];
+        [self.bTRBImageToogleNotBordered setTarget:self];
+        [self.bTRBImageToogleNotBordered setAction:@selector(buttonClickedToggleImage:)];
+        [self.bTRBImageToogleNotBordered sizeToFit]; // After setting the image
+        [self.rTexRounded addSubview:self.bTRBImageToogleNotBordered];
 
         /*
         @property (nonatomic, strong) VTRow *rGradient;
@@ -686,6 +704,17 @@
     } else if (sender == self.bRadio1) {
         NSLog(@"Sender radio 1");
     }
+}
+
+- (NSImage *) resizeImage:(NSImage *)sourceImage toSize:(NSSize)newSize {
+    NSRect targetFrame = NSMakeRect(0, 0, newSize.width, newSize.height);
+    NSImage *targetImage = [[NSImage alloc] initWithSize:newSize];
+
+    [targetImage lockFocus];
+    [sourceImage drawInRect:targetFrame fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1.0];
+    [targetImage unlockFocus];
+
+    return targetImage;
 }
 
 @end
