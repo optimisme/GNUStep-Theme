@@ -213,13 +213,7 @@
         self.scroll = [[VTScroll alloc] initWithFrame:frameRect content:self.column];
         [self addSubview:self.scroll];
         
-        self.lPush = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
-        [self.lPush setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.lPush setSelectable:NO];
-        [self.lPush setBezeled:NO];
-        [self.lPush setDrawsBackground:NO];
-        [self.lPush setStringValue:@"Push Button"];
-        [self.lPush sizeToFit]; // After setting the string
+        self.lPush = [self createLabelWithText:@"Push Button"];
         [self.column addSubview:self.lPush];
 
         self.rPush = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
@@ -333,13 +327,7 @@
         [self.rPush addSubview:self.bPushStyle1Disabled];
 
 #endif
-        self.lTexRounded = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
-        [self.lTexRounded setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.lTexRounded setSelectable:NO];
-        [self.lTexRounded setBezeled:NO];
-        [self.lTexRounded setDrawsBackground:NO];
-        [self.lTexRounded setStringValue:@"Texured Rounded Button"];
-        [self.lTexRounded sizeToFit]; // After setting the string
+        self.lTexRounded = [self createLabelWithText:@"Textured Rounded Button"];
         [self.column addSubview:self.lTexRounded];
 
         self.rTexRounded = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
@@ -430,6 +418,12 @@
         [self.bTRBImageToogleNotBordered sizeToFit]; // After setting the image
         [self.rTexRounded addSubview:self.bTRBImageToogleNotBordered];
 
+        self.lGradient = [self createLabelWithText:@"Gradient Button"];
+        [self.column addSubview:self.lGradient];
+
+        self.rTexRounded = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rTexRounded];
+        
         /*
         @property (nonatomic, strong) VTRow *rGradient;
         @property (nonatomic, strong) NSButton *bGradient0;
@@ -705,6 +699,19 @@
         NSLog(@"Sender radio 1");
     }
 }
+
+- (NSTextField *)createLabelWithText:(NSString *)text {
+    NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [label setSelectable:NO];
+    [label setBezeled:NO];
+    [label setDrawsBackground:NO];
+    [label setStringValue:text];
+    [label sizeToFit];
+
+    return label;
+}
+
 
 - (NSImage *) resizeImage:(NSImage *)sourceImage toSize:(NSSize)newSize {
     NSRect targetFrame = NSMakeRect(0, 0, newSize.width, newSize.height);
