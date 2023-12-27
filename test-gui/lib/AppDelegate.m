@@ -7,11 +7,13 @@
 #import "AppDelegate.h"
 #import "MenuBuilder.h"
 #import "ViewButtons.h"
+#import "ViewDrawing.h"
 
 @interface AppDelegate ()
 
 @property (nonatomic, strong) NSWindow *window;
 @property (nonatomic, strong) ViewButtons *vButtons;
+@property (nonatomic, strong) ViewDrawing *vDrawing;
 @end
 
 @implementation AppDelegate
@@ -34,6 +36,9 @@
    
     self.vButtons = [[ViewButtons alloc] initWithFrame:NSMakeRect(0, 0, windowWidth, windowHeight)];
     [[self.window contentView] addSubview:self.vButtons];
+    
+    self.vDrawing = [[ViewDrawing alloc] initWithFrame:NSMakeRect(0, 0, windowWidth, windowHeight)];
+    //[[self.window contentView] addSubview:self.vDrawing];
 
     // Manage constraints positioning (GNUStep does not have constraints autolayouts)
     [[NSNotificationCenter defaultCenter] addObserver:self
