@@ -41,8 +41,7 @@
     }
 
     // Update the height of the container view
-    CGFloat totalHeight = MAX(y, self.bounds.size.height); 
-    totalHeight = MAX(totalHeight, 0);
+    CGFloat totalHeight = MAX(y, 0); 
     
     NSRect newFrame = NSMakeRect(self.frame.origin.x, self.frame.origin.y, frame.size.width, totalHeight);
     [self setFrame:newFrame];
