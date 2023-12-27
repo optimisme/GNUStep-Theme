@@ -344,7 +344,6 @@
         self.bTexRTitleToggle = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
         [self.bTexRTitleToggle setTitle:@"TexR Tog"];
         [self.bTexRTitleToggle setBezelStyle:CTBezelStyleTexturedRounded];
-        [self.bTexRTitleToggle setButtonType:CTButtonTypeMomentaryPushIn];
         [self.bTexRTitleToggle setButtonType:CTButtonTypeOnOff];
         [self.bTexRTitleToggle setState:CTControlStateValueOn];
         [self.bTexRTitleToggle setTarget:self];
@@ -354,7 +353,6 @@
         self.bTexRTitleToggle = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
         [self.bTexRTitleToggle setTitle:@"TexR TBL"];
         [self.bTexRTitleToggle setBezelStyle:CTBezelStyleTexturedRounded];
-        [self.bTexRTitleToggle setButtonType:CTButtonTypeMomentaryPushIn];
         [self.bTexRTitleToggle setButtonType:CTButtonTypeOnOff];
         [self.bTexRTitleToggle setState:CTControlStateValueOn];
         [self.bTexRTitleToggle setBordered:NO];
