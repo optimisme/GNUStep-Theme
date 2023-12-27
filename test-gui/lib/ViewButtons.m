@@ -711,7 +711,7 @@
     NSImage *targetImage = [[NSImage alloc] initWithSize:newSize];
 
     [targetImage lockFocus];
-    [sourceImage drawInRect:targetFrame fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1.0];
+    [sourceImage drawInRect:targetFrame fromRect:NSZeroRect operation:CTCompositingOperationCopy fraction:1.0];
     [targetImage unlockFocus];
 
     return targetImage;
