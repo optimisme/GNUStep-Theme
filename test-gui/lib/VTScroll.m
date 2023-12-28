@@ -39,6 +39,7 @@
 
 - (void)updateLayout:(NSRect)frame {
 
+    // Calculate needed size
     NSSize contentSize;
     if ([self.content respondsToSelector:@selector(sizeForWidth:)]) {
         contentSize = [(id)self.content sizeForWidth:frame.size.width];
@@ -49,6 +50,7 @@
         }
     }
 
+    // Update layout
     [self.content setFrameSize:contentSize];
     contentSize.width = MAX(contentSize.width, 0); 
     contentSize.height = MAX(contentSize.height, 0); 
@@ -56,6 +58,7 @@
     [self reflectScrolledClipView:self.contentView];
     [self setFrame:frame];
 
+    // Accommodate content to new size
     if ([self.content respondsToSelector:@selector(updateLayoutWithWidth:)]) {
         [(id)self.content updateLayoutWithWidth:frame.size.width];
     }

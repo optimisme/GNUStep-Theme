@@ -50,9 +50,14 @@
 }
 
 - (void)updateLayoutWithWidth:(CGFloat)width {
+
+    // Calculate needed size
     NSSize neededSize = [self sizeForWidth:width];
+
+    // Update layout
     [self setFrameSize:neededSize];
 
+    // Accommodate content to new size
     CGFloat horizontalSpacing = 10.0;
     CGFloat verticalSpacing = 10.0;
     CGFloat x = 0;
@@ -61,12 +66,10 @@
     for (NSView *subview in self.subviews) {
         if (subview.isHidden) continue;
 
-        // Actualizar la subvista si responde a updateLayoutWithWidth:
         if ([subview respondsToSelector:@selector(updateLayoutWithWidth:)]) {
             [(id)subview updateLayoutWithWidth:width];
         }
 
-        // Calcular el tamaño de la subvista
         NSSize subviewSize = subview.frame.size;
         if ((x + subviewSize.width) > width) {
             x = 0;
@@ -74,7 +77,6 @@
             maxHeightInRow = 0;
         }
 
-        // Ajustar el frame de la subvista
         NSRect subviewFrame = NSMakeRect(x, y, subviewSize.width, subviewSize.height);
         subview.frame = subviewFrame;
 

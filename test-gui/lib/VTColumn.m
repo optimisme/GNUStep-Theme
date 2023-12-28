@@ -47,11 +47,14 @@
 
 - (void)updateLayoutWithWidth:(CGFloat)width {
 
+    // Calculate needed size
     NSSize neededSize = [self sizeForWidth:width];
 
+    // Update layout
     NSRect newFrame = NSMakeRect(self.frame.origin.x, self.frame.origin.y, neededSize.width, neededSize.height);
     [self setFrame:newFrame];
 
+    // Accommodate content to new size
     CGFloat y = 0;
     for (NSView *subview in self.subviews) {
         if (subview.isHidden) continue;
