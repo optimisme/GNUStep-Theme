@@ -60,7 +60,6 @@
     NSView *contentView = (NSView *)self.window.contentView;
     NSRect newFrame = NSMakeRect(0, 0, contentView.bounds.size.width, contentView.bounds.size.height);
 
-    [self.vButtons setFrame:newFrame];
     [self.vButtons updateLayout:newFrame];
 }
 
