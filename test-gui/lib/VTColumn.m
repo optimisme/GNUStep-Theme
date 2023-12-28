@@ -24,27 +24,48 @@
     return YES;
 }
 
-- (void)updateLayout:(NSRect)frame {
-    CGFloat y = 0;
-    for (NSView *subview in self.subviews) {
+- (NSSize)sizeForWidth:(CGFloat)width {
+    CGFloat maxWidth = 0;
+    CGFloat totalHeight = 0;
 
-        if ([subview respondsToSelector:@selector(updateLayout:)]) {
-            NSRect viewFrame = NSMakeRect(0, y, frame.size.width, 0);
-            NSValue *frameValue = [NSValue valueWithRect:viewFrame];
-            [subview performSelector:@selector(updateLayout:) withObject:frameValue];
+    for (NSView *subview in self.subviews) {
+        if (subview.isHidden) continue;
+
+        NSSize subviewSize;
+        if ([subview respondsToSelector:@selector(sizeForWidth:)]) {
+            subviewSize = [(id)subview sizeForWidth:width];
+        } else {
+            subviewSize = subview.frame.size;
         }
 
-        NSRect newFrame = NSMakeRect(0, y, subview.frame.size.width, subview.frame.size.height);
-        [subview setFrame:newFrame];
-
-        y += subview.frame.size.height;
+        maxWidth = MAX(maxWidth, subviewSize.width);
+        totalHeight += subviewSize.height;
     }
 
-    // Update the height of the container view
-    CGFloat totalHeight = MAX(y, 0); 
-    
-    NSRect newFrame = NSMakeRect(self.frame.origin.x, self.frame.origin.y, frame.size.width, totalHeight);
+    return NSMakeSize(maxWidth, totalHeight);
+}
+
+- (void)updateLayoutWithWidth:(CGFloat)width {
+
+    NSSize neededSize = [self sizeForWidth:width];
+
+    NSRect newFrame = NSMakeRect(self.frame.origin.x, self.frame.origin.y, neededSize.width, neededSize.height);
     [self setFrame:newFrame];
+
+    CGFloat y = 0;
+    for (NSView *subview in self.subviews) {
+        if (subview.isHidden) continue;
+
+        if ([subview respondsToSelector:@selector(updateLayoutWithWidth:)]) {
+            [(id)subview updateLayoutWithWidth:width];
+        }
+
+        NSSize subviewSize = subview.frame.size;
+        NSRect subviewFrame = NSMakeRect(0, y, subviewSize.width, subviewSize.height);
+        subview.frame = subviewFrame;
+
+        y += subviewSize.height;
+    }
 }
 
 @end

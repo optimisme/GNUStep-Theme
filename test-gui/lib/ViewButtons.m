@@ -323,6 +323,18 @@
         [self.bTRBImageToogleNotBordered sizeToFit]; // After setting the image
         [self.rTexRounded addSubview:self.bTRBImageToogleNotBordered];
 
+        self.lGradient = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lGradient setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lGradient setSelectable:NO];
+        [self.lGradient setBezeled:NO];
+        [self.lGradient setDrawsBackground:NO];
+        [self.lGradient setStringValue:@"Gradient Button"];
+        [self.lGradient sizeToFit]; // After setting the string
+        [self.column addSubview:self.lGradient];
+
+        self.rGradient = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rGradient];
+
         /*
         @property (nonatomic, strong) VTRow *rGradient;
         @property (nonatomic, strong) NSButton *bGradient0;

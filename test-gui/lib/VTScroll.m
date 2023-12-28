@@ -21,7 +21,7 @@
     }
     return self;
 }
-
+/*
 - (void)updateLayout:(NSRect)frame {
 
     if ([self.content respondsToSelector:@selector(updateLayout:)]) {
@@ -30,12 +30,36 @@
     }
 
     NSSize contentSize = self.content.frame.size;
-    contentSize.height = MAX(contentSize.height, 1);
+    contentSize.width = MAX(contentSize.width, 0);
+    contentSize.height = MAX(contentSize.height, 0);
     [self.documentView setFrameSize:contentSize];
     [self reflectScrolledClipView:self.contentView];
     [self setFrame:frame];
-}
+}*/
 
+- (void)updateLayout:(NSRect)frame {
+
+    NSSize contentSize;
+    if ([self.content respondsToSelector:@selector(sizeForWidth:)]) {
+        contentSize = [(id)self.content sizeForWidth:frame.size.width];
+    } else {
+        contentSize = [self.content intrinsicContentSize];
+        if (contentSize.width == NSViewNoIntrinsicMetric || contentSize.height == NSViewNoIntrinsicMetric) {
+            contentSize = frame.size;
+        }
+    }
+
+    [self.content setFrameSize:contentSize];
+    contentSize.width = MAX(contentSize.width, 0); 
+    contentSize.height = MAX(contentSize.height, 0); 
+    [self.documentView setFrameSize:contentSize];
+    [self reflectScrolledClipView:self.contentView];
+    [self setFrame:frame];
+
+    if ([self.content respondsToSelector:@selector(updateLayoutWithWidth:)]) {
+        [(id)self.content updateLayoutWithWidth:frame.size.width];
+    }
+}
 
 
 @end

@@ -24,37 +24,63 @@
     [super addSubview:view];
 }
 
-- (void)updateLayout:(NSRect)frame {
+- (NSSize)sizeForWidth:(CGFloat)width {
+    CGFloat totalWidth = 0;
+    CGFloat totalHeight = 0;
+    CGFloat maxHeightInRow = 0;
+    CGFloat horizontalSpacing = 10.0;
+    CGFloat verticalSpacing = 10.0;
 
-    CGFloat horizontalSpacing = 10.0; // Espaiament horitzontal entre les subvistes
-    CGFloat verticalSpacing = 10.0;   // Espaiament vertical entre les files
+    for (NSView *subview in self.subviews) {
+        if (subview.isHidden) continue;
+
+        NSSize subviewSize = subview.frame.size;
+        if ((totalWidth + subviewSize.width) > width) {
+            totalWidth = 0;
+            totalHeight += maxHeightInRow + verticalSpacing;
+            maxHeightInRow = 0;
+        }
+
+        totalWidth += subviewSize.width + horizontalSpacing;
+        maxHeightInRow = MAX(maxHeightInRow, subviewSize.height);
+    }
+
+    totalHeight += maxHeightInRow;
+    return NSMakeSize(width, totalHeight);
+}
+
+- (void)updateLayoutWithWidth:(CGFloat)width {
+    NSSize neededSize = [self sizeForWidth:width];
+    [self setFrameSize:neededSize];
+
+    CGFloat horizontalSpacing = 10.0;
+    CGFloat verticalSpacing = 10.0;
     CGFloat x = 0;
     CGFloat y = 0;
     CGFloat maxHeightInRow = 0;
-
     for (NSView *subview in self.subviews) {
+        if (subview.isHidden) continue;
 
-        NSRect subviewFrame = subview.frame;
-        if ((x + subviewFrame.size.width) > self.frame.size.width) {
+        // Actualizar la subvista si responde a updateLayoutWithWidth:
+        if ([subview respondsToSelector:@selector(updateLayoutWithWidth:)]) {
+            [(id)subview updateLayoutWithWidth:width];
+        }
+
+        // Calcular el tamaño de la subvista
+        NSSize subviewSize = subview.frame.size;
+        if ((x + subviewSize.width) > width) {
             x = 0;
             y += maxHeightInRow + verticalSpacing;
             maxHeightInRow = 0;
         }
 
-        subviewFrame.origin = NSMakePoint(x, y);
+        // Ajustar el frame de la subvista
+        NSRect subviewFrame = NSMakeRect(x, y, subviewSize.width, subviewSize.height);
         subview.frame = subviewFrame;
 
-        x += subviewFrame.size.width + horizontalSpacing;
-        maxHeightInRow = MAX(maxHeightInRow, subviewFrame.size.height);
+        x += subviewSize.width + horizontalSpacing;
+        maxHeightInRow = MAX(maxHeightInRow, subviewSize.height);
     }
-
-    // Calcula l'alçada total necessària
-    CGFloat totalHeight = y + maxHeightInRow;
-    totalHeight = MAX(totalHeight, 0);
-    
-    // Actualitza el frame de la vista VTRow
-    NSRect newFrame = NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, totalHeight);
-    [self setFrame:newFrame];
 }
 
 

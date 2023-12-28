@@ -12,7 +12,8 @@
 
 @interface VTColumn : NSView
 
-- (void)updateLayout:(NSRect)frame;
+- (NSSize)sizeForWidth:(CGFloat)width;
+- (void)updateLayoutWithWidth:(CGFloat)width;
 
 @end
 
