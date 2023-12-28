@@ -21,23 +21,8 @@
     }
     return self;
 }
-/*
-- (void)updateLayout:(NSRect)frame {
 
-    if ([self.content respondsToSelector:@selector(updateLayout:)]) {
-        NSValue *frameValue = [NSValue valueWithRect:frame];
-        [self.content performSelector:@selector(updateLayout:) withObject:frameValue];
-    }
-
-    NSSize contentSize = self.content.frame.size;
-    contentSize.width = MAX(contentSize.width, 0);
-    contentSize.height = MAX(contentSize.height, 0);
-    [self.documentView setFrameSize:contentSize];
-    [self reflectScrolledClipView:self.contentView];
-    [self setFrame:frame];
-}*/
-
-- (void)updateLayout:(NSRect)frame {
+- (void)updateLayoutWithFrame:(NSRect)frame {
 
     // Accommodate content to new size
     if ([self.content respondsToSelector:@selector(updateLayoutWithWidth:)]) {
@@ -49,6 +34,7 @@
     [self.documentView setFrameSize:contentSize];
     [self reflectScrolledClipView:self.contentView];
     [self setFrame:frame];
+    //NSLog(@"frame: %@ - %@", NSStringFromRect( self.content.frame), NSStringFromRect(frame));
 }
 
 

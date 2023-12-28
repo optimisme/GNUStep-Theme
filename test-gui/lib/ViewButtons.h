@@ -12,7 +12,7 @@
 
 @interface ViewButtons : NSView
 
-- (void)updateLayout:(NSRect)frame;
+- (void)updateLayoutWithFrame:(NSRect)frame;
 
 @end
 

@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSView *content;
 
 - (instancetype)initWithFrame:(NSRect)frame content:(NSView *)content;
-- (void)updateLayout:(NSRect)frame;
+- (void)updateLayoutWithFrame:(NSRect)frame;
 
 @end
 

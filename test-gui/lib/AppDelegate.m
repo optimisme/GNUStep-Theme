@@ -60,7 +60,7 @@
     NSView *contentView = (NSView *)self.window.contentView;
     NSRect newFrame = NSMakeRect(0, 0, contentView.bounds.size.width, contentView.bounds.size.height);
 
-    [self.vButtons updateLayout:newFrame];
+    [self.vButtons updateLayoutWithFrame:newFrame];
 }
 
 // Terminates the application when the window is closed.

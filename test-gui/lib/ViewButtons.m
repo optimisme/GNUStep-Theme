@@ -103,7 +103,7 @@
         CGFloat buttonHeight = 30;
 
         self.column = [[VTColumn alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
-        self.scroll = [[VTScroll alloc] initWithFrame:frameRect content:self.column];
+        self.scroll= [[VTScroll alloc] initWithFrame:frameRect content:self.column];
         [self addSubview:self.scroll];
         
         self.lPush = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
@@ -563,7 +563,7 @@
 
         // Update layout
         [self updateLayout:frameRect];*/
-        [self updateLayout:frameRect];
+        [self updateLayoutWithFrame:frameRect];
  }
     return self;
 }
@@ -572,9 +572,9 @@
     return YES;
 }
 
-- (void)updateLayout:(NSRect)frame {
-    [self.scroll updateLayout:frame];
-    [self setFrame:frame];
+- (void)updateLayoutWithFrame:(NSRect)frame {
+    [self setFrame:frame]; 
+    [self.scroll updateLayoutWithFrame:frame];
 }
 
 - (void)buttonClicked:(id)sender {
