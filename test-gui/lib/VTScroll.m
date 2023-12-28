@@ -21,30 +21,34 @@
     }
     return self;
 }
-
+/*
 - (void)updateLayout:(NSRect)frame {
 
-    // Calculate needed size
-    NSSize contentSize;
-    if ([self.content respondsToSelector:@selector(sizeForWidth:)]) {
-        contentSize = [(id)self.content sizeForWidth:frame.size.width];
-    } else {
-        contentSize = [self.content intrinsicContentSize];
-        if (contentSize.width == NSViewNoIntrinsicMetric || contentSize.height == NSViewNoIntrinsicMetric) {
-            contentSize = frame.size;
-        }
+    if ([self.content respondsToSelector:@selector(updateLayout:)]) {
+        NSValue *frameValue = [NSValue valueWithRect:frame];
+        [self.content performSelector:@selector(updateLayout:) withObject:frameValue];
     }
 
-    // Update layout
-    [self.content setFrameSize:contentSize];
+    NSSize contentSize = self.content.frame.size;
+    contentSize.width = MAX(contentSize.width, 0);
+    contentSize.height = MAX(contentSize.height, 0);
     [self.documentView setFrameSize:contentSize];
     [self reflectScrolledClipView:self.contentView];
     [self setFrame:frame];
+}*/
+
+- (void)updateLayout:(NSRect)frame {
 
     // Accommodate content to new size
     if ([self.content respondsToSelector:@selector(updateLayoutWithWidth:)]) {
         [(id)self.content updateLayoutWithWidth:frame.size.width];
     }
+
+    // Update layout
+    NSSize contentSize = self.content.frame.size;
+    [self.documentView setFrameSize:contentSize];
+    [self reflectScrolledClipView:self.contentView];
+    [self setFrame:frame];
 }
 
 
