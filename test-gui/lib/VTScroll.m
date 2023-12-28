@@ -34,6 +34,7 @@
     [self.documentView setFrameSize:contentSize];
     [self reflectScrolledClipView:self.contentView];
     [self setFrame:frame];
+    
     //NSLog(@"frame: %@ - %@", NSStringFromRect( self.content.frame), NSStringFromRect(frame));
 }
 

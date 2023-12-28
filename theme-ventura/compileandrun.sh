@@ -2,7 +2,7 @@
 
 ./compile.sh
 
-cd ../GNUstep-test-gui
+cd ../test-gui
 
 defaults write NSGlobalDomain GSTheme Ventura
 

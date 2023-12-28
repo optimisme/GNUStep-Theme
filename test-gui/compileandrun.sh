@@ -6,4 +6,4 @@ make clean
 
 make
 
-openapp ../test-gui/TestGUI.app
+openapp ./TestGUI.app
