@@ -23,7 +23,6 @@
 }
 
 - (void)updateLayoutWithFrame:(NSRect)frame {
-
     // Accommodate content to new size
     if ([self.content respondsToSelector:@selector(updateLayoutWithWidth:)]) {
         [(id)self.content updateLayoutWithWidth:frame.size.width];
@@ -33,10 +32,15 @@
     NSSize contentSize = self.content.frame.size;
     [self.documentView setFrameSize:contentSize];
     [self reflectScrolledClipView:self.contentView];
-    [self setFrame:frame];
+
+    // Verifica si el nuevo frame es diferente del actual
+    if (!NSEqualRects(self.frame, frame)) {
+        [self setFrame:frame];
+    }
     
     //NSLog(@"frame: %@ - %@", NSStringFromRect( self.content.frame), NSStringFromRect(frame));
 }
+
 
 
 @end
