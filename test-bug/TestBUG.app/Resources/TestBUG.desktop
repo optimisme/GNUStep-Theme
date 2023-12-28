@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Categories=X-GNUstep;
+Icon=/usr/GNUstep/Local/Applications.app/Resources/AppIcon.png
+Exec=/usr/GNUstep/System/Tools/openapp TestBUG
