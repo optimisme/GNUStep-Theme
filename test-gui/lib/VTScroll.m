@@ -37,8 +37,6 @@
 
     // Update layout
     [self.content setFrameSize:contentSize];
-    contentSize.width = MAX(contentSize.width, 0); 
-    contentSize.height = MAX(contentSize.height, 0); 
     [self.documentView setFrameSize:contentSize];
     [self reflectScrolledClipView:self.contentView];
     [self setFrame:frame];
