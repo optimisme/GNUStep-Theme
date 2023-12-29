@@ -342,10 +342,10 @@
         self.bGradient1 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 32, 32)];
         [self.bGradient1 setImage:iTRBImageMomentary];
         [self.bGradient1 setBezelStyle:CTBezelStyleSmallSquare];
-        [self.bGradient1 setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bGradient1 setButtonType:CTButtonTypeToggle];
         [self.bGradient1 setBordered:NO];
         [self.bGradient1 setTarget:self];
-        [self.bGradient1 setAction:@selector(buttonClicked:)];
+        [self.bGradient1 setAction:@selector(buttonClickedToggleImage:)];
         [self.rGradient addSubview:self.bGradient1];
         
         self.lCheckbox = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
