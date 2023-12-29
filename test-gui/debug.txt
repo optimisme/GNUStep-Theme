@@ -1,0 +1,18 @@
+gdb TestGUI.app/TestGUI
+
+// Observe Segmentation fault
+(gdb) catch throw
+(gdb) handle SIGSEGV stop print
+
+(gdb) run
+
+// Chrash app and show stack
+(gdb) bt
+
+// Other info
+(gdb) print variable_name
+(gdb) info locals
+(gdb) info args
+
+// Quit
+q

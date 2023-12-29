@@ -5,9 +5,6 @@
 //
 
 #import "AppDelegate.h"
-#import "MenuBuilder.h"
-#import "ViewButtons.h"
-#import "ViewDrawing.h"
 
 @interface AppDelegate ()
 

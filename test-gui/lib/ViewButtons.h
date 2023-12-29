@@ -9,6 +9,10 @@
 #define ViewButtons_h
 
 #import <Cocoa/Cocoa.h>
+#import "Constants.h"
+#import "VTColumn.h"
+#import "VTRow.h"
+#import "VTScroll.h"
 
 @interface ViewButtons : NSView
 

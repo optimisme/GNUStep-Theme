@@ -25,7 +25,7 @@
 - (void)updateLayoutWithFrame:(NSRect)frame {
     // Accommodate content to new size
     if ([self.content respondsToSelector:@selector(updateLayoutWithWidth:)]) {
-        [(id)self.content updateLayoutWithWidth:frame.size.width];
+        [self.content performSelector:@selector(updateLayoutWithWidth:) withObject:@(frame.size.width)];
     }
 
     // Update layout

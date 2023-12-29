@@ -9,6 +9,7 @@
 #define ViewDrawing_h
 
 #import <Cocoa/Cocoa.h>
+#import "Constants.h"
 
 @interface ViewDrawing : NSView
 
