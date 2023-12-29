@@ -17,6 +17,7 @@
         self.backgroundColor = [NSColor clearColor];
         self.documentView = content;
         self.hasVerticalScroller = YES;
+        self.hasVerticalScroller = NO;
         self.autohidesScrollers = YES;
     }
     return self;
