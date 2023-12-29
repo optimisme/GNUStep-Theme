@@ -49,9 +49,9 @@
 @property (nonatomic, strong) NSButton *bRadio1;
 @property (nonatomic, strong) NSTextField *lPopUp;
 @property (nonatomic, strong) VTRow *rPopUp;
-@property (nonatomic, strong) NSButton *bCheckboxPopup;
-@property (nonatomic, strong) NSButton *bCheckboxPopupOver;
-@property (nonatomic, strong) NSButton *bCheckboxPullDown;
+@property (nonatomic, strong) NSButton *bPopup;
+@property (nonatomic, strong) NSButton *bPopupOver;
+@property (nonatomic, strong) NSButton *bPullDown;
 @property (nonatomic, strong) NSTextField *lRoundRect;
 @property (nonatomic, strong) VTRow *rRoundRect;
 @property (nonatomic, strong) NSButton *bRoundRect;
@@ -331,21 +331,110 @@
         self.rGradient = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.column addSubview:self.rGradient];
 
+        self.bGradient0 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 32, 32)];
+        [self.bGradient0 setImage:iTRBImageMomentary];
+        [self.bGradient0 setBezelStyle:CTBezelStyleSmallSquare];
+        [self.bGradient0 setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bGradient0 setTarget:self];
+        [self.bGradient0 setAction:@selector(buttonClicked:)];
+        [self.rGradient addSubview:self.bGradient0];
+        
+        self.bGradient1 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 32, 32)];
+        [self.bGradient1 setImage:iTRBImageMomentary];
+        [self.bGradient1 setBezelStyle:CTBezelStyleSmallSquare];
+        [self.bGradient1 setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bGradient1 setBordered:NO];
+        [self.bGradient1 setTarget:self];
+        [self.bGradient1 setAction:@selector(buttonClicked:)];
+        [self.rGradient addSubview:self.bGradient1];
+        
+        self.lCheckbox = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lCheckbox setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lCheckbox setSelectable:NO];
+        [self.lCheckbox setBezeled:NO];
+        [self.lCheckbox setDrawsBackground:NO];
+        [self.lCheckbox setStringValue:@"Checkbox buttons"];
+        [self.lCheckbox sizeToFit]; // After setting the string
+        [self.column addSubview:self.lCheckbox];
+
+        self.rCheckbox = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rCheckbox];
+      
+        self.bCheckbox0 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bCheckbox0 setTitle:@"Checkbox 0"];
+        [self.bCheckbox0 setButtonType:CTButtonTypeSwitch];
+        [self.bCheckbox0 setTarget:self];
+        [self.bCheckbox0 setAction:@selector(checkboxClicked:)];
+        [self.bCheckbox0 sizeToFit];
+        [self.column addSubview:self.bCheckbox0];
+        
+        self.bCheckbox1 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bCheckbox1 setTitle:@"Checkbox 1"];
+        [self.bCheckbox1 setButtonType:CTButtonTypeSwitch];
+        [self.bCheckbox1 setState:NSControlStateValueOn];
+        [self.bCheckbox1 setTarget:self];
+        [self.bCheckbox1 setAction:@selector(checkboxClicked:)];
+        [self.bCheckbox1 sizeToFit];
+        [self.column addSubview:self.bCheckbox1];
+        
+        self.bCheckbox2 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bCheckbox2 setTitle:@"Checkbox mixed"];
+        [self.bCheckbox2 setButtonType:CTButtonTypeSwitch];
+        [self.bCheckbox2 setAllowsMixedState:YES];
+        [self.bCheckbox2 setState:NSControlStateValueMixed];
+        [self.bCheckbox2 setTarget:self];
+        [self.bCheckbox2 setAction:@selector(checkboxClicked:)];
+        [self.bCheckbox2 sizeToFit];
+        [self.column addSubview:self.bCheckbox2];
+        
+        self.lRadio = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lRadio setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lRadio setSelectable:NO];
+        [self.lRadio setBezeled:NO];
+        [self.lRadio setDrawsBackground:NO];
+        [self.lRadio setStringValue:@"Radio buttons"];
+        [self.lRadio sizeToFit]; // After setting the string
+        [self.column addSubview:self.lRadio];
+
+        self.rRadio = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rRadio];
+        
+        self.bRadio0 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bRadio0 setTitle:@"Radio 0"];
+        [self.bRadio0 setButtonType:CTButtonTypeRadio];
+        [self.bRadio0 setState:NSControlStateValueOn];
+        [self.bRadio0 setTarget:self];
+        [self.bRadio0 setAction:@selector(radioClicked:)];
+        [self.bRadio0 sizeToFit];
+        [self.rRadio addSubview:self.bRadio0];
+
+        self.bRadio1 = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bRadio1 setTitle:@"Radio 1"];
+        [self.bRadio1 setButtonType:CTButtonTypeRadio];
+        [self.bRadio1 setTarget:self];
+        [self.bRadio1 setAction:@selector(radioClicked:)];
+        [self.bRadio1 sizeToFit];
+        [self.rRadio addSubview:self.bRadio1];
+        
+        self.lPopUp = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lPopUp setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lPopUp setSelectable:NO];
+        [self.lPopUp setBezeled:NO];
+        [self.lPopUp setDrawsBackground:NO];
+        [self.lPopUp setStringValue:@"Pop Up Buttons"];
+        [self.lPopUp sizeToFit]; // Després d'establir el text
+        [self.column addSubview:self.lPopUp];
+
+        self.rPopUp = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rPopUp];
+
+        
         /*
-        @property (nonatomic, strong) VTRow *rGradient;
-        @property (nonatomic, strong) NSButton *bGradient0;
-        @property (nonatomic, strong) NSButton *bGradient1;
-        @property (nonatomic, strong) VTRow *rCheckbox;
-        @property (nonatomic, strong) NSButton *bCheckbox0;
-        @property (nonatomic, strong) NSButton *bCheckbox1;
-        @property (nonatomic, strong) NSButton *bCheckbox2;
-        @property (nonatomic, strong) VTRow *rRadio;
-        @property (nonatomic, strong) NSButton *bRadio0;
-        @property (nonatomic, strong) NSButton *bRadio1;
+
         @property (nonatomic, strong) VTRow *rPopUp;
-        @property (nonatomic, strong) NSButton *bCheckboxPopup;
-        @property (nonatomic, strong) NSButton *bCheckboxPopupOver;
-        @property (nonatomic, strong) NSButton *bCheckboxPullDown;
+        @property (nonatomic, strong) NSButton *bPopup;
+        @property (nonatomic, strong) NSButton *bPopupOver;
+        @property (nonatomic, strong) NSButton *bPullDown;
         @property (nonatomic, strong) VTRow *rRoundRect;
         @property (nonatomic, strong) NSButton *bRoundRect;
         @property (nonatomic, strong) NSButton *bRoundRectTransparent;
@@ -569,7 +658,7 @@
 }
 
 - (void)updateLayoutWithFrame:(NSRect)frame {
-    [self setFrame:frame]; 
+    [self setFrame:frame];
     [self.scroll updateLayoutWithFrame:frame];
 }
 
