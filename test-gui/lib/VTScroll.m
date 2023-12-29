@@ -41,9 +41,7 @@
     [self reflectScrolledClipView:self.contentView];
 
     // Verifica si el nuevo frame es diferente del actual
-    if (!NSEqualRects(self.frame, frame)) {
-        [self setFrame:frame];
-    }
+    [self setFrame:frame];
     
     //NSLog(@"frame: %@ - %@", NSStringFromRect( self.content.frame), NSStringFromRect(frame));
 }
