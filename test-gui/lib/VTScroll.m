@@ -46,6 +46,4 @@
     //NSLog(@"frame: %@ - %@", NSStringFromRect( self.content.frame), NSStringFromRect(frame));
 }
 
-
-
 @end
