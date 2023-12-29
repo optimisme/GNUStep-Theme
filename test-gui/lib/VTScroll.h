@@ -9,6 +9,7 @@
 #define VTScroll_h
 
 #import <Cocoa/Cocoa.h>
+#import "VTColumn.h"
 
 @interface VTScroll : NSScrollView
 
