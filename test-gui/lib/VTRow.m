@@ -24,45 +24,15 @@
     [super addSubview:view];
 }
 
-- (NSSize)sizeForWidth:(CGFloat)width {
+- (void)updateLayoutWithWidth:(CGFloat)width {
     CGFloat totalWidth = 0;
     CGFloat totalHeight = 0;
     CGFloat maxHeightInRow = 0;
     CGFloat horizontalSpacing = 10.0;
     CGFloat verticalSpacing = 10.0;
-
-    for (NSView *subview in self.subviews) {
-        if (subview.isHidden) continue;
-
-        NSSize subviewSize = subview.frame.size;
-        if ((totalWidth + subviewSize.width) > width) {
-            totalWidth = 0;
-            totalHeight += maxHeightInRow + verticalSpacing;
-            maxHeightInRow = 0;
-        }
-
-        totalWidth += subviewSize.width + horizontalSpacing;
-        maxHeightInRow = MAX(maxHeightInRow, subviewSize.height);
-    }
-
-    totalHeight += maxHeightInRow;
-    return NSMakeSize(width, totalHeight);
-}
-
-- (void)updateLayoutWithWidth:(CGFloat)width {
-
-    // Calculate needed size
-    NSSize neededSize = [self sizeForWidth:width];
-
-    // Update layout
-    [self setFrameSize:neededSize];
-
-    // Accommodate content to new size
-    CGFloat horizontalSpacing = 10.0;
-    CGFloat verticalSpacing = 10.0;
     CGFloat x = 0;
     CGFloat y = 0;
-    CGFloat maxHeightInRow = 0;
+
     for (NSView *subview in self.subviews) {
         if (subview.isHidden) continue;
 
@@ -71,18 +41,29 @@
         }
 
         NSSize subviewSize = subview.frame.size;
+
+        // Check if new row is needed
         if ((x + subviewSize.width) > width) {
             x = 0;
             y += maxHeightInRow + verticalSpacing;
+            totalHeight += maxHeightInRow + verticalSpacing;
             maxHeightInRow = 0;
         }
 
+        // Set subview frame
         NSRect subviewFrame = NSMakeRect(x, y, subviewSize.width, subviewSize.height);
         subview.frame = subviewFrame;
 
         x += subviewSize.width + horizontalSpacing;
+        totalWidth = MAX(totalWidth, x);
         maxHeightInRow = MAX(maxHeightInRow, subviewSize.height);
     }
+
+    totalHeight += maxHeightInRow;
+    NSSize neededSize = NSMakeSize(width, totalHeight);
+
+    // Update self frame size
+    [self setFrameSize:neededSize];
 }
 
 

@@ -12,7 +12,6 @@
 
 @interface VTRow : NSView
 
-- (NSSize)sizeForWidth:(CGFloat)width;
 - (void)updateLayoutWithWidth:(CGFloat)width;
 
 @end

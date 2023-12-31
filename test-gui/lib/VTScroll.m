@@ -25,15 +25,9 @@
 
 - (void)updateLayoutWithFrame:(NSRect)frame {
     // Accommodate content to new size
-    if ([self.content isKindOfClass:[VTColumn class]]) {
-        VTColumn *column = (VTColumn *)self.content;
-        [column updateLayoutWithWidth:frame.size.width];
-    }
-    /*
     if ([self.content respondsToSelector:@selector(updateLayoutWithWidth:)]) {
         [self.content performSelector:@selector(updateLayoutWithWidth:) withObject:@(frame.size.width)];
     }
-     */
 
     // Update layout
     NSSize contentSize = self.content.frame.size;
