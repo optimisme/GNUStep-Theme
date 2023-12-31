@@ -49,8 +49,10 @@
 @property (nonatomic, strong) NSButton *bRadio1;
 @property (nonatomic, strong) NSTextField *lPopUp;
 @property (nonatomic, strong) VTRow *rPopUp;
-@property (nonatomic, strong) NSButton *bPopup;
+@property (nonatomic, strong) NSPopUpButton *bPopup;
 @property (nonatomic, strong) NSButton *bPopupOver;
+@property (nonatomic, strong) NSPopover *vPopupOver;
+@property (nonatomic, strong) NSViewController *cPopOver;
 @property (nonatomic, strong) NSButton *bPullDown;
 @property (nonatomic, strong) NSTextField *lRoundRect;
 @property (nonatomic, strong) VTRow *rRoundRect;
@@ -428,6 +430,29 @@
         self.rPopUp = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.column addSubview:self.rPopUp];
 
+        self.bPopup = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) pullsDown:NO];
+        [self.bPopup addItemWithTitle:@"Opción 1"];
+        [self.bPopup addItemWithTitle:@"Opción 2"];
+        [self.bPopup addItemWithTitle:@"Opción 3"];
+        [self.bPopup setTarget:self];
+        [self.bPopup setAction:@selector(popupButtonSelectionChanged:)];
+        [self.bPopup sizeToFit];
+        [self.rPopUp addSubview:self.bPopup];
+        /*
+        self.vPopupOver = [[NSPopover alloc] init];
+        self.cPopOver = [[NSViewController alloc] init];
+        self.cPopOver.view = [[ViewButtonsPopOver alloc] initWithFrame:NSMakeRect(0, 0, 200, 200)];
+        self.vPopupOver.contentViewController = self.cPopOver;
+        self.vPopupOver.behavior = NSPopoverBehaviorSemitransient;
+        self.vPopupOver.animates = YES;
+
+        self.bPopupOver = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bPopupOver setTitle:@"Show Pop-over"];
+        [self.bPopupOver setTarget:self];
+        [self.bPopupOver setAction:@selector(showPopover:)];
+        [self.bPopupOver sizeToFit];
+        [self.rPopUp addSubview:self.bPopupOver];
+                */
         
         /*
 
@@ -705,6 +730,20 @@
     [targetImage unlockFocus];
 
     return targetImage;
+}
+
+- (void)popupButtonSelectionChanged:(NSPopUpButton *)sender {
+    NSInteger selectedIndex = [sender indexOfSelectedItem];
+    NSLog(@"Seleccionado índice: %ld", (long)selectedIndex);
+}
+
+- (void)showPopover:(id)sender {
+    /*
+    if (self.vPopupOver.shown) {
+        [self.vPopupOver close];
+    } else {
+        [self.vPopupOver showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSRectEdgeMinY];
+    }*/
 }
 
 @end

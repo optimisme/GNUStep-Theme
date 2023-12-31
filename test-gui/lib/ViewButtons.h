@@ -10,6 +10,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Constants.h"
+#import "ViewButtonsPopOver.h"
 #import "VTColumn.h"
 #import "VTRow.h"
 #import "VTScroll.h"
