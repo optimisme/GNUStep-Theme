@@ -23,7 +23,7 @@
 #define CTBezelStyleTexturedSquare NSTexturedSquareBezelStyle
 #define CTBezelStyleTexturedRounded NSTexturedRoundedBezelStyle
 #define CTBezelStyleToolbar NSTexturedRoundedBezelStyle
-
+#define CTBezelStyleInline 15 // NSInlineBezelStyle
 
 #define CTButtonTypeMomentaryPushIn NSMomentaryPushInButton
 #define CTButtonTypePushOnPushOff NSPushOnPushOffButton
@@ -51,6 +51,7 @@
 #define CTBezelStyleTexturedSquare NSBezelStyleTexturedSquare
 #define CTBezelStyleTexturedRounded NSBezelStyleTexturedRounded
 #define CTBezelStyleToolbar NSBezelStyleToolbar
+#define CTBezelStyleInline NSBezelStyleInline
 
 #define CTButtonTypeMomentaryPushIn NSButtonTypeMomentaryPushIn
 #define CTButtonTypePushOnPushOff NSButtonTypePushOnPushOff

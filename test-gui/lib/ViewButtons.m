@@ -54,22 +54,19 @@
 @property (nonatomic, strong) NSPopUpButton *bPopupBorderless;
 @property (nonatomic, strong) NSPopUpButton *bPullDown;
 @property (nonatomic, strong) NSPopUpButton *bPullDownImage;
-@property (nonatomic, strong) NSTextField *lRoundRect;
-@property (nonatomic, strong) VTRow *rRoundRect;
-@property (nonatomic, strong) NSButton *bRoundRect;
-@property (nonatomic, strong) NSButton *bRoundRectTransparent;
+@property (nonatomic, strong) NSTextField *lRndRect;
+@property (nonatomic, strong) VTRow *rRndRect;
+@property (nonatomic, strong) NSButton *bRndRect;
 @property (nonatomic, strong) NSButton *bRoundRectNotBordered;
-@property (nonatomic, strong) NSButton *bRoundRectTransparentNotBordered;
-@property (nonatomic, strong) NSTextField *lRecesed;
-@property (nonatomic, strong) VTRow *rRecesed;
-@property (nonatomic, strong) NSButton *bRecesed;
-@property (nonatomic, strong) NSButton *RecesedTransparent;
-@property (nonatomic, strong) NSButton *bRecesedNotBordered;
-@property (nonatomic, strong) NSButton *bRecesedTransparentNotBordered;
+@property (nonatomic, strong) NSTextField *lRecessed;
+@property (nonatomic, strong) VTRow *rRecessed;
+@property (nonatomic, strong) NSButton *bRecessed;
+@property (nonatomic, strong) NSButton *bRecessedNotBordered;
+@property (nonatomic, strong) NSButton *bRecessedDisabled;
 @property (nonatomic, strong) NSTextField *lInline;
 @property (nonatomic, strong) VTRow *rInline;
-@property (nonatomic, strong) NSButton *bInline0;
-@property (nonatomic, strong) NSButton *bInline1;
+@property (nonatomic, strong) NSButton *bInline;
+@property (nonatomic, strong) NSButton *bInlineBorderless;
 @property (nonatomic, strong) NSTextField *lImage;
 @property (nonatomic, strong) VTRow *rImage;
 @property (nonatomic, strong) NSButton *bImageMomentary;
@@ -477,34 +474,155 @@
         [self.bPullDownImage setAction:@selector(pullDownButtonSelectionChanged:)];
         [self.rPopUp addSubview:self.bPullDownImage];
         
-        /*
+        self.lRndRect = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lRndRect setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lRndRect setSelectable:NO];
+        [self.lRndRect setBezeled:NO];
+        [self.lRndRect setDrawsBackground:NO];
+        [self.lRndRect setStringValue:@"Round Rect Buttons"];
+        [self.lRndRect sizeToFit]; // Després d'establir el text
+        [self.column addSubview:self.lRndRect];
 
-        @property (nonatomic, strong) VTRow *rPopUp;
-        @property (nonatomic, strong) NSButton *bPopup;
-        @property (nonatomic, strong) NSButton *bPopupOver;
-        @property (nonatomic, strong) NSButton *bPullDown;
-        @property (nonatomic, strong) VTRow *rRoundRect;
-        @property (nonatomic, strong) NSButton *bRoundRect;
-        @property (nonatomic, strong) NSButton *bRoundRectTransparent;
-        @property (nonatomic, strong) NSButton *bRoundRectNotBordered;
-        @property (nonatomic, strong) NSButton *bRoundRectTransparentNotBordered;
-        @property (nonatomic, strong) VTRow *rRecesed;
-        @property (nonatomic, strong) NSButton *bRecesed;
-        @property (nonatomic, strong) NSButton *RecesedTransparent;
-        @property (nonatomic, strong) NSButton *bRecesedNotBordered;
-        @property (nonatomic, strong) NSButton *bRecesedTransparentNotBordered;
-        @property (nonatomic, strong) VTRow *rInline;
-        @property (nonatomic, strong) NSButton *bInline0;
-        @property (nonatomic, strong) NSButton *bInline1;
-        @property (nonatomic, strong) VTRow *rImage;
-        @property (nonatomic, strong) NSButton *bImageMomentary;
-        @property (nonatomic, strong) NSButton *bImageToggle;
-        @property (nonatomic, strong) NSButton *bImageMomentaryChange;
-        @property (nonatomic, strong) VTRow *rDisclosure;
-        @property (nonatomic, strong) NSButton *bDisclosureButton;
-        @property (nonatomic, strong) NSButton *bDisclosureTriangle;
-        @property (nonatomic, strong) VTRow *rHelp;
-        @property (nonatomic, strong) NSButton *bHelp;*/
+        self.rRndRect = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rRndRect];
+        
+        self.bRndRect = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bRndRect setTitle:@"Round R"];
+        [self.bRndRect setBezelStyle:CTBezelStyleAccessoryBarAction];
+        [self.bRndRect setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bRndRect setTarget:self];
+        [self.bRndRect setAction:@selector(buttonClicked:)];
+        [self.rRndRect addSubview:self.bRndRect];
+               
+        self.bRoundRectNotBordered = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bRoundRectNotBordered setTitle:@"RR Borderless"];
+        [self.bRoundRectNotBordered setBezelStyle:CTBezelStyleAccessoryBarAction];
+        [self.bRoundRectNotBordered setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bRoundRectNotBordered setBordered:NO];
+        [self.bRoundRectNotBordered setTarget:self];
+        [self.bRoundRectNotBordered setAction:@selector(buttonClicked:)];
+        [self.rRndRect addSubview:self.bRoundRectNotBordered];
+
+        self.lRecessed = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lRecessed setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lRecessed setSelectable:NO];
+        [self.lRecessed setBezeled:NO];
+        [self.lRecessed setDrawsBackground:NO];
+        [self.lRecessed setStringValue:@"Recessed Buttons"];
+        [self.lRecessed sizeToFit]; // Després d'establir el text
+        [self.column addSubview:self.lRecessed];
+
+        self.rRecessed = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rRecessed];
+        
+        self.bRecessed = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bRecessed setTitle:@"Recessed"];
+        [self.bRecessed setBezelStyle:CTBezelStyleAccessoryBarAction];
+        [self.bRecessed setButtonType:CTButtonTypePushOnPushOff];
+        [self.bRecessed setTarget:self];
+        [self.bRecessed setAction:@selector(buttonClicked:)];
+        [self.rRecessed addSubview:self.bRecessed];
+        
+        self.bRecessedNotBordered = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bRecessedNotBordered setTitle:@"Recessed Tr"];
+        [self.bRecessedNotBordered setBezelStyle:CTBezelStyleAccessoryBarAction];
+        [self.bRecessedNotBordered setButtonType:CTButtonTypePushOnPushOff];
+        [self.bRecessedNotBordered setBordered:NO];
+        [self.bRecessedNotBordered setTarget:self];
+        [self.bRecessedNotBordered setAction:@selector(buttonClicked:)];
+        [self.rRecessed addSubview:self.bRecessedNotBordered];
+        
+        self.bRecessedDisabled = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bRecessedDisabled setTitle:@"Recessed"];
+        [self.bRecessedDisabled setBezelStyle:CTBezelStyleAccessoryBarAction];
+        [self.bRecessedDisabled setButtonType:CTButtonTypePushOnPushOff];
+        [self.bRecessedDisabled setEnabled:NO];
+        [self.bRecessedDisabled setTarget:self];
+        [self.bRecessedDisabled setAction:@selector(buttonClicked:)];
+        [self.rRecessed addSubview:self.bRecessedDisabled];
+        
+        self.lInline = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lInline setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lInline setSelectable:NO];
+        [self.lInline setBezeled:NO];
+        [self.lInline setDrawsBackground:NO];
+        [self.lInline setStringValue:@"Inline Buttons"];
+        [self.lInline sizeToFit]; // Després d'establir el text
+        [self.column addSubview:self.lInline];
+
+        self.rInline = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rInline];
+        
+        self.bInline = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bInline setTitle:@"Inline"];
+        [self.bInline setBezelStyle:CTBezelStyleInline];
+        [self.bInline setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bInline setTarget:self];
+        [self.bInline setAction:@selector(buttonClicked:)];
+        [self.bInline sizeToFit];
+        [self.rInline addSubview:self.bInline];
+
+        self.bInlineBorderless = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bInlineBorderless setTitle:@"Inline Brdss"];
+        [self.bInlineBorderless setBezelStyle:CTBezelStyleInline];
+        [self.bInlineBorderless setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bInlineBorderless setBordered:NO];
+        [self.bInlineBorderless setTarget:self];
+        [self.bInlineBorderless setAction:@selector(buttonClicked:)];
+        [self.bInlineBorderless sizeToFit];
+        [self.rInline addSubview:self.bInlineBorderless];
+        
+        self.lDisclosure = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lDisclosure setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lDisclosure setSelectable:NO];
+        [self.lDisclosure setBezeled:NO];
+        [self.lDisclosure setDrawsBackground:NO];
+        [self.lDisclosure setStringValue:@"Disclosure Buttons"];
+        [self.lDisclosure sizeToFit]; // Després d'establir el text
+        [self.column addSubview:self.lDisclosure];
+
+        self.rDisclosure = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rDisclosure];
+        
+        self.bDisclosureButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bDisclosureButton setTitle:@""];
+        [self.bDisclosureButton setBezelStyle:CTBezelStyleDisclosure];
+        [self.bDisclosureButton setButtonType:CTButtonTypeOnOff];
+        [self.bDisclosureButton setTarget:self];
+        [self.bDisclosureButton setAction:@selector(buttonClicked:)];
+        [self.bDisclosureButton sizeToFit];
+        [self.rDisclosure addSubview:self.bDisclosureButton];
+        
+        self.bDisclosureTriangle = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bDisclosureTriangle setTitle:@""];
+        [self.bDisclosureTriangle setBezelStyle:CTBezelStylePushDisclosure];
+        [self.bDisclosureTriangle setButtonType:CTButtonTypeOnOff];
+        [self.bDisclosureTriangle setTarget:self];
+        [self.bDisclosureTriangle setAction:@selector(buttonClicked:)];
+        [self.bDisclosureTriangle sizeToFit];
+        [self.rDisclosure addSubview:self.bDisclosureTriangle];
+        
+        self.lHelp = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lHelp setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lHelp setSelectable:NO];
+        [self.lHelp setBezeled:NO];
+        [self.lHelp setDrawsBackground:NO];
+        [self.lHelp setStringValue:@"Help Button"];
+        [self.lHelp sizeToFit]; // Després d'establir el text
+        [self.column addSubview:self.lHelp];
+
+        self.rHelp = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rHelp];
+        
+        self.bHelp = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.bHelp setTitle:@""];
+        [self.bHelp setBezelStyle:CTBezelStyleHelpButton];
+        [self.bHelp setButtonType:CTButtonTypeMomentaryPushIn];
+        [self.bHelp setTarget:self];
+        [self.bHelp setAction:@selector(buttonClicked:)];
+        [self.bHelp sizeToFit];
+        [self.rHelp addSubview:self.bHelp];
+
         
         /*
         // Label styles
