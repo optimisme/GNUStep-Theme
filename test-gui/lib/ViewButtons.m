@@ -646,7 +646,7 @@
         [self.lStyles setSelectable:NO];
         [self.lStyles setBezeled:NO];
         [self.lStyles setDrawsBackground:NO];
-        [self.lStyles setStringValue:@"Help Button"];
+        [self.lStyles setStringValue:@"Styles"];
         [self.lStyles sizeToFit]; // Després d'establir el text
         [self.column addSubview:self.lStyles];
 

@@ -18,9 +18,9 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Window
     CGFloat windowWidth = 800;
-    CGFloat windowHeight = 600;
+    CGFloat windowHeight = 650;
     
-    NSRect contentRect = NSMakeRect(0, 0, windowWidth, 600);
+    NSRect contentRect = NSMakeRect(0, 0, windowWidth, windowHeight);
     NSWindowStyleMask styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
     self.window = [[NSWindow alloc] initWithContentRect:contentRect styleMask:styleMask backing:NSBackingStoreBuffered defer:NO];
     [self.window setTitle:@"Theme test"];
