@@ -884,8 +884,6 @@
     NSLog(@"Pull down selected index: %ld, title: %@", (long)selectedIndex, selectedTitle);
 }
 
-
-
 - (void)showPopover:(id)sender {
     /*
     if (self.vPopupOver.shown) {
