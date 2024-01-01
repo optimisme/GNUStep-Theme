@@ -18,7 +18,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Window
     CGFloat windowWidth = 800;
-    CGFloat windowHeight = 650;
+    CGFloat windowHeight = 608; // Falla de 589 a 607
     
     NSRect contentRect = NSMakeRect(0, 0, windowWidth, windowHeight);
     NSWindowStyleMask styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
