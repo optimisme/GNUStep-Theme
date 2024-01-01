@@ -50,10 +50,10 @@
 @property (nonatomic, strong) NSTextField *lPopUp;
 @property (nonatomic, strong) VTRow *rPopUp;
 @property (nonatomic, strong) NSPopUpButton *bPopup;
-@property (nonatomic, strong) NSButton *bPopupOver;
-@property (nonatomic, strong) NSPopover *vPopupOver;
-@property (nonatomic, strong) NSViewController *cPopOver;
-@property (nonatomic, strong) NSButton *bPullDown;
+@property (nonatomic, strong) NSPopUpButton *bPopupDisabled;
+@property (nonatomic, strong) NSPopUpButton *bPopupBorderless;
+@property (nonatomic, strong) NSPopUpButton *bPullDown;
+@property (nonatomic, strong) NSPopUpButton *bPullDownImage;
 @property (nonatomic, strong) NSTextField *lRoundRect;
 @property (nonatomic, strong) VTRow *rRoundRect;
 @property (nonatomic, strong) NSButton *bRoundRect;
@@ -431,28 +431,51 @@
         [self.column addSubview:self.rPopUp];
 
         self.bPopup = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) pullsDown:NO];
-        [self.bPopup addItemWithTitle:@"Opción 1"];
-        [self.bPopup addItemWithTitle:@"Opción 2"];
-        [self.bPopup addItemWithTitle:@"Opción 3"];
+        [self.bPopup addItemWithTitle:@"Option 1"];
+        [self.bPopup addItemWithTitle:@"Option 2"];
+        [self.bPopup addItemWithTitle:@"Option 3"];
         [self.bPopup setTarget:self];
         [self.bPopup setAction:@selector(popupButtonSelectionChanged:)];
         [self.bPopup sizeToFit];
         [self.rPopUp addSubview:self.bPopup];
-        /*
-        self.vPopupOver = [[NSPopover alloc] init];
-        self.cPopOver = [[NSViewController alloc] init];
-        self.cPopOver.view = [[ViewButtonsPopOver alloc] initWithFrame:NSMakeRect(0, 0, 200, 200)];
-        self.vPopupOver.contentViewController = self.cPopOver;
-        self.vPopupOver.behavior = NSPopoverBehaviorSemitransient;
-        self.vPopupOver.animates = YES;
 
-        self.bPopupOver = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
-        [self.bPopupOver setTitle:@"Show Pop-over"];
-        [self.bPopupOver setTarget:self];
-        [self.bPopupOver setAction:@selector(showPopover:)];
-        [self.bPopupOver sizeToFit];
-        [self.rPopUp addSubview:self.bPopupOver];
-                */
+        self.bPopupDisabled = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) pullsDown:NO];
+        [self.bPopupDisabled addItemWithTitle:@"Option D1"];
+        [self.bPopupDisabled addItemWithTitle:@"Option D2"];
+        [self.bPopupDisabled setTarget:self];
+        [self.bPopupDisabled setEnabled:NO];
+        [self.bPopupDisabled setAction:@selector(popupButtonSelectionChanged:)];
+        [self.bPopupDisabled sizeToFit];
+        [self.rPopUp addSubview:self.bPopupDisabled];
+        
+        self.bPopupBorderless = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) pullsDown:NO];
+        [self.bPopupBorderless addItemWithTitle:@"Option D1"];
+        [self.bPopupBorderless addItemWithTitle:@"Option D2"];
+        [self.bPopupBorderless setTarget:self];
+        [self.bPopupBorderless setBordered:NO];
+        [self.bPopupBorderless setAction:@selector(popupButtonSelectionChanged:)];
+        [self.bPopupBorderless sizeToFit];
+        [self.rPopUp addSubview:self.bPopupBorderless];
+        
+        self.bPullDown = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) pullsDown:YES];
+        [self.bPullDown addItemWithTitle:@"Title"];
+        [self.bPullDown addItemWithTitle:@"Option A"];
+        [self.bPullDown addItemWithTitle:@"Option B"];
+        [self.bPullDown setTarget:self];
+        [self.bPullDown setAction:@selector(pullDownButtonSelectionChanged:)];
+        [self.bPullDown sizeToFit];
+        [self.rPopUp addSubview:self.bPullDown];
+        
+        self.bPullDownImage = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 32, 32) pullsDown:YES];
+        [self.bPullDownImage addItemWithTitle:@""];
+        NSMenuItem *iPullDown = (NSMenuItem *)[self.bPullDownImage itemAtIndex:0];
+        [iPullDown setImage:[self resizeImage:[NSImage imageNamed:@"imglock"] toSize:imgSize]];
+        [self.bPullDownImage setBordered:NO];
+        [self.bPullDownImage addItemWithTitle:@"Option IA"];
+        [self.bPullDownImage addItemWithTitle:@"Option IB"];
+        [self.bPullDownImage setTarget:self];
+        [self.bPullDownImage setAction:@selector(pullDownButtonSelectionChanged:)];
+        [self.rPopUp addSubview:self.bPullDownImage];
         
         /*
 
@@ -734,8 +757,16 @@
 
 - (void)popupButtonSelectionChanged:(NSPopUpButton *)sender {
     NSInteger selectedIndex = [sender indexOfSelectedItem];
-    NSLog(@"Seleccionado índice: %ld", (long)selectedIndex);
+    NSLog(@"Popup selected index: %ld", (long)selectedIndex);
 }
+
+- (void)pullDownButtonSelectionChanged:(NSPopUpButton *)sender {
+    NSInteger selectedIndex = [sender indexOfSelectedItem];
+    NSString *selectedTitle = [[sender itemAtIndex:selectedIndex] title];
+    NSLog(@"Pull down selected index: %ld, title: %@", (long)selectedIndex, selectedTitle);
+}
+
+
 
 - (void)showPopover:(id)sender {
     /*
