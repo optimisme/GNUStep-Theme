@@ -90,6 +90,10 @@
 @property (nonatomic, strong) NSButton *bStyleTextureRounded;
 @property (nonatomic, strong) NSButton *bStyleTextureSquare;
 @property (nonatomic, strong) NSButton *bStyleToolbar;
+@property (nonatomic, strong) NSTextField *lSegmented;
+@property (nonatomic, strong) VTRow *rSegmented;
+@property (nonatomic, strong) NSSegmentedControl *bSegmentedOne;
+@property (nonatomic, strong) NSSegmentedControl *bSegmentedAny;
 
 @end
 
@@ -725,6 +729,39 @@
         [self.bStyleToolbar setAction:@selector(buttonClicked:)];
         [self.rStyles addSubview:self.bStyleToolbar];
         
+        self.lSegmented = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.lSegmented setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.lSegmented setSelectable:NO];
+        [self.lSegmented setBezeled:NO];
+        [self.lSegmented setDrawsBackground:NO];
+        [self.lSegmented setStringValue:@"Segmented Control"];
+        [self.lSegmented sizeToFit]; // Després d'establir el text
+        [self.column addSubview:self.lSegmented];
+
+        self.rSegmented = [[VTRow alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
+        [self.column addSubview:self.rSegmented];
+        
+        self.bSegmentedOne = [[NSSegmentedControl alloc] initWithFrame:NSMakeRect(0, 0, 200, 20)];
+        [self.bSegmentedOne setSegmentCount:3];
+        [self.bSegmentedOne setLabel:@"Primer" forSegment:0];
+        [self.bSegmentedOne setLabel:@"Segon" forSegment:1];
+        [self.bSegmentedOne setLabel:@"Tercer" forSegment:2];
+        [self.bSegmentedOne setTarget:self];
+        [self.bSegmentedOne setAction:@selector(segmentedControlChanged:)];
+        //[self.bSegmentedOne sizeToFit];
+        [self.rSegmented addSubview:self.bSegmentedOne];
+        
+        self.bSegmentedAny = [[NSSegmentedControl alloc] initWithFrame:NSMakeRect(0, 0, 200, 20)];
+        [self.bSegmentedAny setSegmentCount:3];
+        [self.bSegmentedAny setLabel:@"Primer" forSegment:0];
+        [self.bSegmentedAny setLabel:@"Segon" forSegment:1];
+        [self.bSegmentedAny setLabel:@"Tercer" forSegment:2];
+        //[self.bSegmentedAny setTrackingMode:NSSegmentSwitchTrackingSelectAny];
+        [self.bSegmentedAny setTarget:self];
+        [self.bSegmentedAny setAction:@selector(segmentedControlChanged:)];
+        //[self.bSegmentedOne sizeToFit];
+        [self.rSegmented addSubview:self.bSegmentedAny];
+        
         [self updateLayoutWithFrame:frameRect];
  }
     return self;
@@ -793,6 +830,27 @@
     NSInteger selectedIndex = [sender indexOfSelectedItem];
     NSString *selectedTitle = [[sender itemAtIndex:selectedIndex] title];
     NSLog(@"Pull down selected index: %ld, title: %@", (long)selectedIndex, selectedTitle);
+}
+
+- (void)segmentedControlChanged:(NSSegmentedControl *)sender {
+    NSInteger selectedSegment = sender.selectedSegment;
+    switch (selectedSegment) {
+        case 0:
+            NSLog(@"First selected");
+            break;
+        case 1:
+            NSLog(@"Second selected");
+            break;
+        case 2:
+            NSLog(@"Third selected");
+            break;
+        default:
+            break;
+    }
+    NSLog(@"Selected segments: %ld, %ld, %ld",
+          (long)[sender isSelectedForSegment:0],
+          (long)[sender isSelectedForSegment:1],
+          (long)[sender isSelectedForSegment:2]);
 }
 
 @end
