@@ -67,6 +67,7 @@
 @property (nonatomic, strong) VTRow *rInline;
 @property (nonatomic, strong) NSButton *bInline;
 @property (nonatomic, strong) NSButton *bInlineBorderless;
+@property (nonatomic, strong) NSButton *bInlineOnOff;
 @property (nonatomic, strong) NSTextField *lImage;
 @property (nonatomic, strong) VTRow *rImage;
 @property (nonatomic, strong) NSButton *bImageMomentary;
@@ -538,7 +539,7 @@
         [self.column addSubview:self.rRecessed];
         
         self.bRecessed = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
-        [self.bRecessed setTitle:@"Recessed"];
+        [self.bRecessed setTitle:@"Rec OnOff"];
         [self.bRecessed setBezelStyle:CTBezelStyleAccessoryBarAction];
         [self.bRecessed setButtonType:CTButtonTypePushOnPushOff];
         [self.bRecessed setTarget:self];
@@ -593,6 +594,15 @@
         [self.bInlineBorderless setAction:@selector(buttonClicked:)];
         [self.bInlineBorderless sizeToFit];
         [self.rInline addSubview:self.bInlineBorderless];
+        
+        self.bInlineOnOff = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, buttonWidth, buttonHeight)];
+        [self.bInlineOnOff setTitle:@"Inline OnOff"];
+        [self.bInlineOnOff setBezelStyle:CTBezelStyleInline];
+        [self.bInlineOnOff setButtonType:CTButtonTypeOnOff];
+        [self.bInlineOnOff setTarget:self];
+        [self.bInlineOnOff setAction:@selector(buttonClicked:)];
+        [self.bInlineOnOff sizeToFit];
+        [self.rInline addSubview:self.bInlineOnOff];
         
         self.lDisclosure = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         [self.lDisclosure setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -756,7 +766,9 @@
         [self.bSegmentedAny setLabel:@"Primer" forSegment:0];
         [self.bSegmentedAny setLabel:@"Segon" forSegment:1];
         [self.bSegmentedAny setLabel:@"Tercer" forSegment:2];
-        //[self.bSegmentedAny setTrackingMode:NSSegmentSwitchTrackingSelectAny];
+#ifndef GNS
+        [self.bSegmentedAny setTrackingMode:NSSegmentSwitchTrackingSelectAny];
+#endif
         [self.bSegmentedAny setTarget:self];
         [self.bSegmentedAny setAction:@selector(segmentedControlChanged:)];
         //[self.bSegmentedOne sizeToFit];
@@ -836,18 +848,18 @@
     NSInteger selectedSegment = sender.selectedSegment;
     switch (selectedSegment) {
         case 0:
-            NSLog(@"First selected");
+            NSLog(@"Primer segment seleccionat");
             break;
         case 1:
-            NSLog(@"Second selected");
+            NSLog(@"Segon segment seleccionat");
             break;
         case 2:
-            NSLog(@"Third selected");
+            NSLog(@"Tercer segment seleccionat");
             break;
         default:
             break;
     }
-    NSLog(@"Selected segments: %ld, %ld, %ld",
+    NSLog(@"Estat dels segments: %ld, %ld, %ld",
           (long)[sender isSelectedForSegment:0],
           (long)[sender isSelectedForSegment:1],
           (long)[sender isSelectedForSegment:2]);
